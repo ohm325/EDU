@@ -48,7 +48,7 @@
         /* ─── HEADER ─── */
         .app-header {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px; /* ขยายให้พอดี 3 การ์ด */
             background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-light));
             color: white;
             border-radius: 24px;
@@ -117,10 +117,14 @@
         /* ─── PORTAL GRID ─── */
         .portal-grid {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px; /* ขยายให้พอดี 3 การ์ด */
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* เปลี่ยนเป็น 3 คอลัมน์ */
             gap: 32px;
+        }
+
+        @media (max-width: 1024px) {
+            .portal-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
@@ -162,17 +166,23 @@
             box-shadow: var(--shadow-hover);
         }
 
-        /* Card 1: Agenda */
+        /* Card 1: Agenda (Orange) */
         .card-agenda { border-bottom: 4px solid var(--brand-orange); }
         .card-agenda .icon-wrapper { background: var(--portal1-bg); color: var(--portal1-text); border: 1px solid var(--portal1-border); }
         .card-agenda:hover::before { background: linear-gradient(to bottom, transparent, var(--portal1-bg)); opacity: 0.5; }
         .card-agenda:hover .icon-wrapper { background: var(--portal1-hover); color: white; border-color: var(--portal1-hover); transform: scale(1.1) rotate(-5deg); }
 
-        /* Card 2: AI Course */
+        /* Card 2: AI Course (Blue) */
         .card-ai { border-bottom: 4px solid var(--brand-blue); }
         .card-ai .icon-wrapper { background: var(--portal2-bg); color: var(--portal2-text); border: 1px solid var(--portal2-border); }
         .card-ai:hover::before { background: linear-gradient(to bottom, transparent, var(--portal2-bg)); opacity: 0.5; }
         .card-ai:hover .icon-wrapper { background: var(--portal2-hover); color: white; border-color: var(--portal2-hover); transform: scale(1.1) rotate(5deg); }
+
+        /* Card 3: AI Roadmap (Green) */
+        .card-roadmap { border-bottom: 4px solid var(--portal3-hover); }
+        .card-roadmap .icon-wrapper { background: var(--portal3-bg); color: var(--portal3-text); border: 1px solid var(--portal3-border); }
+        .card-roadmap:hover::before { background: linear-gradient(to bottom, transparent, var(--portal3-bg)); opacity: 0.5; }
+        .card-roadmap:hover .icon-wrapper { background: var(--portal3-hover); color: white; border-color: var(--portal3-hover); transform: scale(1.1) rotate(5deg); }
 
         .icon-wrapper {
             width: 90px;
@@ -187,12 +197,24 @@
         }
 
         .portal-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background-color: var(--portal3-hover);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
         .portal-desc {
@@ -221,6 +243,7 @@
 
         .card-agenda:hover .portal-btn { background: var(--brand-orange); color: white; border-color: var(--brand-orange); }
         .card-ai:hover .portal-btn { background: var(--brand-blue); color: white; border-color: var(--brand-blue); }
+        .card-roadmap:hover .portal-btn { background: var(--portal3-hover); color: white; border-color: var(--portal3-hover); }
 
         /* ─── FOOTER ─── */
         .footer {
@@ -241,6 +264,7 @@
         .delay-1 { animation-delay: 0.1s; opacity: 0; }
         .delay-2 { animation-delay: 0.2s; opacity: 0; }
         .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
     </style>
 </head>
 <body>
@@ -267,7 +291,7 @@
         </div>
     </a>
 
-    <!-- Card 2: AI Course -->
+    <!-- Card 2: AI Course (ของเดิม) -->
     <a href="aipm_course.html" class="portal-card card-ai animate-up delay-2">
         <div class="icon-wrapper">
             <i class="ph-fill ph-brain"></i>
@@ -279,10 +303,25 @@
         </div>
     </a>
 
+    <!-- Card 3: AI PM Roadmap (เพิ่มใหม่!) -->
+    <a href="ai_pm_roadmap.html" class="portal-card card-roadmap animate-up delay-3">
+        <div class="icon-wrapper">
+            <i class="ph-fill ph-map-trifold"></i>
+        </div>
+        <h2 class="portal-title">
+            AI PM Roadmap
+            <span class="badge">12 Weeks</span>
+        </h2>
+        <p class="portal-desc">แผนอัปสกิล 12 สัปดาห์ฉบับเจาะลึก พร้อม Timeline และเป้าหมาย (Milestones) ในแต่ละเฟสอย่างชัดเจน</p>
+        <div class="portal-btn">
+            ดูแผนการฝึก <i class="ph-bold ph-arrow-right"></i>
+        </div>
+    </a>
+
 </div>
 
 <!-- FOOTER -->
-<footer class="footer animate-up delay-3">
+<footer class="footer animate-up delay-4">
     จัดทำระบบศูนย์กลางการเรียนรู้สำหรับ <strong>คุณโอม</strong> | "สม่ำเสมอ โฟกัส และลงมือทำ"<br>
 </footer>
 
