@@ -222,67 +222,6 @@
         .card-agenda:hover .portal-btn { background: var(--brand-orange); color: white; border-color: var(--brand-orange); }
         .card-ai:hover .portal-btn { background: var(--brand-blue); color: white; border-color: var(--brand-blue); }
 
-        /* ─── ROADMAP BANNER ─── */
-        .roadmap-banner {
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 32px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            text-decoration: none;
-            color: var(--text-main);
-            box-shadow: var(--shadow-card);
-            transition: all 0.2s;
-            border-left: 4px solid #10B981;
-        }
-
-        @media (max-width: 768px) {
-            .roadmap-banner { flex-direction: column; text-align: center; padding: 24px; }
-        }
-
-        .roadmap-banner:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--portal3-border);
-            background: var(--portal3-bg);
-        }
-
-        .rb-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        @media (max-width: 768px) {
-            .rb-left { flex-direction: column; }
-        }
-
-        .rb-icon {
-            width: 60px; height: 60px;
-            background: #D1FAE5; color: #047857;
-            border-radius: 16px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; flex-shrink: 0;
-        }
-
-        .rb-text h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
-        .rb-text p { font-size: 0.9rem; color: var(--text-muted); }
-
-        .rb-action {
-            font-weight: 600;
-            color: #047857;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-        }
-        .roadmap-banner:hover .rb-action i { transform: translateX(4px); transition: transform 0.2s; }
-
         /* ─── FOOTER ─── */
         .footer {
             width: 100%; 
@@ -310,7 +249,7 @@
 <header class="app-header animate-up">
     <div class="welcome-text">Welcome Back</div>
     <h1 class="header-title"><i class="ph-fill ph-student"></i> Ohm's Learning Hub</h1>
-    <p class="header-subtitle">ศูนย์รวมการเรียนรู้สู่เป้าหมาย: จบ มสธ. ด้วยเกียรตินิยม และ Upskill สู่การเป็น AI Product Manager ภายใน 2 ปี</p>
+    <p class="header-subtitle">Ohm E-Learning Platform</p>
 </header>
 
 <!-- PORTAL GRID -->
@@ -341,20 +280,6 @@
     </a>
 
 </div>
-
-<!-- ROADMAP BANNER (Optional/Extra) -->
-<a href="#" class="roadmap-banner animate-up delay-3" onclick="alert('หน้า Roadmap ระดับมาสเตอร์ (2 ปี) อยู่ในไฟล์ Markdown ครับโอม สามารถเปิดดูได้จากบันทึกก่อนหน้าเลยครับ!'); return false;">
-    <div class="rb-left">
-        <div class="rb-icon"><i class="ph-fill ph-map-trifold"></i></div>
-        <div class="rb-text">
-            <h3>แผนที่นำทางระดับมาสเตอร์ (2 ปี)</h3>
-            <p>ตรวจสอบความก้าวหน้า 21 ชุดวิชา และแผนการสอบสัมฤทธิบัตรแบบสปีดรัน</p>
-        </div>
-    </div>
-    <div class="rb-action">
-        ดูเป้าหมาย <i class="ph-bold ph-arrow-right"></i>
-    </div>
-</a>
 
 <!-- FOOTER -->
 <footer class="footer animate-up delay-3">
