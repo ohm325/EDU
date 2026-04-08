@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Product Manager - Crash Course</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../assets/css/aipm_course.css">
+</head>
+<body>
+
+<!-- MAIN HEADER -->
+<header class="app-header">
+    <div class="header-left">
+        <h1><i class="ph-fill ph-brain"></i>AI Product Manager</h1>
+        <p><i class="ph ph-rocket-launch"></i>Crash Course ฉบับเร่งรัด สำหรับ IT Manager</p>
+    </div>
+    <div class="header-right">
+        <div class="user-info">
+            <span class="role">ผู้สอน: Gemini</span>
+            <span class="name"><i class="ph-fill ph-user-circle"></i> ผู้เรียน: คุณโอม</span>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN GRID -->
+<div class="grid-main">
+
+    <!-- MODULE 1 -->
+    <div class="module-card mod-1">
+        <div class="card-header">
+            <span>Module 1: ปูพื้นฐาน AI ในโลกธุรกิจ</span>
+            <i class="ph-fill ph-lightbulb"></i>
+        </div>
+        <div class="card-body">
+            <div class="goal-box"><strong>เป้าหมาย:</strong> แยกแยะได้ว่า AI แบบไหนเหมาะกับงานอะไร และอะไรคือข้อจำกัด</div>
+            <ul class="topic-list">
+                <li>ความต่างของ AI, Machine Learning และ Deep Learning</li>
+                <li>รู้จัก Supervised, Unsupervised และ RL (ฉบับเข้าใจง่าย)</li>
+                <li>เจาะลึก Generative AI และ LLM</li>
+                <li>ด้านมืดของ AI: Bias, Hallucination, และจริยธรรม</li>
+            </ul>
+            <div class="project-box">
+                <div class="project-title"><i class="ph-fill ph-target"></i> Mini-Project</div>
+                <div class="project-desc">เลือกปัญหาในแผนก IT ของโอม 1 อย่าง แล้ววิเคราะห์ว่าควรใช้ AI ประเภทไหนมาแก้ปัญหา</div>
+            </div>
+        </div>
+        <button class="start-btn" onclick="showAlert('Module 1')"><i class="ph-bold ph-play"></i> เริ่มเรียน Module 1</button>
+    </div>
+
+    <!-- MODULE 2 -->
+    <div class="module-card mod-2">
+        <div class="card-header">
+            <span>Module 2: วงจรชีวิตโปรเจกต์ AI</span>
+            <i class="ph-fill ph-arrows-clockwise"></i>
+        </div>
+        <div class="card-body">
+            <div class="goal-box"><strong>เป้าหมาย:</strong> บริหารจัดการโปรเจกต์ AI ให้รอดตั้งแต่ต้นจนจบ (เชื่อมโยงวิชา 96407)</div>
+            <ul class="topic-list">
+                <li>AI Lifecycle vs Traditional SDLC (ความต่าง)</li>
+                <li>การเขียน AI PRD สิ่งที่ต้องมีในเอกสารสเปก</li>
+                <li>เข้าใจคอนเซปต์ MLOps เบื้องต้น</li>
+            </ul>
+            <div class="project-box">
+                <div class="project-title"><i class="ph-fill ph-target"></i> Mini-Project</div>
+                <div class="project-desc">เขียน Draft PRD สั้นๆ สำหรับฟีเจอร์ "AI Chatbot ช่วยตอบคำถามพนักงานใหม่ (HR)"</div>
+            </div>
+        </div>
+        <button class="start-btn" onclick="showAlert('Module 2')"><i class="ph-bold ph-play"></i> เริ่มเรียน Module 2</button>
+    </div>
+
+    <!-- MODULE 3 -->
+    <div class="module-card mod-3">
+        <div class="card-header">
+            <span>Module 3: วัดผลความฉลาด AI</span>
+            <i class="ph-fill ph-chart-line-up"></i>
+        </div>
+        <div class="card-body">
+            <div class="goal-box"><strong>เป้าหมาย:</strong> คุยกับ Data Scientist รู้เรื่อง และดูออกว่าโมเดลดีพอจะใช้งานจริงหรือยัง</div>
+            <ul class="topic-list">
+                <li>พื้นฐาน Data Pipeline (ETL) ทำไมข้อมูลขยะ ถึงได้ AI ขยะ</li>
+                <li>ตัวชี้วัด Machine Learning (Accuracy, Precision, Recall, F1)</li>
+                <li>ตัวชี้วัด LLM (Cost per Token, Latency, ROUGE Score)</li>
+            </ul>
+            <div class="project-box">
+                <div class="project-title"><i class="ph-fill ph-target"></i> Mini-Project</div>
+                <div class="project-desc">วิเคราะห์ Case Study โมเดลตรวจจับสแปมที่มี Accuracy 99% แต่กลับใช้งานจริงไม่ได้</div>
+            </div>
+        </div>
+        <button class="start-btn" onclick="showAlert('Module 3')"><i class="ph-bold ph-play"></i> เริ่มเรียน Module 3</button>
+    </div>
+
+    <!-- MODULE 4 -->
+    <div class="module-card mod-4">
+        <div class="card-header">
+            <span>Module 4: Python สำหรับ AI PM</span>
+            <i class="ph-fill ph-file-code"></i>
+        </div>
+        <div class="card-body">
+            <div class="goal-box"><strong>เป้าหมาย:</strong> เขียนโค้ดเป็นอาวุธ เพื่อทดสอบไอเดีย (PoC) ได้ด้วยตัวเอง (เชื่อมโยงวิชา 96414)</div>
+            <ul class="topic-list">
+                <li>การเรียกใช้ API (ทำความเข้าใจ JSON และ REST API)</li>
+                <li>ทบทวนโครงสร้าง Python ที่จำเป็น (Variables, Dictionaries)</li>
+                <li>การต่อ API ของ OpenAI เพื่อสร้าง Text Summarizer</li>
+            </ul>
+            <div class="project-box">
+                <div class="project-title"><i class="ph-fill ph-target"></i> Mini-Project</div>
+                <div class="project-desc">เขียน/จำลองโค้ด Python 15 บรรทัด เพื่อส่งข้อความไปให้ AI ช่วยแปลภาษา</div>
+            </div>
+        </div>
+        <button class="start-btn" onclick="showAlert('Module 4')"><i class="ph-bold ph-play"></i> เริ่มเรียน Module 4</button>
+    </div>
+
+    <!-- MODULE 5 -->
+    <div class="module-card mod-5">
+        <div class="card-header">
+            <span>Module 5: ศิลปะการขายไอเดีย</span>
+            <i class="ph-fill ph-presentation-chart"></i>
+        </div>
+        <div class="card-body">
+            <div class="goal-box"><strong>เป้าหมาย:</strong> แปลงตัวเลขเทคนิค ให้เป็น Business Value เพื่อให้ผู้บริหารอนุมัติงบ</div>
+            <ul class="topic-list">
+                <li>การตั้งสมมติฐานทางธุรกิจ (Business Hypothesis) สำหรับ AI</li>
+                <li>AI Value Translation (แปลงความแม่นยำ เป็นการลดต้นทุน)</li>
+                <li>การทำ Data Storytelling เบื้องต้น</li>
+            </ul>
+            <div class="project-box" style="background: #FEF2F2; border-color: #FECACA;">
+                <div class="project-title" style="color: #B91C1C;"><i class="ph-fill ph-trophy"></i> Capstone Project</div>
+                <div class="project-desc" style="color: #7F1D1D;">จำลองการ Pitching โปรเจกต์ AI ให้ CEO ฟังใน 3 ย่อหน้า (เน้นความคุ้มค่าและลดความเสี่ยง)</div>
+            </div>
+        </div>
+        <button class="start-btn" onclick="showAlert('Module 5')"><i class="ph-bold ph-play"></i> เริ่มเรียน Module 5</button>
+    </div>
+
+    <!-- WORKFLOW (HOW TO LEARN) -->
+    <div class="module-card mod-workflow">
+        <div class="card-header">
+            <span>🚀 วิธีการเรียน (Workflow)</span>
+            <i class="ph-fill ph-info"></i>
+        </div>
+        <div class="card-body">
+            <div class="workflow-step">
+                <div class="step-num">1</div>
+                <div class="step-text">กลับไปที่ช่องแชท (Chat UI) ทางด้านซ้ายมือ</div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-num">2</div>
+                <div class="step-text">พิมพ์บอกผม (Gemini) ว่า <strong>"พร้อมเริ่ม Module X หัวข้อที่ 1 แล้ว"</strong></div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-num">3</div>
+                <div class="step-text">ผมจะสรุปเนื้อหาให้ฟังสั้นๆ พร้อมยกตัวอย่างเปรียบเทียบในโลก IT ให้เห็นภาพชัดเจน</div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-num">4</div>
+                <div class="step-text">ตอบคำถามทดสอบความเข้าใจ 1 ข้อแบบ Interactive ก่อนผ่านไปหัวข้อถัดไป!</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    จัดทำหลักสูตรพิเศษสำหรับ <strong>คุณโอม</strong> | "Upskill สู่ AI Product Manager"<br>
+</footer>
+
+<!-- ALERT MODAL -->
+<div class="alert-modal" id="alertModal">
+    <div class="alert-box">
+        <i class="ph-fill ph-chat-centered-text alert-icon"></i>
+        <div class="alert-title">พร้อมเริ่มเรียน <span id="alertModName"></span></div>
+        <div class="alert-desc">หากโอมพร้อมแล้ว ให้พิมพ์ข้อความในช่องแชทด้านซ้ายมือว่า<br><br><strong style="color: var(--brand-blue);">"พร้อมเริ่ม <span id="alertModText"></span> หัวข้อที่ 1 แล้ว"</strong><br><br>แล้วผมจะส่งเนื้อหาและคำถามแรกไปให้ทันทีครับ!</div>
+        <button class="alert-btn" onclick="closeAlert()">รับทราบ ลุยเลย!</button>
+    </div>
+</div>
+
+<script src="../assets/js/aipm_course.js"></script>
+
+</body>
+</html>

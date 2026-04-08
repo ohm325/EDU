@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Curriculum - Ohm's Learning Hub</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/curriculum.css">
+</head>
+<body class="text-slate-800 min-h-screen grid-bg">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-br from-[#1E3A8A] to-[#1E40AF] text-white py-14 px-6 relative overflow-hidden">
+        <div class="absolute right-0 top-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+            <i class="ph ph-briefcase-metal text-[350px]"></i>
+        </div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <nav class="mb-8">
+                <a href="../index.html" class="inline-flex items-center text-blue-200 hover:text-white transition group bg-white/5 px-4 py-2 rounded-xl backdrop-blur-sm border border-white/10">
+                    <i class="ph ph-house mr-2"></i> กลับหน้าหลัก Portal
+                </a>
+            </nav>
+            <div class="flex flex-col lg:flex-row justify-between items-end gap-8">
+                <div class="flex-1">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-white">โครงสร้างหลักสูตรวิชา</h1>
+                    <p class="text-blue-100 text-lg md:text-xl font-light">รายชื่อชุดวิชาทั้งหมดของโอม มสธ.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-[32px] border border-white/20 text-center min-w-[280px]">
+                    <div class="text-xs uppercase tracking-[0.2em] text-blue-200 mb-2 font-bold">Total Progress</div>
+                    <div class="text-5xl font-black mb-3">5 <span class="text-xl font-normal text-blue-300">/ 22</span></div>
+                    <div class="w-full bg-slate-900/40 h-3 rounded-full overflow-hidden">
+                        <div class="bg-orange-500 h-full w-[23%] shadow-[0_0_15px_rgba(249,115,22,0.6)]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-16">
+        
+        <!-- SECTION 1: หมวดวิชาศึกษาทั่วไป -->
+        <section class="mb-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center border border-slate-100">
+                    <i class="ph-fill ph-book-open text-2xl text-slate-600"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">1. หมวดวิชาศึกษาทั่วไป</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Current: 10151 -->
+                <div class="course-card bg-white p-6 rounded-[24px] shadow-sm border-l-[6px] border-orange-500">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-bold text-slate-400">10151</span>
+                        <span class="status-badge status-current">Current</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 leading-tight">ไทยศึกษา</h3>
+                    <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-wider">Thai Studies</p>
+                </div>
+
+                <div class="course-card bg-white p-6 rounded-[24px] shadow-sm border-l-[6px] border-slate-100 opacity-60">
+                    <span class="text-xs font-bold text-slate-400">10121</span>
+                    <h3 class="font-bold text-lg text-slate-800 mt-2">อารยธรรมมนุษย์</h3>
+                </div>
+                <div class="course-card bg-white p-6 rounded-[24px] shadow-sm border-l-[6px] border-slate-100 opacity-60">
+                    <span class="text-xs font-bold text-slate-400">10131</span>
+                    <h3 class="font-bold text-lg text-slate-800 mt-2">ภาษาอังกฤษเพื่อการสื่อสาร</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: หมวดวิชาเฉพาะ -->
+        <section class="mb-20">
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center border border-slate-100">
+                    <i class="ph-fill ph-code text-2xl text-blue-600"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">2. หมวดวิชาเฉพาะ (IT Core)</h2>
+            </div>
+
+            <!-- กลุ่มพื้นฐานวิชาชีพ -->
+            <div class="mb-14">
+                <h3 class="text-sm font-black text-slate-500 uppercase tracking-widest mb-6 px-2">กลุ่มพื้นฐานวิชาชีพ</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Current: 96102 (Official Name) -->
+                    <div class="course-card bg-white p-6 rounded-[24px] shadow-sm border-l-[6px] border-blue-600">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-slate-400">96102</span>
+                            <span class="status-badge status-current">Current</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 leading-tight">คณิตศาสตร์และสถิติสำหรับเทคโนโลยีสารสนเทศ</h3>
+                        <p class="text-[9px] text-slate-400 italic uppercase mt-2">Mathematics and Statistics for IT</p>
+                    </div>
+                    <div class="course-card bg-white p-6 rounded-[24px] shadow-sm border-l-[6px] border-slate-100 opacity-60">
+                        <span class="text-xs font-bold text-slate-400">96101</span>
+                        <h3 class="font-bold text-lg text-slate-800 mt-2 leading-tight">พื้นฐานคอมพิวเตอร์และเทคโนโลยีสารสนเทศ</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- กลุ่มวิชาบังคับ -->
+            <div>
+                <h3 class="text-sm font-black text-slate-500 uppercase tracking-widest mb-6 px-2">กลุ่มวิชาบังคับในสาขา</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Current: 96414 -->
+                    <div class="course-card bg-blue-50/40 p-6 rounded-[24px] border border-blue-100 shadow-sm">
+                        <div class="flex justify-between items-center mb-5">
+                            <span class="text-sm font-black text-blue-500">96414</span>
+                            <span class="status-badge status-current">Current</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 leading-tight mb-3 text-[1.05rem]">การโปรแกรมคอมพิวเตอร์</h3>
+                        <p class="text-[9px] text-slate-400 italic uppercase tracking-wider">Computer Programming</p>
+                    </div>
+
+                    <!-- Current: 96304 -->
+                    <div class="course-card bg-blue-50/40 p-6 rounded-[24px] border border-blue-100 shadow-sm">
+                        <div class="flex justify-between items-center mb-5">
+                            <span class="text-sm font-black text-blue-500">96304</span>
+                            <span class="status-badge status-current">Current</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 leading-tight mb-3 text-[1.05rem]">การสื่อสารข้อมูลและเครือข่าย</h3>
+                        <p class="text-[9px] text-slate-400 italic uppercase tracking-wider">Data Communications and Networks</p>
+                    </div>
+
+                    <!-- Current: 96407 -->
+                    <div class="course-card bg-blue-50/40 p-6 rounded-[24px] border border-blue-100 shadow-sm">
+                        <div class="flex justify-between items-center mb-5">
+                            <span class="text-sm font-black text-blue-500">96407</span>
+                            <span class="status-badge status-current">Current</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 leading-tight mb-3 text-[1.05rem]">การพัฒนาระบบสารสนเทศ</h3>
+                        <p class="text-[9px] text-slate-400 italic uppercase tracking-wider">Information Systems Development</p>
+                    </div>
+
+                    <!-- Future Core Courses -->
+                    <div class="course-card bg-white p-6 rounded-[24px] shadow-sm border-l-[6px] border-slate-100 opacity-60">
+                        <span class="text-xs font-bold text-slate-400">96303</span>
+                        <h3 class="font-bold mt-2 text-slate-800 leading-tight">ระบบฐานข้อมูล</h3>
+                    </div>
+                    <div class="course-card bg-white p-6 rounded-[24px] shadow-sm border-l-[6px] border-slate-100 opacity-60">
+                        <span class="text-xs font-bold text-slate-400">96402</span>
+                        <h3 class="font-bold mt-2 text-slate-800 leading-tight">การวิเคราะห์และออกแบบระบบ</h3>
+                    </div>
+                    <div class="course-card bg-white p-6 rounded-[24px] shadow-sm border-l-[6px] border-slate-100 opacity-60">
+                        <span class="text-xs font-bold text-slate-400">96408</span>
+                        <h3 class="font-bold mt-2 text-slate-800 leading-tight">เทคโนโลยีเว็บและการประยุกต์</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: ประสบการณ์วิชาชีพ -->
+        <section class="bg-slate-900 text-white p-10 md:p-16 rounded-[40px] shadow-2xl border-b-8 border-orange-500 relative overflow-hidden">
+            <div class="absolute right-0 bottom-0 opacity-5">
+                <i class="ph ph-graduation-cap text-[300px]"></i>
+            </div>
+            <div class="relative z-10 text-center lg:text-left">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">ประสบการณ์วิชาชีพเทคโนโลยีสารสนเทศ</h2>
+                <p class="text-slate-400 text-lg leading-relaxed max-w-2xl mb-8">
+                    รหัสวิชา <span class="text-white font-bold">96415</span> บทสรุปความสำเร็จของโอม มสธ.
+                </p>
+                <div class="inline-flex items-center gap-2 bg-orange-500 text-white px-6 py-2 rounded-full font-bold shadow-lg shadow-orange-500/30">
+                    <i class="ph ph-flag-banner"></i> เป้าหมายสุดท้ายเพื่อปริญญา
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-20 text-slate-400 text-sm border-t border-slate-100 mt-10">
+        <p>© 2026 Ohm's IT Learning Hub Portal | พยายามต่อไปนะโอม!</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+:root {
+    /* Hybrid Theme Colors */
+    --bg-main: #F3F4F6;
+    --surface: #FFFFFF;
+    --brand-blue: #1E3A8A;
+    --brand-blue-light: #1E40AF;
+    --brand-orange: #F97316;
+    --text-main: #1F2937;
+    --text-muted: #6B7280;
+    --border: #E5E7EB;
+
+    /* Portal Colors */
+    --portal1-bg: #FFF7ED; --portal1-text: #C2410C; --portal1-border: #FED7AA; --portal1-hover: #F97316;
+    --portal2-bg: #EFF6FF; --portal2-text: #1D4ED8; --portal2-border: #BFDBFE; --portal2-hover: #2563EB;
+    --portal3-bg: #F0FDF4; --portal3-text: #047857; --portal3-border: #A7F3D0; --portal3-hover: #10B981;
+
+    /* Shadows */
+    --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Prompt', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+    /* เพิ่มลวดลายพื้นหลังบางๆ */
+    background-image: radial-gradient(circle at 50% 0%, rgba(30, 58, 138, 0.05) 0%, transparent 50%);
+}
+
+/* ─── HEADER ─── */
+.app-header {
+    width: 100%;
+    max-width: 1100px; /* ขยายให้พอดี 3 การ์ด */
+    background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-light));
+    color: white;
+    border-radius: 24px;
+    padding: 40px 32px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 15px 30px -5px rgba(30, 58, 138, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.app-header::after {
+    content: '\eab1'; /* Rocket icon */
+    font-family: 'Phosphor';
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12rem;
+    color: rgba(255,255,255,0.05);
+    pointer-events: none;
+}
+.app-header::before {
+    content: '\ea71'; /* Planet icon */
+    font-family: 'Phosphor';
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10rem;
+    color: rgba(255,255,255,0.05);
+    pointer-events: none;
+}
+
+.welcome-text {
+    font-size: 1.1rem;
+    color: #93C5FD;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.header-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+.header-title i { color: var(--brand-orange); }
+
+.header-subtitle {
+    color: #BFDBFE;
+    font-size: 1.1rem;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+/* ─── PORTAL GRID ─── */
+.portal-grid {
+    width: 100%;
+    max-width: 1100px; /* ขยายให้พอดี 3 การ์ด */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* เปลี่ยนเป็น 3 คอลัมน์ */
+    gap: 32px;
+}
+
+@media (max-width: 1024px) {
+    .portal-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .portal-grid { grid-template-columns: 1fr; }
+    .app-header { padding: 32px 20px; }
+    .app-header::after, .app-header::before { display: none; }
+}
+
+/* ─── PORTAL CARDS ─── */
+.portal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-main);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.portal-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.portal-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Card 1: Agenda (Orange) */
+.card-agenda { border-bottom: 4px solid var(--brand-orange); }
+.card-agenda .icon-wrapper { background: var(--portal1-bg); color: var(--portal1-text); border: 1px solid var(--portal1-border); }
+.card-agenda:hover::before { background: linear-gradient(to bottom, transparent, var(--portal1-bg)); opacity: 0.5; }
+.card-agenda:hover .icon-wrapper { background: var(--portal1-hover); color: white; border-color: var(--portal1-hover); transform: scale(1.1) rotate(-5deg); }
+
+/* Card 2: AI Course (Blue) */
+.card-ai { border-bottom: 4px solid var(--brand-blue); }
+.card-ai .icon-wrapper { background: var(--portal2-bg); color: var(--portal2-text); border: 1px solid var(--portal2-border); }
+.card-ai:hover::before { background: linear-gradient(to bottom, transparent, var(--portal2-bg)); opacity: 0.5; }
+.card-ai:hover .icon-wrapper { background: var(--portal2-hover); color: white; border-color: var(--portal2-hover); transform: scale(1.1) rotate(5deg); }
+
+/* Card 3: AI Roadmap (Green) */
+.card-roadmap { border-bottom: 4px solid var(--portal3-hover); }
+.card-roadmap .icon-wrapper { background: var(--portal3-bg); color: var(--portal3-text); border: 1px solid var(--portal3-border); }
+.card-roadmap:hover::before { background: linear-gradient(to bottom, transparent, var(--portal3-bg)); opacity: 0.5; }
+.card-roadmap:hover .icon-wrapper { background: var(--portal3-hover); color: white; border-color: var(--portal3-hover); transform: scale(1.1) rotate(5deg); }
+
+.icon-wrapper {
+    width: 90px;
+    height: 90px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin-bottom: 24px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.portal-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background-color: var(--portal3-hover);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.portal-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    flex: 1;
+}
+
+.portal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-main);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    width: 100%;
+    justify-content: center;
+}
+
+.card-agenda:hover .portal-btn { background: var(--brand-orange); color: white; border-color: var(--brand-orange); }
+.card-ai:hover .portal-btn { background: var(--brand-blue); color: white; border-color: var(--brand-blue); }
+.card-roadmap:hover .portal-btn { background: var(--portal3-hover); color: white; border-color: var(--portal3-hover); }
+
+/* ─── FOOTER ─── */
+.footer {
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+    padding: 40px 0 16px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ─── ANIMATION ─── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.delay-1 { animation-delay: 0.1s; opacity: 0; }
+.delay-2 { animation-delay: 0.2s; opacity: 0; }
+.delay-3 { animation-delay: 0.3s; opacity: 0; }
+.delay-4 { animation-delay: 0.4s; opacity: 0; }
