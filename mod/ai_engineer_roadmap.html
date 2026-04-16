@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Engineer Roadmap - Ohm's Learning Hub</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { 
+            font-family: 'Prompt', sans-serif; 
+            background-color: #F8FAFC;
+        }
+        
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-up { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+
+        /* Timeline styles */
+        .timeline-line {
+            position: absolute;
+            left: 2rem;
+            top: 2rem;
+            bottom: -2rem;
+            width: 2px;
+            background: linear-gradient(to bottom, #06b6d4, #8b5cf6);
+            z-index: 0;
+        }
+        @media (min-width: 768px) {
+            .timeline-line { left: 50%; transform: translateX(-50%); }
+        }
+
+        .phase-card { transition: all 0.3s ease; }
+        .phase-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        
+        /* Grid background */
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen">
+
+    <!-- Header Section -->
+    <header class="bg-slate-900 text-white py-20 px-6 relative overflow-hidden cyber-grid border-b-4 border-cyan-500">
+        <!-- Glowing Orbs -->
+        <div class="absolute top-0 right-10 w-96 h-96 bg-cyan-500 rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-pulse"></div>
+        <div class="absolute bottom-0 left-10 w-96 h-96 bg-violet-600 rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+        
+        <div class="max-w-5xl mx-auto relative z-10">
+            <nav class="mb-10">
+                <a href="index.html" class="inline-flex items-center text-cyan-300 hover:text-white transition group bg-white/10 px-4 py-2 rounded-xl backdrop-blur-md border border-white/20 text-sm font-medium">
+                    <i class="ph ph-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i> กลับศูนย์รวมการเรียนรู้
+                </a>
+            </nav>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 animate-up">
+                <div class="flex-1 text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-sm font-bold mb-6 tracking-widest uppercase">
+                        <i class="ph-fill ph-rocket"></i> Career Upgrade
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tight">
+                        Ohm's Roadmap to <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400">AI Engineer</span>
+                    </h1>
+                    <p class="text-slate-300 text-lg md:text-xl font-light max-w-2xl leading-relaxed">
+                        การเป็น AI Engineer ไม่ใช่แค่การทำโมเดลให้แม่นยำ แต่คือการ <strong class="text-white">"นำโมเดล AI ไปใช้งานได้จริงในระบบโปรดักชั่น สเกลได้ และเสถียร"</strong> นี่คือเส้นทางอัปสกิลจากสาย IT ครับ
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Roadmap Timeline Section -->
+    <main class="max-w-5xl mx-auto px-6 py-20 relative">
+        <div class="text-center mb-16 animate-up delay-100">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">5 เฟสสำคัญสู่ AI Engineer</h2>
+            <p class="text-slate-500">เส้นทางเรียนรู้ Step-by-Step สำหรับโอมโดยเฉพาะ</p>
+        </div>
+
+        <div class="relative">
+            <!-- Central Line -->
+            <div class="timeline-line hidden md:block"></div>
+
+            <!-- Phase 1 -->
+            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24 animate-up delay-100">
+                <div class="md:w-1/2 flex md:justify-end md:pr-12 w-full mb-8 md:mb-0">
+                    <div class="phase-card bg-white p-8 rounded-3xl shadow-lg border border-slate-100 w-full relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -z-10"></div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">Phase 1: The Foundation</h3>
+                        <p class="text-blue-600 text-sm font-bold uppercase tracking-widest mb-6">รากฐานคณิตศาสตร์และโปรแกรมมิ่ง</p>
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">การเริ่มต้นที่ดีต้องมีรากฐานที่แข็งแกร่ง ในเฟสนี้เราจะปรับพื้นฐานให้พร้อมสำหรับการคำนวณของ AI</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-blue-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-700">Programming (Python):</strong> ภาษาหลักของสาย AI เน้นทำความเข้าใจ Data Structures พื้นฐาน</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-blue-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-700">Math & Statistics:</strong> Linear Algebra (เมทริกซ์), Calculus (อนุพันธ์), และสถิติความน่าจะเป็น</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-blue-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-700">Data Tools:</strong> หัดใช้ `NumPy` และ `Pandas` จัดการตารางข้อมูล</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="absolute left-6 md:left-1/2 w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full border-4 border-white shadow-md transform -translate-x-1/2 flex items-center justify-center text-white z-10 hidden md:flex">
+                    <i class="ph-bold ph-number-circle-one text-2xl"></i>
+                </div>
+                <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24 animate-up delay-200">
+                <div class="md:w-1/2 md:pr-12 hidden md:block"></div>
+                <div class="absolute left-6 md:left-1/2 w-10 h-10 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full border-4 border-white shadow-md transform -translate-x-1/2 flex items-center justify-center text-white z-10 hidden md:flex">
+                    <i class="ph-bold ph-number-circle-two text-2xl"></i>
+                </div>
+                <div class="md:w-1/2 flex md:justify-start md:pl-12 w-full">
+                    <div class="phase-card bg-white p-8 rounded-3xl shadow-lg border border-slate-100 w-full relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-bl-full -z-10"></div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">Phase 2: ML Core</h3>
+                        <p class="text-teal-600 text-sm font-bold uppercase tracking-widest mb-6">เข้าใจ Machine Learning</p>
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">ไม่ต้องรีบกระโดดไปทำ AI ล้ำๆ ให้เข้าใจหลักการเรียนรู้ของเครื่องจักรยุคคลาสสิกก่อน</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-teal-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-700">Supervised Learning:</strong> เรียนรู้จากข้อมูลมีเฉลย (Linear Regression, Random Forest)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-teal-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-700">Unsupervised Learning:</strong> จัดกลุ่มข้อมูลไม่มีเฉลย (K-Means Clustering)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-teal-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-700">Model Evaluation & Library:</strong> วัดผลความเก่งของโมเดล และฝึกใช้ `Scikit-learn`</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24 animate-up delay-300">
+                <div class="md:w-1/2 flex md:justify-end md:pr-12 w-full mb-8 md:mb-0">
+                    <div class="phase-card bg-white p-8 rounded-3xl shadow-lg border border-slate-100 w-full relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-50 rounded-bl-full -z-10"></div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">Phase 3: Deep Learning</h3>
+                        <p class="text-indigo-600 text-sm font-bold uppercase tracking-widest mb-6">เจาะลึก AI สมัยใหม่</p>
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">เมื่อพื้นฐานแน่น ก็มาถึงยุคของ โครงข่ายประสาทเทียม (Neural Networks) และ AI ยุคใหม่</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-indigo-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-700">Frameworks:</strong> ฝึกใช้ `PyTorch` หรือ `TensorFlow/Keras`</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-indigo-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-700">CV & NLP:</strong> การให้ AI มองเห็นภาพ (CNNs) และเข้าใจภาษา (Transformers)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-indigo-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-700">Generative AI:</strong> การทำงานของ LLMs, Prompt Engineering, RAG และ Fine-tuning</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="absolute left-6 md:left-1/2 w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full border-4 border-white shadow-md transform -translate-x-1/2 flex items-center justify-center text-white z-10 hidden md:flex">
+                    <i class="ph-bold ph-number-circle-three text-2xl"></i>
+                </div>
+                <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
+            </div>
+
+            <!-- Phase 4 (Highlighted) -->
+            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24 animate-up delay-400">
+                <div class="md:w-1/2 md:pr-12 hidden md:block"></div>
+                <div class="absolute left-6 md:left-1/2 w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full border-4 border-white shadow-lg transform -translate-x-1/2 flex items-center justify-center text-white z-20 hidden md:flex animate-bounce">
+                    <i class="ph-fill ph-fire text-2xl"></i>
+                </div>
+                <div class="md:w-1/2 flex md:justify-start md:pl-12 w-full">
+                    <div class="phase-card bg-orange-50 p-8 rounded-3xl shadow-xl border-2 border-orange-200 w-full relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1 rounded-bl-xl">
+                            Ohm's Advantage 🔥
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-2">Phase 4: MLOps & Eng</h3>
+                        <p class="text-orange-600 text-sm font-bold uppercase tracking-widest mb-6">วิศวกรรมระบบและการใช้จริง</p>
+                        <p class="text-slate-600 text-sm mb-6 leading-relaxed font-medium">นี่คือสกิลที่ทำให้ AI Engineer ต่างจากคนทั่วไป และโอมจะได้เปรียบมากจากประสบการณ์ฝั่ง IT!</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-orange-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-800">API & Docker:</strong> สร้างโมเดลเป็น API (`FastAPI`) และแพ็กเกจด้วย `Docker`</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-orange-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-800">Cloud Platforms:</strong> สเกล AI บน AWS SageMaker, GCP Vertex AI</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-orange-500 text-xl mt-0.5"></i>
+                                <div><strong class="text-slate-800">MLOps:</strong> ระบบอัตโนมัติในการเทรน ปล่อยโมเดล และมอนิเตอร์ (CI/CD)</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5 -->
+            <div class="relative flex flex-col md:flex-row items-center animate-up" style="animation-delay: 500ms;">
+                <div class="md:w-1/2 flex md:justify-end md:pr-12 w-full mb-8 md:mb-0">
+                    <div class="phase-card bg-slate-900 text-white p-8 rounded-3xl shadow-2xl border border-slate-700 w-full relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 opacity-20 text-cyan-500">
+                            <i class="ph-fill ph-medal text-[200px]"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 relative z-10">Phase 5: Capstone</h3>
+                        <p class="text-cyan-400 text-sm font-bold uppercase tracking-widest mb-6 relative z-10">ลงมือทำโปรเจกต์จริง</p>
+                        <ul class="space-y-4 relative z-10">
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-star text-yellow-400 text-xl mt-0.5"></i>
+                                <div class="text-slate-300">นำความรู้ทั้งหมดไปสร้างสรรค์ <strong>Personal Capstone Project</strong> เพื่อใช้เป็น Portfolio ชิ้นโบแดง</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="ph-fill ph-check-circle text-cyan-400 text-xl mt-0.5"></i>
+                                <div class="text-slate-300">ออกแบบ AI ที่แก้ปัญหาได้จริงแบบ End-to-End (ดึงข้อมูล ➔ เทรน ➔ ทำ API ➔ หน้า Web/App)</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="absolute left-6 md:left-1/2 w-10 h-10 bg-slate-800 rounded-full border-4 border-slate-400 shadow-md transform -translate-x-1/2 flex items-center justify-center text-white z-10 hidden md:flex">
+                    <i class="ph-bold ph-number-circle-five text-2xl"></i>
+                </div>
+                <div class="md:w-1/2 md:pl-12 hidden md:block"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Work Integration Section -->
+    <section class="bg-white py-20 border-t border-slate-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 animate-up">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-cyan-100 text-cyan-600 rounded-2xl mb-6 shadow-sm">
+                    <i class="ph-fill ph-briefcase text-3xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">การนำสกิล AI ไปประยุกต์ใช้กับงานปัจจุบัน</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">สร้าง <strong>"Quick Wins"</strong> ลดภาระงานและเพิ่มประสิทธิภาพในองค์กรได้ทันที โดยไม่ต้องรอให้เรียนจบ Phase 5</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 animate-up delay-200">
+                <!-- Use Case 1 -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 hover:border-cyan-300 transition-colors">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-blue-100 text-blue-600 p-3 rounded-xl"><i class="ph-fill ph-headset text-2xl"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800">IT Helpdesk & Auto Routing</h3>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                        <li>ใช้ AI (NLP/LLMs) อ่านคำอธิบาย Ticket แล้วส่งต่อให้ทีมที่รับผิดชอบอัตโนมัติ</li>
+                        <li>สร้าง Internal Chatbot (RAG) ตอบคำถาม IT พื้นฐานให้พนักงาน</li>
+                    </ul>
+                </div>
+
+                <!-- Use Case 2 -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 hover:border-cyan-300 transition-colors">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-red-100 text-red-600 p-3 rounded-xl"><i class="ph-fill ph-shield-warning text-2xl"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800">Log Analysis & Threat Detection</h3>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                        <li>ให้ AI (Unsupervised Learning) วิเคราะห์ Server Logs มหาศาล</li>
+                        <li>แจ้งเตือนทีม Security ทันทีเมื่อพบ Anomaly Detection (เข้าข่ายวิชา 96407)</li>
+                    </ul>
+                </div>
+
+                <!-- Use Case 3 -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 hover:border-cyan-300 transition-colors">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-green-100 text-green-600 p-3 rounded-xl"><i class="ph-fill ph-file-pdf text-2xl"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800">Document Data Extraction</h3>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                        <li>เขียนระบบ AI (CV + NLP) อ่านเอกสาร PDF, สลิป หรือใบแจ้งหนี้</li>
+                        <li>ดึงข้อมูลสำคัญมาลง Database หรือ Excel ให้อัตโนมัติ ลดงาน Manual</li>
+                    </ul>
+                </div>
+
+                <!-- Use Case 4 -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 hover:border-cyan-300 transition-colors">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-purple-100 text-purple-600 p-3 rounded-xl"><i class="ph-fill ph-cpu text-2xl"></i></div>
+                        <h3 class="font-bold text-lg text-slate-800">Predictive System Maintenance</h3>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                        <li>นำข้อมูล Hardware (ความร้อน, RAM/CPU) มาเทรนโมเดล (ML พื้นฐาน)</li>
+                        <li>ทำนายแนวโน้มเซิร์ฟเวอร์ล่ม เพื่อให้ทีม IT เข้าแก้ไขก่อนเกิดปัญหา</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-cyan-50 rounded-2xl p-6 border border-cyan-100 flex gap-4 items-start animate-up delay-300">
+                <i class="ph-fill ph-lightbulb text-3xl text-cyan-500 mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-cyan-900 mb-1">ทริคจากเทรนเนอร์ (Gemini)</h4>
+                    <p class="text-cyan-800 text-sm leading-relaxed">พอโอมเขียน Python คล่อง (Phase 1) ก็สามารถเริ่มหยิบงานอัตโนมัติเล็กๆ (Automation) ไปทดลองทำในออฟฟิศได้เลย การแก้ปัญหาจริง (Problem Solving) จะเป็นตัวเร่งสปีดการเรียนรู้ที่ดีที่สุดครับ!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 text-center border-t border-slate-800">
+        <p class="mb-2">© 2026 Ohm's Learning Hub | AI Engineer Roadmap</p>
+        <p class="text-xs opacity-50 uppercase tracking-widest">Keep learning, Keep growing</p>
+    </footer>
+
+</body>
+</html>
