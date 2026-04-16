@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Project Proposal - Executive Summary</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1e3a8a', // blue-900
+                        secondary: '#3b82f6', // blue-500
+                        accent: '#10b981', // emerald-500
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #f8fafc; }
+        .print-page-break { page-break-after: always; }
+        @media print {
+            body { background-color: white; }
+            .shadow-lg { box-shadow: none !important; border: 1px solid #e2e8f0; }
+            .shadow-md { box-shadow: none !important; border: 1px solid #e2e8f0; }
+            .print-hidden { display: none !important; }
+        }
+        .step-card { transition: transform 0.2s; }
+        .step-card:hover { transform: translateY(-5px); }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Navigation / Top Bar -->
+    <nav class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50 print-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-primary text-white p-2 rounded-lg">
+                        <i class="fas fa-truck-moving text-xl"></i>
+                    </div>
+                    <span class="font-bold text-xl text-primary tracking-wide">WELLPORTAL<span class="text-secondary">POS</span></span>
+                </div>
+                <div>
+                    <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center space-x-2">
+                        <i class="fas fa-print"></i>
+                        <span>พิมพ์ / บันทึก PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-br from-slate-900 to-primary text-white py-20 print:bg-white print:text-black print:py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-secondary/20 text-secondary border border-secondary/30 text-sm font-semibold tracking-wider mb-6 print:text-slate-600 print:border-slate-300">
+                PROJECT PROPOSAL & ARCHITECTURE
+            </span>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                โครงการพัฒนาระบบ Standalone iPad POS
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed print:text-slate-600">
+                สถาปัตยกรรมระบบขายหน้าร้านแบบเอกเทศ (Decoupled Architecture) 
+                รองรับการทำงานออฟไลน์ ผูกสิทธิ์ระดับอุปกรณ์ (Device Binding) 
+                และเชื่อมต่อ ERP ผ่านตัวกลาง WELLPORTAL
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- Section 1: Executive Summary & Goals -->
+        <section class="mb-16">
+            <div class="flex items-center mb-8">
+                <div class="w-10 h-10 rounded-full bg-blue-100 text-secondary flex items-center justify-center mr-4">
+                    <i class="fas fa-bullseye text-xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800">เป้าหมายของโครงการ (Project Goals)</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-secondary">
+                    <i class="fas fa-lock text-3xl text-secondary mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">ความปลอดภัยสูงสุด</h3>
+                    <p class="text-slate-600 text-sm">ตรวจสอบสิทธิ์ผ่าน Active Directory (AD) และบังคับผูก User ติดกับ Hardware ID ของ iPad (เครื่องใครเครื่องมัน ห้ามสลับเครื่อง)</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-accent">
+                    <i class="fas fa-wifi text-3xl text-accent mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">ทำงานได้แม้ออฟไลน์</h3>
+                    <p class="text-slate-600 text-sm">แอปพลิเคชันบน iPad สามารถเก็บข้อมูลสินค้าและราคาไว้ในเครื่อง ทำรายการขายได้ลื่นไหลแม้ไม่มีสัญญาณอินเทอร์เน็ต</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-purple-500">
+                    <i class="fas fa-server text-3xl text-purple-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">ลดภาระ ERP</h3>
+                    <p class="text-slate-600 text-sm">ใช้ WELLPORTAL เป็นประตูด่านหน้า (Gateway) รับข้อมูล กรองความถูกต้อง ก่อนส่งไปสร้าง Sale Order ที่ระบบหลัก (ERP)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Scope of Work -->
+        <section class="mb-16 print-page-break">
+            <div class="flex items-center mb-8">
+                <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center mr-4">
+                    <i class="fas fa-layer-group text-xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800">ขอบเขตการพัฒนาระบบ (Scope of Work)</h2>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Module 1 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                        <h3 class="text-xl font-semibold text-primary"><i class="fas fa-desktop mr-2"></i> 1. ส่วนบริหารจัดการหลังบ้าน (POS Admin & API Backend)</h3>
+                        <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded font-semibold">.NET 8 / SQL Server</span>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-3"></i> <div><strong>Authentication & Security:</strong> สร้าง API ตรวจสอบสิทธิ์ผ่าน OpenAPI (AD) และพัฒนาระบบ Device Binding (สร้าง/ตรวจสอบ UUID ฝั่งเซิร์ฟเวอร์)</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-3"></i> <div><strong>Management Portal:</strong> หน้าเว็บสำหรับผู้ดูแลระบบ เพื่อจัดการสิทธิ์ (Role), ดูประวัติการล็อกเครื่อง, ฟังก์ชัน 'Reset Device', และดู Log รายการขาย</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-3"></i> <div><strong>Data Sync API:</strong> สร้าง Job Schedule ดึง Master Data (ลูกค้า, สินค้า, ตารางราคา, Onhand) จาก ERP มาพักไว้ที่ฐานข้อมูล POS</div></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                        <h3 class="text-xl font-semibold text-primary"><i class="fas fa-tablet-alt mr-2"></i> 2. ส่วนแอปพลิเคชันพนักงานขาย (iPad POS Frontend)</h3>
+                        <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-semibold">Touch-First PWA</span>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-3"></i> <div><strong>UI/UX Design:</strong> ออกแบบหน้าจอสำหรับ iPad โดยเฉพาะ (ปุ่มขนาดใหญ่, ไร้ Hover, เลย์เอาต์แบ่งครึ่งจอ ซ้าย: เลือกสินค้า ขวา: ตะกร้าและสรุปยอด)</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-3"></i> <div><strong>Offline-Capable Logic:</strong> โหลด Master Data มาเก็บใน Local Storage ของเบราว์เซอร์ เพื่อให้ระบบคำนวณส่วนลดและเช็คสต็อกได้ทันทีโดยไม่ต้องรอโหลดจากเน็ต</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-3"></i> <div><strong>Draft & Sync:</strong> กรณีไม่มีอินเทอร์เน็ต สามารถบันทึกบิลไว้ในเครื่อง (Save Draft) และกดปุ่ม Sync เมื่อมีสัญญาณ เพื่อส่งข้อมูลทั้งหมดเข้าสู่ระบบ</div></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                        <h3 class="text-xl font-semibold text-primary"><i class="fas fa-project-diagram mr-2"></i> 3. ส่วนเชื่อมต่อระบบหลัก (Integration Layer)</h3>
+                        <span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-1 rounded font-semibold">JSON API</span>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-3"></i> <div><strong>Payload Packaging:</strong> iPad นำข้อมูลบิลขายมาแพ็กเป็นโครงสร้าง JSON เพื่อส่งผ่าน API เข้าสู่เซิร์ฟเวอร์</div></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-3"></i> <div><strong>Gateway to ERP:</strong> WELLPORTAL รับข้อมูล, ตรวจสอบความถูกต้อง (Validation), ส่งต่อให้ ERP สร้าง Sale Order, และส่งเลขที่เอกสาร (SO No.) คืนกลับไปยัง iPad</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: User Workflow -->
+        <section class="mb-16 print-page-break">
+            <div class="flex items-center mb-8">
+                <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center mr-4">
+                    <i class="fas fa-user-clock text-xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800">Workflow การใช้งานของพนักงานขาย (User Journey)</h2>
+            </div>
+            
+            <div class="relative border-l-4 border-orange-200 ml-5 space-y-8 pb-4">
+                <!-- Step 1 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-5 top-1 w-9 h-9 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold shadow-md">1</div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 transition-transform hover:-translate-y-1">
+                        <h4 class="text-lg font-bold text-primary mb-2"><i class="fas fa-sign-in-alt mr-2 text-orange-500"></i>เริ่มวันทำงาน: เข้าสู่ระบบ (Login)</h4>
+                        <p class="text-slate-600 text-sm">เซลส์เปิดแอปบน iPad เข้าสู่ระบบด้วยรหัสพนักงาน (AD) ระบบจะตรวจสอบว่าเครื่องนี้คือเครื่องประจำตัวหรือไม่ หากถูกต้องจึงอนุญาตให้เข้าใช้งาน</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-5 top-1 w-9 h-9 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold shadow-md">2</div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 transition-transform hover:-translate-y-1">
+                        <h4 class="text-lg font-bold text-primary mb-2"><i class="fas fa-cloud-download-alt mr-2 text-orange-500"></i>อัปเดตข้อมูล (Data Sync)</h4>
+                        <p class="text-slate-600 text-sm">ระบบดาวน์โหลดข้อมูลลูกค้า สินค้าอะไหล่รถบรรทุก และราคาอัปเดตล่าสุดจาก ERP มาเก็บไว้ในเครื่อง iPad เตรียมพร้อมสำหรับการออกไปพบลูกค้า</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-5 top-1 w-9 h-9 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold shadow-md">3</div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 transition-transform hover:-translate-y-1">
+                        <h4 class="text-lg font-bold text-primary mb-2"><i class="fas fa-shopping-cart mr-2 text-orange-500"></i>พบลูกค้า: ทำรายการขาย (Sales)</h4>
+                        <p class="text-slate-600 text-sm">ค้นหาชื่อลูกค้า เลือกสินค้าลงตะกร้า ระบบคำนวณส่วนลดและเช็คสต็อกล่วงหน้าโดยใช้ข้อมูลในเครื่อง <span class="font-semibold text-accent">(ทำงานได้ 100% แม้ไม่มีอินเทอร์เน็ต)</span></p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-5 top-1 w-9 h-9 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold shadow-md">4</div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 transition-transform hover:-translate-y-1">
+                        <h4 class="text-lg font-bold text-primary mb-2"><i class="fas fa-paper-plane mr-2 text-orange-500"></i>ปิดการขาย: ส่งคำสั่งซื้อ (Checkout)</h4>
+                        <p class="text-slate-600 text-sm">กดยืนยันบิล หากมีอินเทอร์เน็ตระบบจะส่งเข้า ERP ทันทีเพื่อสร้าง Sale Order หากไม่มีสัญญาณ บิลจะถูกพักไว้ (Save Draft) และจะส่งเข้าสู่ระบบอัตโนมัติเมื่อกลับมามีสัญญาณ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: UI Mockups (Multi-screens) -->
+        <section class="mb-16 print-page-break">
+            <div class="flex items-center mb-8">
+                <div class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center mr-4">
+                    <i class="fas fa-object-group text-xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800">การออกแบบหน้าจอผู้ใช้งาน (iPad UI Mockups)</h2>
+            </div>
+            
+            <p class="text-slate-600 mb-8">จำลองหน้าจอแอปพลิเคชัน POS บน iPad แนวนอน (Landscape) แสดงข้อมูลจริงของ Wellinterparts</p>
+
+            <!-- MOCKUP 1: LOGIN -->
+            <div class="mb-16 print-page-break">
+                <h3 class="text-xl font-bold text-primary mb-4 border-l-4 border-primary pl-3">1. หน้าเข้าสู่ระบบ (Login & Device Auth)</h3>
+                <div class="relative mx-auto bg-slate-900 border-[10px] border-slate-900 rounded-[2.5rem] h-[700px] w-full max-w-5xl shadow-2xl overflow-hidden flex flex-col print:border-[2px] print:border-slate-300 print:shadow-none print:rounded-xl">
+                    <div class="flex-1 flex items-center justify-center relative bg-slate-50" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
+                        
+                        <!-- Login Box -->
+                        <div class="bg-white p-10 rounded-3xl shadow-xl w-[420px] z-10 border border-slate-100">
+                           <div class="text-center mb-8">
+                               <div class="inline-block bg-blue-50 p-4 rounded-2xl mb-4 text-primary">
+                                    <i class="fas fa-tablet-screen-button text-5xl"></i>
+                               </div>
+                               <h3 class="text-3xl font-bold text-slate-800 tracking-wide">WELLPORTAL<span class="text-secondary">POS</span></h3>
+                               <p class="text-sm text-slate-500 mt-1">ระบบขายหน้าร้าน - Wellinterparts</p>
+                           </div>
+                           
+                           <!-- Inputs -->
+                           <div class="space-y-5">
+                               <div>
+                                   <label class="block text-sm font-semibold text-slate-700 mb-1">AD Username</label>
+                                   <div class="relative">
+                                       <i class="fas fa-user absolute left-4 top-3.5 text-slate-400"></i>
+                                       <input type="text" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 pl-11 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all" value="parichat.p" placeholder="e.g. parichat.p">
+                                   </div>
+                               </div>
+                               <div>
+                                   <label class="block text-sm font-semibold text-slate-700 mb-1">Password</label>
+                                   <div class="relative">
+                                       <i class="fas fa-lock absolute left-4 top-3.5 text-slate-400"></i>
+                                       <input type="password" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 pl-11 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all" value="123456" placeholder="••••••••">
+                                   </div>
+                               </div>
+                               <button class="w-full bg-primary text-white font-bold text-lg rounded-xl px-4 py-3.5 mt-4 hover:bg-blue-800 shadow-lg shadow-blue-900/20 transition-all active:scale-[0.98]">
+                                   เข้าสู่ระบบ
+                               </button>
+                           </div>
+                        </div>
+
+                        <!-- Device ID watermark -->
+                        <div class="absolute bottom-6 left-6 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-slate-200 text-slate-500 text-sm font-mono shadow-sm flex items-center gap-2">
+                            <i class="fas fa-fingerprint text-accent"></i> 
+                            <span>Device ID: <span class="font-bold text-slate-700">8F93-A2B1-C4D5</span></span>
+                        </div>
+                        <div class="absolute bottom-6 right-6 text-slate-400 text-sm">
+                            v1.0.0
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOCKUP 2: SALE ORDER -->
+            <div class="mb-16 print-page-break">
+                <h3 class="text-xl font-bold text-primary mb-4 border-l-4 border-primary pl-3">2. หน้าขายสินค้าและรับคำสั่งซื้อ (Sale Order / POS)</h3>
+                <!-- iPad Mockup Container -->
+                <div class="relative mx-auto bg-slate-900 border-[10px] border-slate-900 rounded-[2.5rem] h-[700px] w-full max-w-5xl shadow-2xl overflow-hidden flex flex-col print:border-[2px] print:border-slate-300 print:shadow-none print:rounded-xl">
+                    <!-- Status Bar -->
+                    <div class="bg-primary text-white px-4 py-2 flex justify-between items-center text-sm shadow-sm z-10">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-bars text-lg cursor-pointer"></i>
+                            <span class="font-bold tracking-wider">WELLPORTAL<span class="text-secondary">POS</span></span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="bg-amber-500 text-amber-950 font-bold px-3 py-1 rounded-full text-xs animate-pulse shadow-sm">
+                                <i class="fas fa-wifi-slash mr-1"></i> โหมดออฟไลน์
+                            </span>
+                            <span class="flex items-center"><i class="fas fa-user-circle text-lg mr-2"></i> ปาริชาติ-เปิ้ล (Sales)</span>
+                        </div>
+                    </div>
+
+                    <!-- Main App UI -->
+                    <div class="flex flex-1 overflow-hidden bg-slate-100">
+                        
+                        <!-- Left Panel: Product Catalog (60%) -->
+                        <div class="w-3/5 flex flex-col border-r border-slate-200 bg-white">
+                            <!-- Search & Filter Bar -->
+                            <div class="p-4 border-b border-slate-100 bg-white z-10 shadow-sm">
+                                <div class="relative">
+                                    <i class="fas fa-search absolute left-4 top-3.5 text-slate-400"></i>
+                                    <input type="text" class="w-full bg-slate-100 rounded-xl py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-secondary/50 transition-all" placeholder="ค้นหาอะไหล่, รหัสสินค้า, หรือสแกนบาร์โค้ด...">
+                                </div>
+                                <div class="flex gap-2 mt-4 overflow-x-auto pb-1 hide-scroll">
+                                    <button class="bg-primary text-white px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap shadow-sm">ทั้งหมด</button>
+                                    <button class="bg-slate-100 text-slate-600 hover:bg-slate-200 px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors">อุปกรณ์ไฟฟ้า (PHILLIPS)</button>
+                                    <button class="bg-slate-100 text-slate-600 hover:bg-slate-200 px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors">กล่องดับเพลิง (DAKEN)</button>
+                                    <button class="bg-slate-100 text-slate-600 hover:bg-slate-200 px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors">น็อตล้อ (WIP)</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Product Grid (Wellinterparts Products based on CSV) -->
+                            <div class="flex-1 overflow-y-auto p-4 grid grid-cols-3 gap-4 bg-slate-50/50">
+                                <!-- Item 1 -->
+                                <div class="bg-white border border-slate-200 rounded-2xl p-3 text-center hover:border-secondary hover:shadow-md cursor-pointer transition-all">
+                                    <div class="bg-slate-100 h-28 rounded-xl mb-3 flex items-center justify-center text-slate-400 text-4xl"><i class="fas fa-plug"></i></div>
+                                    <h5 class="text-sm font-bold text-slate-700 line-clamp-1" title="ปลั๊กไฟตัวเมีย 15-720 ฟิลลิปส์ (SAE J560) +บู้ชยาง">ปลั๊กไฟตัวเมีย 15-720</h5>
+                                    <p class="text-[10px] text-slate-400 mb-1">Code: 32-0001PL15720</p>
+                                    <p class="text-secondary font-bold text-lg">฿351</p>
+                                    <p class="text-xs font-semibold text-emerald-600 mt-1 bg-emerald-50 py-1 rounded"><i class="fas fa-box-open mr-1"></i>Onhand: 42</p>
+                                </div>
+                                <!-- Item 2 -->
+                                <div class="bg-white border border-slate-200 rounded-2xl p-3 text-center hover:border-secondary hover:shadow-md cursor-pointer transition-all">
+                                    <div class="bg-slate-100 h-28 rounded-xl mb-3 flex items-center justify-center text-slate-400 text-4xl"><i class="fas fa-plug"></i></div>
+                                    <h5 class="text-sm font-bold text-slate-700 line-clamp-1" title="ปลั๊กไฟตัวผู้ 15-730 ฟิลลิปส์ (SAE J560)">ปลั๊กไฟตัวผู้ 15-730</h5>
+                                    <p class="text-[10px] text-slate-400 mb-1">Code: 32-0001PL15730</p>
+                                    <p class="text-secondary font-bold text-lg">฿276</p>
+                                    <p class="text-xs font-semibold text-emerald-600 mt-1 bg-emerald-50 py-1 rounded"><i class="fas fa-box-open mr-1"></i>Onhand: 50</p>
+                                </div>
+                                <!-- Item 3 -->
+                                <div class="bg-white border border-slate-200 rounded-2xl p-3 text-center hover:border-secondary hover:shadow-md cursor-pointer transition-all relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">HOT</div>
+                                    <div class="bg-slate-100 h-28 rounded-xl mb-3 flex items-center justify-center text-slate-400 text-4xl"><i class="fas fa-fire-extinguisher"></i></div>
+                                    <h5 class="text-sm font-bold text-slate-700 line-clamp-1" title="กล่องใส่ถังดับเพลิงDAKEN 82130 ฝาล็อคแดง 20ปอนด์">กล่องดับเพลิง 82130 แดง</h5>
+                                    <p class="text-[10px] text-slate-400 mb-1">Code: 64-DAKN821301</p>
+                                    <p class="text-secondary font-bold text-lg">฿1,060</p>
+                                    <p class="text-xs font-semibold text-emerald-600 mt-1 bg-emerald-50 py-1 rounded"><i class="fas fa-box-open mr-1"></i>Onhand: 15</p>
+                                </div>
+                                <!-- Item 4 (Out of stock) -->
+                                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 text-center opacity-60 relative overflow-hidden">
+                                    <div class="bg-slate-200 h-28 rounded-xl mb-3 flex items-center justify-center text-slate-400 text-4xl"><i class="fas fa-fire-extinguisher"></i></div>
+                                    <h5 class="text-sm font-bold text-slate-700 line-clamp-1" title="กล่องใส่ถังดับเพลิงDAKEN 82030 ฝาล็อคดำ 15ปอนด์">กล่องดับเพลิง 82030 ดำ</h5>
+                                    <p class="text-[10px] text-slate-400 mb-1">Code: 64-DAKN82030</p>
+                                    <p class="text-slate-500 font-bold text-lg">฿1,242</p>
+                                    <p class="text-xs font-bold text-red-500 mt-1 bg-red-50 py-1 rounded"><i class="fas fa-times-circle mr-1"></i>สินค้าหมด</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Cart & Checkout (40%) -->
+                        <div class="w-2/5 flex flex-col bg-slate-50">
+                            <!-- Customer Selection -->
+                            <div class="p-3 border-b border-slate-200 bg-white shadow-sm z-10">
+                                <div class="flex justify-between items-center mb-1.5">
+                                    <span class="text-xs font-bold text-slate-600"><i class="fas fa-building mr-1"></i> ข้อมูลลูกค้า</span>
+                                    <button class="text-[10px] text-primary bg-blue-50 px-2 py-1 rounded font-semibold hover:bg-blue-100 transition-colors"><i class="fas fa-exchange-alt mr-1"></i>เปลี่ยน</button>
+                                </div>
+                                <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-full bg-secondary/20 text-primary flex items-center justify-center font-bold text-sm">ม</div>
+                                    <div>
+                                        <div class="font-bold text-primary text-sm line-clamp-1">บจก. เมกาทรานซ์ แอนด์ เซอร์วิส</div>
+                                        <div class="text-[10px] text-slate-500 mt-0.5"><span class="bg-accent/20 text-emerald-700 px-1 py-0.5 rounded mr-1">Grade Y</span>ส่วนลดลูกค้า 5%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Cart Items -->
+                            <div class="flex-1 overflow-y-auto p-3 space-y-2 bg-slate-50/50 custom-scrollbar">
+                                <!-- Cart Item 1 -->
+                                <div class="bg-white p-2.5 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between group hover:border-secondary/50 transition-colors">
+                                    <div class="w-[45%] pr-2">
+                                        <div class="text-sm font-bold text-slate-800 line-clamp-1" title="ปลั๊กไฟตัวเมีย 15-720 ฟิลลิปส์">ปลั๊กไฟตัวเมีย 15-720</div>
+                                        <div class="text-[11px] text-slate-500 mt-0.5">@ ฿351</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 bg-slate-50 rounded-lg p-0.5 border border-slate-200">
+                                        <button class="w-7 h-7 rounded-md bg-white text-slate-600 flex items-center justify-center shadow-sm hover:text-red-500"><i class="fas fa-minus text-[10px]"></i></button>
+                                        <span class="text-sm font-bold w-6 text-center text-primary">4</span>
+                                        <button class="w-7 h-7 rounded-md bg-white text-slate-600 flex items-center justify-center shadow-sm hover:text-emerald-500"><i class="fas fa-plus text-[10px]"></i></button>
+                                    </div>
+                                    <div class="text-sm font-bold text-right w-[25%] text-slate-800">฿1,404</div>
+                                </div>
+                                <!-- Cart Item 2 -->
+                                <div class="bg-white p-2.5 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between group hover:border-secondary/50 transition-colors">
+                                    <div class="w-[45%] pr-2">
+                                        <div class="text-sm font-bold text-slate-800 line-clamp-1" title="ปลั๊กไฟตัวผู้ 15-730 ฟิลลิปส์">ปลั๊กไฟตัวผู้ 15-730</div>
+                                        <div class="text-[11px] text-slate-500 mt-0.5">@ ฿276</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 bg-slate-50 rounded-lg p-0.5 border border-slate-200">
+                                        <button class="w-7 h-7 rounded-md bg-white text-slate-600 flex items-center justify-center shadow-sm hover:text-red-500"><i class="fas fa-minus text-[10px]"></i></button>
+                                        <span class="text-sm font-bold w-6 text-center text-primary">4</span>
+                                        <button class="w-7 h-7 rounded-md bg-white text-slate-600 flex items-center justify-center shadow-sm hover:text-emerald-500"><i class="fas fa-plus text-[10px]"></i></button>
+                                    </div>
+                                    <div class="text-sm font-bold text-right w-[25%] text-slate-800">฿1,104</div>
+                                </div>
+                                <!-- Cart Item 3 -->
+                                <div class="bg-white p-2.5 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between group hover:border-secondary/50 transition-colors">
+                                    <div class="w-[45%] pr-2">
+                                        <div class="text-sm font-bold text-slate-800 line-clamp-1" title="กล่องใส่ถังดับเพลิงDAKEN 82130">กล่องดับเพลิง 82130</div>
+                                        <div class="text-[11px] text-slate-500 mt-0.5">@ ฿1,060</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 bg-slate-50 rounded-lg p-0.5 border border-slate-200">
+                                        <button class="w-7 h-7 rounded-md bg-white text-slate-600 flex items-center justify-center shadow-sm hover:text-red-500"><i class="fas fa-minus text-[10px]"></i></button>
+                                        <span class="text-sm font-bold w-6 text-center text-primary">2</span>
+                                        <button class="w-7 h-7 rounded-md bg-white text-slate-600 flex items-center justify-center shadow-sm hover:text-emerald-500"><i class="fas fa-plus text-[10px]"></i></button>
+                                    </div>
+                                    <div class="text-sm font-bold text-right w-[25%] text-slate-800">฿2,120</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Total & Actions -->
+                            <div class="p-4 bg-white border-t border-slate-200 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.05)] z-10">
+                                <div class="space-y-1.5 mb-3 border-b border-slate-100 pb-3">
+                                    <div class="flex justify-between text-xs text-slate-500 font-medium"><span>รวมมูลค่าสินค้า (10 ชิ้น)</span><span>฿4,628.00</span></div>
+                                    <div class="flex justify-between text-xs text-emerald-600 font-medium"><span>ส่วนลด (Grade Y 5%)</span><span>-฿231.40</span></div>
+                                </div>
+                                <div class="flex justify-between items-end mb-4 text-primary">
+                                    <span class="font-bold text-sm">ยอดสุทธิ</span>
+                                    <span class="text-2xl font-bold tracking-tight">฿4,396.60</span>
+                                </div>
+                                <div class="flex gap-2.5">
+                                    <button class="w-1/3 py-2.5 rounded-xl border-2 border-slate-200 text-slate-600 font-bold bg-white hover:bg-slate-50 text-sm transition-colors flex items-center justify-center flex-col gap-1 active:scale-95">
+                                        <i class="fas fa-save text-lg"></i><span class="text-[11px]">พักบิล</span>
+                                    </button>
+                                    <button class="w-2/3 py-2.5 rounded-xl bg-primary text-white font-bold hover:bg-blue-800 transition-colors shadow-lg shadow-blue-900/20 flex items-center justify-center flex-col gap-1 active:scale-95">
+                                        <i class="fas fa-check-circle text-lg"></i><span class="text-[11px]">ยืนยันคำสั่งซื้อ</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOCKUP 3: DASHBOARD / HISTORY -->
+            <div class="mb-16 print-page-break">
+                <h3 class="text-xl font-bold text-primary mb-4 border-l-4 border-primary pl-3">3. หน้าประวัติและสรุปการขาย (Dashboard / History)</h3>
+                <div class="relative mx-auto bg-slate-900 border-[10px] border-slate-900 rounded-[2.5rem] h-[700px] w-full max-w-5xl shadow-2xl overflow-hidden flex flex-col print:border-[2px] print:border-slate-300 print:shadow-none print:rounded-xl">
+                    <!-- Status Bar -->
+                    <div class="bg-primary text-white px-4 py-2 flex justify-between items-center text-sm shadow-sm z-10">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-bars text-lg cursor-pointer"></i>
+                            <span class="font-bold tracking-wider">WELLPORTAL<span class="text-secondary">POS</span></span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="bg-emerald-500 text-white font-bold px-3 py-1 rounded-full text-xs shadow-sm">
+                                <i class="fas fa-wifi mr-1"></i> ออนไลน์
+                            </span>
+                            <span class="flex items-center"><i class="fas fa-user-circle text-lg mr-2"></i> ปาริชาติ-เปิ้ล (Sales)</span>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="flex flex-1 overflow-hidden bg-slate-50">
+                        <!-- Sidebar Navigation -->
+                        <div class="w-20 bg-white border-r border-slate-200 flex flex-col items-center py-6 space-y-6 text-slate-400">
+                            <div class="p-3 rounded-xl hover:bg-slate-50 hover:text-primary cursor-pointer transition-colors" title="หน้าจอขาย">
+                                <i class="fas fa-shopping-cart text-xl"></i>
+                            </div>
+                            <div class="p-3 rounded-xl bg-primary/10 text-primary cursor-pointer shadow-sm" title="ประวัติการขาย">
+                                <i class="fas fa-history text-xl"></i>
+                            </div>
+                            <div class="p-3 rounded-xl hover:bg-slate-50 hover:text-primary cursor-pointer transition-colors" title="สรุปยอด">
+                                <i class="fas fa-chart-pie text-xl"></i>
+                            </div>
+                            <div class="flex-1"></div>
+                            <div class="p-3 rounded-xl hover:bg-red-50 hover:text-red-500 cursor-pointer transition-colors" title="ออกจากระบบ">
+                                <i class="fas fa-sign-out-alt text-xl"></i>
+                            </div>
+                        </div>
+
+                        <!-- Dashboard Content -->
+                        <div class="flex-1 p-8 overflow-y-auto">
+                            <!-- Header -->
+                            <div class="flex justify-between items-end mb-8">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-slate-800">ประวัติการขาย (Sale History)</h3>
+                                    <p class="text-sm text-slate-500 mt-1">รายการสั่งซื้อประจำวันที่ 16 เมษายน 2026</p>
+                                </div>
+                                <button class="bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-emerald-500/30 hover:bg-emerald-600 transition-all flex items-center gap-2">
+                                    <i class="fas fa-sync-alt"></i> ซิงค์ข้อมูลออฟไลน์ (2)
+                                </button>
+                            </div>
+
+                            <!-- Summary Cards -->
+                            <div class="grid grid-cols-3 gap-6 mb-8">
+                                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center">
+                                    <div class="w-14 h-14 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center text-2xl mr-4"><i class="fas fa-file-invoice-dollar"></i></div>
+                                    <div>
+                                        <p class="text-sm text-slate-500 font-semibold mb-1">ยอดขายวันนี้</p>
+                                        <p class="text-2xl font-bold text-slate-800">฿35,450.00</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center">
+                                    <div class="w-14 h-14 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center text-2xl mr-4"><i class="fas fa-check-circle"></i></div>
+                                    <div>
+                                        <p class="text-sm text-slate-500 font-semibold mb-1">ส่งเข้า ERP แล้ว</p>
+                                        <p class="text-2xl font-bold text-slate-800">12 บิล</p>
+                                    </div>
+                                </div>
+                                <div class="bg-orange-50 p-5 rounded-2xl border border-orange-200 shadow-sm flex items-center relative overflow-hidden">
+                                    <div class="absolute right-0 top-0 w-2 h-full bg-orange-400"></div>
+                                    <div class="w-14 h-14 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-2xl mr-4"><i class="fas fa-cloud-upload-alt"></i></div>
+                                    <div>
+                                        <p class="text-sm text-orange-700 font-semibold mb-1">รอส่ง (Drafts)</p>
+                                        <p class="text-2xl font-bold text-orange-800">2 บิล</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Data Table -->
+                            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+                                <div class="p-4 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
+                                    <h4 class="font-bold text-slate-700"><i class="fas fa-list mr-2 text-slate-400"></i>รายการล่าสุด</h4>
+                                    <div class="relative">
+                                        <i class="fas fa-search absolute left-3 top-2 text-slate-400 text-xs"></i>
+                                        <input type="text" class="bg-white border border-slate-200 rounded-lg py-1.5 pl-8 pr-3 text-sm focus:outline-none focus:border-primary" placeholder="ค้นหาเลขที่บิล...">
+                                    </div>
+                                </div>
+                                <table class="w-full text-left text-sm">
+                                    <thead class="bg-white border-b border-slate-200 text-slate-500">
+                                        <tr>
+                                            <th class="p-4 font-semibold">เลขที่อ้างอิง (Ref)</th>
+                                            <th class="p-4 font-semibold">เวลา</th>
+                                            <th class="p-4 font-semibold">ลูกค้า</th>
+                                            <th class="p-4 font-semibold text-right">ยอดสุทธิ</th>
+                                            <th class="p-4 font-semibold text-center">สถานะ</th>
+                                            <th class="p-4 font-semibold text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        <tr class="hover:bg-slate-50 transition-colors">
+                                            <td class="p-4 font-mono font-bold text-primary">OFF-202604-002</td>
+                                            <td class="p-4 text-slate-500">14:30</td>
+                                            <td class="p-4 font-semibold text-slate-700">บจก. เมกาทรานซ์ แอนด์ เซอร์วิส</td>
+                                            <td class="p-4 font-bold text-right">฿4,396.60</td>
+                                            <td class="p-4 text-center"><span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold"><i class="fas fa-clock mr-1"></i>รอซิงค์</span></td>
+                                            <td class="p-4 text-center"><button class="text-slate-400 hover:text-primary"><i class="fas fa-ellipsis-v"></i></button></td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors">
+                                            <td class="p-4 font-mono font-bold text-primary">OFF-202604-001</td>
+                                            <td class="p-4 text-slate-500">14:15</td>
+                                            <td class="p-4 font-semibold text-slate-700">คุณสิทธิ์มน เพฑูรย์สิทธิชัย</td>
+                                            <td class="p-4 font-bold text-right">฿2,200.00</td>
+                                            <td class="p-4 text-center"><span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold"><i class="fas fa-clock mr-1"></i>รอซิงค์</span></td>
+                                            <td class="p-4 text-center"><button class="text-slate-400 hover:text-primary"><i class="fas fa-ellipsis-v"></i></button></td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors">
+                                            <td class="p-4 font-mono font-bold text-emerald-600">SO-202604-105</td>
+                                            <td class="p-4 text-slate-500">11:20</td>
+                                            <td class="p-4 font-semibold text-slate-700">บจก. เจริญยนต์ขนส่ง</td>
+                                            <td class="p-4 font-bold text-right">฿18,500.00</td>
+                                            <td class="p-4 text-center"><span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold"><i class="fas fa-check-circle mr-1"></i>สำเร็จ (มี SO)</span></td>
+                                            <td class="p-4 text-center"><button class="text-slate-400 hover:text-primary"><i class="fas fa-ellipsis-v"></i></button></td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors">
+                                            <td class="p-4 font-mono font-bold text-emerald-600">SO-202604-104</td>
+                                            <td class="p-4 text-slate-500">09:45</td>
+                                            <td class="p-4 font-semibold text-slate-700">อู่ช่างแมว พระราม 2</td>
+                                            <td class="p-4 font-bold text-right">฿10,353.40</td>
+                                            <td class="p-4 text-center"><span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold"><i class="fas fa-check-circle mr-1"></i>สำเร็จ (มี SO)</span></td>
+                                            <td class="p-4 text-center"><button class="text-slate-400 hover:text-primary"><i class="fas fa-ellipsis-v"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Section 5: System Workflow -->
+        <section>
+            <div class="flex items-center mb-8">
+                <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mr-4">
+                    <i class="fas fa-network-wired text-xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800">สถาปัตยกรรมการไหลของข้อมูล (System Data Flow)</h2>
+            </div>
+
+            <!-- Flow 1 -->
+            <div class="mb-10">
+                <h4 class="text-lg font-bold text-slate-700 mb-4 border-b pb-2">Flow 1: การยืนยันตัวตนและการล็อกอุปกรณ์ (Login & Device Binding)</h4>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border text-center step-card z-10">
+                        <i class="fas fa-user-tie text-2xl text-slate-400 mb-2"></i>
+                        <p class="text-sm font-semibold">1. พนักงาน (iPad)</p>
+                        <p class="text-xs text-slate-500">กรอก AD Username</p>
+                    </div>
+                    <div class="text-center text-slate-300 hidden md:block"><i class="fas fa-chevron-right text-2xl"></i></div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-secondary/50 text-center step-card z-10">
+                        <i class="fas fa-shield-alt text-2xl text-secondary mb-2"></i>
+                        <p class="text-sm font-semibold">2. POS API</p>
+                        <p class="text-xs text-slate-500">ตรวจสอบรหัสผ่าน (AD)</p>
+                    </div>
+                    <div class="text-center text-slate-300 hidden md:block"><i class="fas fa-chevron-right text-2xl"></i></div>
+                    <div class="bg-slate-800 text-white p-4 rounded-lg shadow-sm text-center step-card z-10 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-1"><i class="fas fa-lock text-slate-500/30 text-4xl"></i></div>
+                        <i class="fas fa-fingerprint text-2xl text-accent mb-2"></i>
+                        <p class="text-sm font-semibold">3. Device Check</p>
+                        <p class="text-xs text-slate-300">เทียบ Device UUID ตรงกับเครื่องที่ลงทะเบียนไว้หรือไม่</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flow 2 -->
+            <div class="mb-10">
+                <h4 class="text-lg font-bold text-slate-700 mb-4 border-b pb-2">Flow 2: การเตรียมข้อมูล (Master Data Sync)</h4>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border text-center step-card z-10">
+                        <i class="fas fa-database text-2xl text-purple-500 mb-2"></i>
+                        <p class="text-sm font-semibold">1. ระบบ ERP</p>
+                        <p class="text-xs text-slate-500">อัปเดตข้อมูลลูกค้า/สินค้า/ราคา</p>
+                    </div>
+                    <div class="text-center text-slate-300 hidden md:block"><i class="fas fa-chevron-right text-2xl"></i></div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-secondary/50 text-center step-card z-10">
+                        <i class="fas fa-server text-2xl text-secondary mb-2"></i>
+                        <p class="text-sm font-semibold">2. POS Backend</p>
+                        <p class="text-xs text-slate-500">ดึงข้อมูลมาพักไว้ (Scheduled Job)</p>
+                    </div>
+                    <div class="text-center text-slate-300 hidden md:block"><i class="fas fa-chevron-right text-2xl"></i></div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border text-center step-card z-10">
+                        <i class="fas fa-download text-2xl text-primary mb-2"></i>
+                        <p class="text-sm font-semibold">3. iPad POS (Cache)</p>
+                        <p class="text-xs text-slate-500">ดาวน์โหลดข้อมูลลง Local Storage ตอนมีสัญญาณเน็ต</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flow 3 -->
+            <div>
+                <h4 class="text-lg font-bold text-slate-700 mb-4 border-b pb-2">Flow 3: การขายและส่งคำสั่งซื้อ (Checkout & Sale Order)</h4>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border text-center step-card z-10">
+                        <i class="fas fa-shopping-cart text-2xl text-primary mb-2"></i>
+                        <p class="text-sm font-semibold">1. สั่งซื้อ (iPad)</p>
+                        <p class="text-xs text-slate-500">เลือกลูกค้า -> เลือกสินค้า -> กดยืนยัน (ทำออฟไลน์ได้)</p>
+                    </div>
+                    <div class="text-center text-slate-300 hidden md:block"><i class="fas fa-chevron-right text-2xl"></i></div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-secondary/50 text-center step-card z-10">
+                        <i class="fas fa-network-wired text-2xl text-secondary mb-2"></i>
+                        <p class="text-sm font-semibold">2. WELLPORTAL</p>
+                        <p class="text-xs text-slate-500">รับ JSON API, ตรวจสอบ (Validate), บันทึกประวัติ</p>
+                    </div>
+                    <div class="text-center text-slate-300 hidden md:block"><i class="fas fa-chevron-right text-2xl"></i></div>
+                    <div class="bg-emerald-50 p-4 rounded-lg shadow-sm border border-emerald-200 text-center step-card z-10">
+                        <i class="fas fa-file-invoice-dollar text-2xl text-emerald-600 mb-2"></i>
+                        <p class="text-sm font-semibold text-emerald-800">3. สร้าง Sale Order</p>
+                        <p class="text-xs text-emerald-600">ERP ตัดสต็อก และส่งเลขที่ SO คืนกลับมาที่ iPad</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm print-hidden">
+        <p>Generated by Architecture AI Assistant | WELLPORTAL Project</p>
+    </footer>
+
+</body>
+</html>
