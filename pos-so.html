@@ -56,9 +56,71 @@
     <div class="relative bg-slate-100 w-full h-full flex flex-col overflow-hidden max-w-[1366px] mx-auto shadow-2xl">
         
         <!-- ========================================== -->
+        <!-- ORDER DETAILS MODAL (Hidden by default) -->
+        <!-- ========================================== -->
+        <div id="modal-order-details" class="hidden absolute inset-0 z-[60] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center transition-opacity">
+            <div class="bg-white rounded-2xl shadow-2xl w-[700px] max-h-[85%] flex flex-col overflow-hidden transform transition-all animate-[fadeIn_0.2s_ease-out]">
+                <!-- Header -->
+                <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xl">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800 leading-tight">รายละเอียดคำสั่งซื้อ</h3>
+                            <p id="modal-order-ref" class="text-sm font-mono font-bold text-primary leading-tight"></p>
+                        </div>
+                    </div>
+                    <button onclick="document.getElementById('modal-order-details').classList.add('hidden')" class="text-slate-400 hover:text-red-500 hover:bg-red-50 w-10 h-10 rounded-full transition-colors flex items-center justify-center">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <!-- Body -->
+                <div class="p-6 overflow-y-auto custom-scrollbar flex-1 bg-white">
+                    <div class="flex justify-between items-center text-sm mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <div>
+                            <div class="text-slate-500 mb-1"><i class="fas fa-user-circle mr-1"></i> ลูกค้า</div>
+                            <div id="modal-order-cust" class="font-semibold text-slate-800 text-base"></div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-slate-500 mb-1"><i class="fas fa-clock mr-1"></i> เวลาทำรายการ</div>
+                            <div id="modal-order-time" class="font-semibold text-slate-800 text-base"></div>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-slate-700 mb-3"><i class="fas fa-box-open text-slate-400 mr-2"></i>รายการสินค้า</h4>
+                    <div class="border border-slate-200 rounded-xl overflow-hidden">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-slate-50 text-slate-600 border-b border-slate-200">
+                                <tr>
+                                    <th class="py-3 px-4 font-semibold">สินค้า</th>
+                                    <th class="py-3 px-4 font-semibold text-center w-24">จำนวน</th>
+                                    <th class="py-3 px-4 font-semibold text-right w-32">ราคา/หน่วย</th>
+                                    <th class="py-3 px-4 font-semibold text-right w-32">รวม</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modal-order-items" class="divide-y divide-slate-100">
+                                <!-- Items injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Footer -->
+                <div class="px-6 py-5 border-t border-slate-200 bg-slate-50 flex justify-between items-center shadow-[0_-5px_15px_rgba(0,0,0,0.02)] z-10">
+                    <div class="flex items-center gap-2">
+                        <span id="modal-order-status" class=""></span>
+                    </div>
+                    <div class="text-right flex items-center gap-4">
+                        <span class="font-bold text-slate-600 text-lg">ยอดสุทธิ</span>
+                        <span id="modal-order-total" class="font-bold text-3xl text-primary tracking-tight"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
         <!-- VIEW 0: LOGIN -->
         <!-- ========================================== -->
-        <!-- แก้ไข: เอาคลาส flex ออกเพื่อให้ display: none ทำงานได้เมื่อถอดคลาส active -->
         <div id="view-login" class="view-section active absolute inset-0 z-50 items-center justify-center bg-slate-50" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
             <div class="bg-white p-10 rounded-3xl shadow-xl w-[420px] z-10 border border-slate-100">
                 <div class="text-center mb-8">
@@ -99,9 +161,8 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- APP CONTAINER (Shown after login) -->
+        <!-- APP CONTAINER -->
         <!-- ========================================== -->
-        <!-- แก้ไข: นำคลาส flex ออกชั่วคราว เพื่อควบคุมผ่าน JS ล้วนๆ ป้องกันการโผล่ทับซ้อน -->
         <div id="app-container" class="hidden h-full w-full">
             
             <!-- SIDEBAR NAVIGATION -->
@@ -281,15 +342,15 @@
                     </div>
 
                     <!-- History Table -->
-                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex-1">
+                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex-1 flex flex-col">
                         <div class="p-4 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
-                            <h4 class="font-bold text-slate-700"><i class="fas fa-list mr-2 text-slate-400"></i>รายการบิลล่าสุด</h4>
+                            <h4 class="font-bold text-slate-700"><i class="fas fa-list mr-2 text-slate-400"></i>รายการบิลล่าสุด <span class="text-xs text-slate-400 ml-2 font-normal">(แตะที่รายการเพื่อดูรายละเอียดสินค้า)</span></h4>
                             <div class="relative">
                                 <i class="fas fa-search absolute left-3 top-2 text-slate-400 text-xs"></i>
                                 <input type="text" class="bg-white border border-slate-200 rounded-lg py-1.5 pl-8 pr-3 text-sm focus:outline-none focus:border-primary" placeholder="ค้นหาบิล...">
                             </div>
                         </div>
-                        <div class="overflow-x-auto">
+                        <div class="overflow-x-auto flex-1">
                             <table class="w-full text-left text-sm whitespace-nowrap">
                                 <thead class="bg-white border-b border-slate-200 text-slate-500">
                                     <tr>
@@ -298,6 +359,7 @@
                                         <th class="p-4 font-semibold">ลูกค้า</th>
                                         <th class="p-4 font-semibold text-right">ยอดสุทธิ</th>
                                         <th class="p-4 font-semibold text-center">สถานะ</th>
+                                        <th class="p-4 font-semibold text-center w-10"></th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100" id="history-table-body">
@@ -389,9 +451,21 @@
                 ],
                 cart: [],
                 currentCategory: 'ALL',
+                // Added "items" to history data
                 history: [
-                    { ref: 'SO-2604001', time: '10:30', cust: 'คุณสิทธิ์มน เพฑูรย์สิทธิชัย', total: 2200, status: 'synced' },
-                    { ref: 'OFF-2604001', time: '11:15', cust: 'บจก. เจริญยนต์ขนส่ง', total: 8450, status: 'draft' }
+                    { 
+                        ref: 'SO-2604001', time: '10:30', cust: 'คุณสิทธิ์มน เพฑูรย์สิทธิชัย', total: 2014, status: 'synced',
+                        items: [
+                            { name: 'กล่องดับเพลิง 82130 แดง', qty: 2, price: 1060 }
+                        ] 
+                    },
+                    { 
+                        ref: 'OFF-2604001', time: '11:15', cust: 'บจก. เจริญยนต์ขนส่ง', total: 8450, status: 'draft',
+                        items: [
+                            { name: 'น็อตล้อหน้า HINO (แพ็ค 10)', qty: 10, price: 450 },
+                            { name: 'กล่องใส่ถังดับเพลิง SLIDEN', qty: 2, price: 2195 }
+                        ]
+                    }
                 ],
                 runningOfflineNo: 2
             };
@@ -521,13 +595,15 @@
                         
                         const refClass = isDraft ? 'text-primary' : 'text-accent';
 
+                        // Added cursor-pointer and onclick event
                         tbody.innerHTML += `
-                            <tr class="hover:bg-slate-50 transition-colors">
+                            <tr class="hover:bg-blue-50 transition-colors cursor-pointer group" onclick="APP.viewOrderDetails('${row.ref}')">
                                 <td class="p-3 font-mono font-bold ${refClass}">${row.ref}</td>
                                 <td class="p-3 text-slate-500">${row.time}</td>
                                 <td class="p-3 font-semibold text-slate-700 truncate max-w-[200px]">${row.cust}</td>
                                 <td class="p-3 font-bold text-right text-slate-800">${formatMoney(row.total)}</td>
                                 <td class="p-3 text-center">${statusHtml}</td>
+                                <td class="p-3 text-center text-slate-300 group-hover:text-primary transition-colors"><i class="fas fa-chevron-right"></i></td>
                             </tr>
                         `;
                     });
@@ -589,7 +665,6 @@
                 switchView: UI.switchView,
 
                 // Auth
-                // แก้ไข: ควบคุม app-container ผ่าน JS ให้แม่นยำขึ้นป้องกันการซ้อนทับกัน
                 login: () => {
                     Swal.fire({ title: 'กำลังตรวจสอบสิทธิ์...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
                     setTimeout(() => {
@@ -652,14 +727,15 @@
                     Swal.fire({ title: 'กำลังบันทึกข้อมูล...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
 
                     setTimeout(() => {
-                        // Push to history
+                        // Push to history with items
                         const refNo = STATE.isOffline ? `OFF-260400${STATE.runningOfflineNo++}` : `SO-260400${Math.floor(Math.random()*10)+5}`;
                         STATE.history.push({
                             ref: refNo,
                             time: getCurrentTime(),
                             cust: STATE.customer.name,
                             total: grandTotal,
-                            status: STATE.isOffline ? 'draft' : 'synced'
+                            status: STATE.isOffline ? 'draft' : 'synced',
+                            items: JSON.parse(JSON.stringify(STATE.cart)) // Deep copy items
                         });
 
                         // Clear cart
@@ -674,7 +750,7 @@
                     }, 1000);
                 },
 
-                // Settings Logic
+                // Settings & Data Logic
                 forceSyncMaster: () => {
                     if(STATE.isOffline) return APP.showError('ไม่สามารถเชื่อมต่อได้', 'กรุณาเปลี่ยนเป็นโหมดออนไลน์ก่อนทำการซิงค์ข้อมูล');
                     Swal.fire({ title: 'กำลังดึงข้อมูลจาก ERP...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
@@ -694,6 +770,46 @@
                         UI.renderHistory();
                         Swal.fire({ icon: 'success', title: 'ซิงค์ข้อมูลสำเร็จ', text: 'ส่งบิลเข้าสู่ระบบ ERP เรียบร้อยแล้ว', confirmButtonColor: '#059669' });
                     }, 2000);
+                },
+
+                // View Order Details
+                viewOrderDetails: (ref) => {
+                    const order = STATE.history.find(h => h.ref === ref);
+                    if (!order) return;
+
+                    // Set header info
+                    document.getElementById('modal-order-ref').innerText = order.ref;
+                    document.getElementById('modal-order-cust').innerText = order.cust;
+                    document.getElementById('modal-order-time').innerText = order.time;
+                    document.getElementById('modal-order-total').innerText = formatMoney(order.total);
+
+                    // Set Status Badges
+                    const isDraft = order.status === 'draft';
+                    document.getElementById('modal-order-status').innerHTML = isDraft 
+                        ? `<span class="bg-orange-100 text-admin px-3 py-1 rounded-full text-xs font-bold border border-orange-200"><i class="fas fa-clock mr-1"></i>รอส่งข้อมูล (Draft)</span>`
+                        : `<span class="bg-emerald-100 text-accent px-3 py-1 rounded-full text-xs font-bold border border-emerald-200"><i class="fas fa-check-circle mr-1"></i>เข้าระบบ ERP สำเร็จ</span>`;
+
+                    // Render Items
+                    const tbody = document.getElementById('modal-order-items');
+                    tbody.innerHTML = '';
+                    
+                    if (order.items && order.items.length > 0) {
+                        order.items.forEach(item => {
+                            tbody.innerHTML += `
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="py-3 px-4 font-semibold text-slate-700">${item.name}</td>
+                                    <td class="py-3 px-4 text-center font-bold text-primary">${item.qty}</td>
+                                    <td class="py-3 px-4 text-right text-slate-500">${formatMoney(item.price)}</td>
+                                    <td class="py-3 px-4 text-right font-bold text-slate-800">${formatMoney(item.price * item.qty)}</td>
+                                </tr>
+                            `;
+                        });
+                    } else {
+                        tbody.innerHTML = `<tr><td colspan="4" class="py-6 text-center text-slate-400">ไม่พบข้อมูลสินค้ารายย่อย</td></tr>`;
+                    }
+
+                    // Show Modal
+                    document.getElementById('modal-order-details').classList.remove('hidden');
                 }
             };
         })();
