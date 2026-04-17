@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iPad POS Prototype - Wellinterparts</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Google Fonts: Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Prompt', 'sans-serif'] },
+                    colors: {
+                        primary: '#1e3a8a', // blue-900
+                        secondary: '#3b82f6', // blue-500
+                        accent: '#059669', // emerald-600
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Prompt', sans-serif; overflow: hidden; background-color: #000; }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        
+        /* Disable text selection for app-like feel */
+        .unselectable {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Active click effect */
+        .active-scale:active { transform: scale(0.97); }
+    </style>
+</head>
+<body class="unselectable flex items-center justify-center h-screen w-screen">
+
+    <!-- iPad Wrapper (Simulating the device screen) -->
+    <div class="relative bg-slate-100 w-full h-full flex flex-col overflow-hidden max-w-[1366px] mx-auto shadow-2xl">
+        
+        <!-- ========================================== -->
+        <!-- 1. STATUS BAR (HEADER) -->
+        <!-- ========================================== -->
+        <div class="bg-primary text-white px-5 py-3 flex justify-between items-center shadow-md z-20">
+            <div class="flex items-center gap-4">
+                <i class="fas fa-bars text-2xl cursor-pointer hover:text-blue-300 transition-colors"></i>
+                <span class="font-bold text-xl tracking-wider flex items-center gap-2">
+                    <i class="fas fa-truck-moving"></i> WELLPORTAL<span class="text-secondary">POS</span>
+                </span>
+            </div>
+            <div class="flex items-center gap-6">
+                <!-- Toggle Mode Button -->
+                <button id="btn-toggle-network" class="bg-amber-500 text-amber-950 font-bold px-4 py-1.5 rounded-full text-sm shadow-sm hover:bg-amber-400 transition-colors active-scale flex items-center gap-2">
+                    <i class="fas fa-wifi-slash" id="network-icon"></i> <span id="network-text">โหมดออฟไลน์</span>
+                </button>
+                <div class="flex items-center gap-2 bg-blue-800/50 px-3 py-1.5 rounded-lg border border-blue-700">
+                    <i class="fas fa-user-circle text-2xl text-blue-200"></i> 
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-sm font-semibold">ปาริชาติ-เปิ้ล</span>
+                        <span class="text-[10px] text-blue-300">Sales Rep</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- MAIN APP CONTENT (SPLIT VIEW) -->
+        <!-- ========================================== -->
+        <div class="flex flex-1 overflow-hidden">
+            
+            <!-- ----------------------------------------- -->
+            <!-- LEFT PANEL: PRODUCT CATALOG (60%) -->
+            <!-- ----------------------------------------- -->
+            <div class="w-3/5 flex flex-col bg-white border-r border-slate-200 z-10">
+                
+                <!-- Search & Filters -->
+                <div class="p-4 border-b border-slate-100 shadow-sm z-10">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-4 top-4 text-slate-400 text-lg"></i>
+                        <input type="text" id="inp-search" class="w-full bg-slate-100 rounded-xl py-3.5 pl-12 pr-12 outline-none focus:ring-2 focus:ring-secondary/50 focus:bg-white transition-all text-lg border border-transparent focus:border-secondary/30" placeholder="ค้นหาอะไหล่, รหัสสินค้า, หรือสแกนบาร์โค้ด...">
+                        <i class="fas fa-barcode absolute right-4 top-4 text-primary text-lg cursor-pointer hover:text-secondary"></i>
+                    </div>
+                    
+                    <!-- Category Chips -->
+                    <div class="flex gap-2 mt-4 overflow-x-auto pb-1 no-scrollbar" id="category-filters">
+                        <button class="filter-btn bg-primary text-white px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap shadow-sm active-scale" data-cat="ALL">ทั้งหมด</button>
+                        <button class="filter-btn bg-slate-100 text-slate-600 hover:bg-slate-200 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors border border-slate-200 active-scale" data-cat="PHILLIPS">อุปกรณ์ไฟฟ้า (PHILLIPS)</button>
+                        <button class="filter-btn bg-slate-100 text-slate-600 hover:bg-slate-200 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors border border-slate-200 active-scale" data-cat="DAKEN">กล่องดับเพลิง (DAKEN)</button>
+                        <button class="filter-btn bg-slate-100 text-slate-600 hover:bg-slate-200 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors border border-slate-200 active-scale" data-cat="WIP">อุปกรณ์อื่นๆ (WIP)</button>
+                    </div>
+                </div>
+                
+                <!-- Product Grid -->
+                <div class="flex-1 overflow-y-auto p-5 bg-slate-50/50 custom-scrollbar">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="product-grid">
+                        <!-- Products will be injected here via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ----------------------------------------- -->
+            <!-- RIGHT PANEL: CART & CHECKOUT (40%) -->
+            <!-- ----------------------------------------- -->
+            <div class="w-2/5 flex flex-col bg-slate-50 relative">
+                
+                <!-- Customer Info Block -->
+                <div class="p-4 border-b border-slate-200 bg-white shadow-sm z-10">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold text-slate-600"><i class="fas fa-building text-primary mr-1"></i> ข้อมูลลูกค้า</span>
+                        <button class="text-xs text-primary bg-blue-50 px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-100 transition-colors active-scale"><i class="fas fa-exchange-alt mr-1"></i>เปลี่ยนลูกค้า</button>
+                    </div>
+                    <!-- Customer Card -->
+                    <div class="bg-gradient-to-r from-slate-50 to-white p-3 rounded-xl border border-slate-200 flex items-center gap-3 shadow-sm cursor-pointer hover:border-primary/30 transition-colors">
+                        <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xl shadow-inner">ม</div>
+                        <div class="flex-1">
+                            <div class="font-bold text-primary text-base line-clamp-1">บจก. เมกาทรานซ์ แอนด์ เซอร์วิส</div>
+                            <div class="text-xs text-slate-500 mt-1 flex items-center gap-2">
+                                <span class="bg-accent/10 text-accent border border-accent/20 px-2 py-0.5 rounded font-bold">Grade Y</span>
+                                <span>ส่วนลด 5%</span>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right text-slate-300"></i>
+                    </div>
+                </div>
+                
+                <!-- Cart Items Area -->
+                <div class="flex-1 overflow-y-auto p-4 bg-slate-50 custom-scrollbar" id="cart-container">
+                    <!-- Cart items injected here -->
+                    <div id="empty-cart" class="h-full flex flex-col items-center justify-center text-slate-400 opacity-70">
+                        <i class="fas fa-shopping-basket text-6xl mb-4 text-slate-300"></i>
+                        <p class="text-lg font-medium">ยังไม่มีสินค้าในตะกร้า</p>
+                        <p class="text-sm mt-1">แตะที่รูปสินค้าด้านซ้ายเพื่อเพิ่มรายการ</p>
+                    </div>
+                </div>
+                
+                <!-- Checkout Footer -->
+                <div class="bg-white border-t border-slate-200 shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.05)] z-20">
+                    <!-- Calculations -->
+                    <div class="p-5 pb-3">
+                        <div class="space-y-2 mb-3 border-b border-slate-100 pb-3">
+                            <div class="flex justify-between text-sm text-slate-500 font-medium">
+                                <span>รวมมูลค่าสินค้า (<span id="txt-total-items">0</span> ชิ้น)</span>
+                                <span id="txt-subtotal">฿0.00</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-accent font-medium">
+                                <span>ส่วนลด (Grade Y 5%)</span>
+                                <span id="txt-discount">-฿0.00</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-end text-primary">
+                            <span class="font-bold text-lg">ยอดสุทธิ</span>
+                            <span class="text-4xl font-bold tracking-tight" id="txt-grandtotal">฿0.00</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="p-4 pt-0 flex gap-3">
+                        <button class="w-1/3 py-4 rounded-xl border-2 border-slate-200 text-slate-600 font-bold bg-white hover:bg-slate-50 text-base transition-colors flex items-center justify-center flex-col gap-1 active-scale" onclick="POS.clearCart()">
+                            <i class="fas fa-trash-alt text-xl mb-1"></i> ล้างตะกร้า
+                        </button>
+                        <button class="w-2/3 py-4 rounded-xl bg-primary text-white font-bold hover:bg-blue-800 transition-colors shadow-lg shadow-blue-900/20 flex items-center justify-center flex-col gap-1 active-scale text-lg" onclick="POS.checkout()">
+                            <i class="fas fa-check-circle text-xl mb-1"></i> ยืนยันคำสั่งซื้อ
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC (Wellportal Pattern Style) -->
+    <!-- ========================================== -->
+    <script>
+        const POS = (function() {
+            // --- 1. STATE (Mock Data & Variables) ---
+            const STATE = {
+                customer: { name: 'บจก. เมกาทรานซ์ แอนด์ เซอร์วิส', grade: 'Y', discountPercent: 5 },
+                products: [
+                    { id: 'P01', code: '32-0001PL15720', name: 'ปลั๊กไฟตัวเมีย 15-720', brand: 'PHILLIPS', price: 351, onhand: 42, icon: 'fa-plug', badge: '' },
+                    { id: 'P02', code: '32-0001PL15730', name: 'ปลั๊กไฟตัวผู้ 15-730', brand: 'PHILLIPS', price: 276, onhand: 50, icon: 'fa-plug', badge: '' },
+                    { id: 'D01', code: '64-DAKN821301', name: 'กล่องดับเพลิง 82130 ฝาล็อคแดง', brand: 'DAKEN', price: 1060, onhand: 15, icon: 'fa-fire-extinguisher', badge: 'HOT' },
+                    { id: 'D02', code: '64-DAKN82030', name: 'กล่องดับเพลิง 82030 ฝาล็อคดำ', brand: 'DAKEN', price: 1242, onhand: 0, icon: 'fa-fire-extinguisher', badge: 'OUT' },
+                    { id: 'W01', code: 'WIP-NUT-001', name: 'น็อตล้อหน้า HINO (แพ็ค 10)', brand: 'WIP', price: 450, onhand: 100, icon: 'fa-ring', badge: '' },
+                    { id: 'D03', code: '64-DAKN82420', name: 'กล่องใส่ถังดับเพลิง 82420 SLIDEN', brand: 'DAKEN', price: 2195, onhand: 5, icon: 'fa-box', badge: '' }
+                ],
+                cart: [],
+                currentCategory: 'ALL'
+            };
+
+            // --- 2. UTILS ---
+            const formatMoney = (amount) => {
+                return new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(amount);
+            };
+
+            // --- 3. UI RENDERING ---
+            const UI = {
+                renderProducts: () => {
+                    const grid = document.getElementById('product-grid');
+                    grid.innerHTML = '';
+                    
+                    const filteredProducts = STATE.currentCategory === 'ALL' 
+                        ? STATE.products 
+                        : STATE.products.filter(p => p.brand === STATE.currentCategory);
+
+                    filteredProducts.forEach(p => {
+                        const isOut = p.onhand === 0;
+                        const badgeHtml = p.badge === 'HOT' 
+                            ? `<div class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl shadow-sm"><i class="fas fa-fire mr-1"></i>HOT</div>`
+                            : '';
+                        
+                        const stockHtml = isOut
+                            ? `<p class="text-xs font-bold text-red-500 mt-2 bg-red-50 py-1.5 rounded-lg"><i class="fas fa-times-circle mr-1"></i>สินค้าหมด</p>`
+                            : `<p class="text-xs font-semibold text-accent mt-2 bg-emerald-50 py-1.5 rounded-lg border border-emerald-100"><i class="fas fa-box-open mr-1"></i>Onhand: ${p.onhand}</p>`;
+
+                        const cardClass = isOut 
+                            ? 'bg-slate-50 border-slate-200 opacity-70 grayscale-[30%]' 
+                            : 'bg-white border-slate-200 hover:border-secondary hover:shadow-lg cursor-pointer active-scale';
+
+                        const html = `
+                            <div class="border rounded-2xl p-4 text-center transition-all relative overflow-hidden flex flex-col h-full ${cardClass}" 
+                                 ${!isOut ? `onclick="POS.addToCart('${p.id}')"` : `onclick="POS.showOutOfStock()"`}>
+                                ${badgeHtml}
+                                <div class="bg-slate-100 h-28 rounded-xl mb-3 flex items-center justify-center text-slate-400 text-5xl">
+                                    <i class="fas ${p.icon}"></i>
+                                </div>
+                                <h5 class="text-sm font-bold text-slate-700 line-clamp-2 leading-snug flex-1">${p.name}</h5>
+                                <p class="text-[10px] text-slate-400 mb-1 mt-1 font-mono">${p.code}</p>
+                                <p class="text-secondary font-bold text-xl">${formatMoney(p.price)}</p>
+                                ${stockHtml}
+                            </div>
+                        `;
+                        grid.innerHTML += html;
+                    });
+                },
+
+                renderCart: () => {
+                    const container = document.getElementById('cart-container');
+                    const emptyState = document.getElementById('empty-cart');
+                    
+                    // Remove existing items, keep empty state hidden/shown
+                    Array.from(container.children).forEach(child => {
+                        if (child.id !== 'empty-cart') child.remove();
+                    });
+
+                    if (STATE.cart.length === 0) {
+                        emptyState.style.display = 'flex';
+                    } else {
+                        emptyState.style.display = 'none';
+                        
+                        STATE.cart.forEach(item => {
+                            const html = `
+                                <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between group hover:border-secondary/50 transition-colors mb-2">
+                                    <div class="w-[45%] pr-2">
+                                        <div class="text-sm font-bold text-slate-800 line-clamp-1">${item.name}</div>
+                                        <div class="text-[11px] text-slate-500 mt-0.5">@ ${formatMoney(item.price)}</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 bg-slate-50 rounded-lg p-1 border border-slate-200">
+                                        <button class="w-8 h-8 rounded-md bg-white text-slate-600 flex items-center justify-center shadow-sm hover:text-red-500 active-scale" onclick="POS.updateQty('${item.id}', -1)">
+                                            <i class="fas ${item.qty === 1 ? 'fa-trash-alt' : 'fa-minus'} text-xs"></i>
+                                        </button>
+                                        <span class="text-sm font-bold w-8 text-center text-primary">${item.qty}</span>
+                                        <button class="w-8 h-8 rounded-md bg-white text-slate-600 flex items-center justify-center shadow-sm hover:text-accent active-scale" onclick="POS.updateQty('${item.id}', 1)">
+                                            <i class="fas fa-plus text-xs"></i>
+                                        </button>
+                                    </div>
+                                    <div class="text-sm font-bold text-right w-[25%] text-slate-800">${formatMoney(item.price * item.qty)}</div>
+                                </div>
+                            `;
+                            container.insertAdjacentHTML('beforeend', html);
+                        });
+                    }
+                    
+                    UI.calculateTotals();
+                },
+
+                calculateTotals: () => {
+                    let totalItems = 0;
+                    let subtotal = 0;
+                    
+                    STATE.cart.forEach(item => {
+                        totalItems += item.qty;
+                        subtotal += (item.price * item.qty);
+                    });
+
+                    let discountAmount = subtotal * (STATE.customer.discountPercent / 100);
+                    let grandTotal = subtotal - discountAmount;
+
+                    document.getElementById('txt-total-items').innerText = totalItems;
+                    document.getElementById('txt-subtotal').innerText = formatMoney(subtotal);
+                    document.getElementById('txt-discount').innerText = '-' + formatMoney(discountAmount);
+                    document.getElementById('txt-grandtotal').innerText = formatMoney(grandTotal);
+                }
+            };
+
+            // --- 4. EXPOSED METHODS (API) ---
+            return {
+                init: () => {
+                    UI.renderProducts();
+                    UI.renderCart();
+                    
+                    // Bind Category Filters
+                    document.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            // Reset classes
+                            document.querySelectorAll('.filter-btn').forEach(b => {
+                                b.classList.remove('bg-primary', 'text-white');
+                                b.classList.add('bg-slate-100', 'text-slate-600');
+                            });
+                            // Set active class
+                            e.target.classList.remove('bg-slate-100', 'text-slate-600');
+                            e.target.classList.add('bg-primary', 'text-white');
+                            
+                            STATE.currentCategory = e.target.getAttribute('data-cat');
+                            UI.renderProducts();
+                        });
+                    });
+
+                    // Fake Network Toggle
+                    const netBtn = document.getElementById('btn-toggle-network');
+                    let isOffline = true;
+                    netBtn.addEventListener('click', () => {
+                        isOffline = !isOffline;
+                        if(isOffline) {
+                            netBtn.classList.replace('bg-emerald-500', 'bg-amber-500');
+                            netBtn.classList.replace('text-emerald-950', 'text-amber-950');
+                            document.getElementById('network-icon').className = 'fas fa-wifi-slash';
+                            document.getElementById('network-text').innerText = 'โหมดออฟไลน์';
+                        } else {
+                            netBtn.classList.replace('bg-amber-500', 'bg-emerald-500');
+                            netBtn.classList.replace('text-amber-950', 'text-emerald-950');
+                            document.getElementById('network-icon').className = 'fas fa-wifi';
+                            document.getElementById('network-text').innerText = 'โหมดออนไลน์';
+                        }
+                    });
+                },
+
+                addToCart: (productId) => {
+                    const product = STATE.products.find(p => p.id === productId);
+                    const existingItem = STATE.cart.find(c => c.id === productId);
+
+                    if (existingItem) {
+                        if (existingItem.qty < product.onhand) {
+                            existingItem.qty++;
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'สต็อกไม่พอ!',
+                                text: `สินค้านี้มีในคลังเพียง ${product.onhand} ชิ้น`,
+                                confirmButtonColor: '#1e3a8a',
+                                confirmButtonText: 'ตกลง'
+                            });
+                            return;
+                        }
+                    } else {
+                        STATE.cart.push({ ...product, qty: 1 });
+                    }
+                    
+                    UI.renderCart();
+                },
+
+                updateQty: (productId, delta) => {
+                    const itemIndex = STATE.cart.findIndex(c => c.id === productId);
+                    const product = STATE.products.find(p => p.id === productId);
+                    
+                    if (itemIndex > -1) {
+                        const newQty = STATE.cart[itemIndex].qty + delta;
+                        
+                        if (newQty <= 0) {
+                            STATE.cart.splice(itemIndex, 1); // Remove item
+                        } else if (newQty > product.onhand) {
+                            Swal.fire({ icon: 'warning', title: 'เกินจำนวนสต็อก!', timer: 1500, showConfirmButton: false });
+                        } else {
+                            STATE.cart[itemIndex].qty = newQty;
+                        }
+                        UI.renderCart();
+                    }
+                },
+
+                clearCart: () => {
+                    if(STATE.cart.length === 0) return;
+                    Swal.fire({
+                        title: 'ยืนยันการล้างตะกร้า?',
+                        text: "รายการสินค้าทั้งหมดจะถูกลบออก",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#cbd5e1',
+                        confirmButtonText: 'ล้างตะกร้า',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            STATE.cart = [];
+                            UI.renderCart();
+                        }
+                    });
+                },
+
+                showOutOfStock: () => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'สินค้าหมด',
+                        text: 'ไม่สามารถเพิ่มสินค้านี้ลงในตะกร้าได้',
+                        confirmButtonColor: '#1e3a8a',
+                        confirmButtonText: 'ตกลง'
+                    });
+                },
+
+                checkout: () => {
+                    if (STATE.cart.length === 0) {
+                        Swal.fire({ icon: 'info', title: 'ตะกร้าว่างเปล่า', text: 'กรุณาเลือกสินค้าก่อนทำการสั่งซื้อ', confirmButtonColor: '#1e3a8a' });
+                        return;
+                    }
+
+                    const isOffline = document.getElementById('network-icon').classList.contains('fa-wifi-slash');
+                    
+                    Swal.fire({
+                        title: 'กำลังบันทึกข้อมูล...',
+                        allowOutsideClick: false,
+                        didOpen: () => { Swal.showLoading() }
+                    });
+
+                    // Simulate API Call Delay
+                    setTimeout(() => {
+                        STATE.cart = [];
+                        UI.renderCart();
+
+                        if (isOffline) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'บันทึกออฟไลน์สำเร็จ',
+                                html: 'ระบบได้พักบิลไว้ที่ <b>Draft</b><br>รอการเชื่อมต่ออินเทอร์เน็ตเพื่อส่งเข้า ERP',
+                                confirmButtonColor: '#059669',
+                                confirmButtonText: 'ตกลง'
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'สร้าง Sale Order สำเร็จ!',
+                                html: 'เลขที่เอกสาร: <b class="text-primary font-mono text-xl">SO-2604001</b><br>ข้อมูลถูกส่งเข้า ERP เรียบร้อยแล้ว',
+                                confirmButtonColor: '#059669',
+                                confirmButtonText: 'พิมพ์ใบเสร็จ'
+                            });
+                        }
+                    }, 1500);
+                }
+            };
+        })();
+
+        // Bootstrap App
+        window.onload = POS.init;
+    </script>
+</body>
+</html>
