@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS System Sitemap & Architecture</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Base Reset & Variables */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary: #1e3a8a;    /* Blue 900 */
+            --secondary: #3b82f6;  /* Blue 500 */
+            --accent: #059669;     /* Emerald 600 */
+            --admin: #ea580c;      /* Orange 600 */
+            --text-dark: #0f172a;  /* Slate 900 */
+            --text-light: #64748b; /* Slate 500 */
+            --bg-body: #cbd5e1;
+            --bg-slide: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+            min-height: 100vh;
+            padding: 40px 0;
+            place-items: center;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        /* Slide Container */
+        .slide-container {
+            background-color: var(--bg-slide);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            height: 720px;
+            width: 1280px;
+            position: relative;
+            overflow: hidden;
+            padding: 60px 80px;
+        }
+
+        /* Top Gradient Bar */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 12px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            z-index: 10;
+        }
+
+        /* Typography */
+        h1, h2, h3 { font-family: 'Poppins', 'Prompt', sans-serif; color: var(--text-dark); font-weight: 700; line-height: 1.3; }
+        h1 { font-size: 54px; margin-bottom: 20px; }
+        h2.slide-title { font-size: 42px; margin-bottom: 40px; position: relative; padding-bottom: 15px; }
+        h2.slide-title::after {
+            content: ''; position: absolute;
+            left: 0; bottom: 0;
+            width: 80px; height: 4px;
+            background-color: var(--secondary);
+        }
+        p, li { font-size: 20px; color: #334155; line-height: 1.6; font-weight: 300; margin-bottom: 15px; }
+        .text-primary { color: var(--primary); }
+        .text-secondary { color: var(--secondary); }
+        .text-accent { color: var(--accent); }
+        
+        .content-area { display: flex; flex-direction: column; flex-grow: 1; width: 100%; height: 100%; }
+
+        /* Full Background Image */
+        .full-bg-image { background-size: cover; background-position: center; }
+        .full-bg-image::after {
+            content: ''; position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 58, 138, 0.85) 100%);
+            z-index: 1;
+        }
+        .full-bg-image .content-overlay { position: relative; z-index: 2; color: #ffffff; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .full-bg-image h1, .full-bg-image p { color: #ffffff; }
+
+        /* Two Columns Layout */
+        .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; height: 100%; }
+        
+        /* Module Cards */
+        .module-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 6px solid var(--secondary);
+            transition: transform 0.2s;
+        }
+        .module-card:hover { transform: translateX(10px); }
+        .module-card.admin-card { border-left-color: var(--admin); }
+        .module-card h3 { font-size: 24px; margin-bottom: 10px; display: flex; items-center; gap: 15px; }
+        .module-card ul { margin-left: 20px; margin-bottom: 0; }
+        .module-card li { font-size: 18px; margin-bottom: 5px; }
+
+        /* ---- CSS TREE DIAGRAM SITEMAP ---- */
+        .tree-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .tree ul {
+            padding-top: 30px; position: relative;
+            display: flex; justify-content: center;
+        }
+        .tree li {
+            float: left; text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 30px 10px 0 10px;
+        }
+        /* Connectors */
+        .tree li::before, .tree li::after {
+            content: ''; position: absolute; top: 0; right: 50%;
+            border-top: 2px solid #94a3b8;
+            width: 50%; height: 30px;
+        }
+        .tree li::after {
+            right: auto; left: 50%;
+            border-left: 2px solid #94a3b8;
+        }
+        /* Remove connectors for single items */
+        .tree li:only-child::after, .tree li:only-child::before { display: none; }
+        .tree li:only-child { padding-top: 0; }
+        /* Remove left/right connectors from first/last sibling */
+        .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
+        .tree li:last-child::before { border-right: 2px solid #94a3b8; border-radius: 0 8px 0 0; }
+        .tree li:first-child::after { border-radius: 8px 0 0 0; }
+        /* Downward connectors from parents */
+        .tree ul ul::before {
+            content: ''; position: absolute; top: 0; left: 50%;
+            border-left: 2px solid #94a3b8;
+            width: 0; height: 30px;
+        }
+        
+        /* Node Styles */
+        .tree-node {
+            border: 1px solid #cbd5e1;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-family: 'Prompt', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            min-width: 180px;
+            position: relative;
+            z-index: 2;
+        }
+        .tree-node i { font-size: 24px; }
+        
+        /* Specific Node Colors */
+        .node-root { background: var(--primary); color: white; border: none; font-size: 24px; padding: 20px 40px; }
+        .node-app { background: var(--accent); color: white; border: none; }
+        .node-admin { background: var(--admin); color: white; border: none; }
+        .node-leaf { background: #f8fafc; font-size: 16px; font-weight: 500; min-width: 160px; }
+
+        /* Print Media */
+        @media print {
+            body { background: white; padding: 0; gap: 0; }
+            .slide-container { box-shadow: none; border-bottom: 1px solid #eee; page-break-after: always; height: auto; min-height: 720px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: Cover -->
+<div class="slide-container full-bg-image" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop');">
+    <div class="content-overlay">
+        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 50px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); max-width: 900px;">
+            <div style="display: inline-block; background: var(--secondary); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; margin-bottom: 20px; letter-spacing: 1px;">
+                PHASE 1: DESIGN & ARCHITECTURE
+            </div>
+            <h1>แผนผังระบบและโครงสร้าง<br><span style="color: #38bdf8;">(System Sitemap & Modules)</span></h1>
+            <p style="font-size: 24px; margin-bottom: 0;">โครงการ Standalone iPad POS | Wellinterparts</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2: Two Worlds Architecture -->
+<div class="slide-container">
+    <h2 class="slide-title">โครงสร้างสถาปัตยกรรม 2 ส่วน (Decoupled System)</h2>
+    <div class="content-area two-cols">
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <p>ระบบถูกออกแบบมาให้ <strong>"แยกการทำงานออกจากกันอย่างเด็ดขาด"</strong> เพื่อความปลอดภัยและความเสถียรสูงสุด โดยแบ่งออกเป็น 2 แอปพลิเคชันหลัก:</p>
+            
+            <div class="module-card" style="margin-top: 20px; border-left-color: var(--accent);">
+                <h3 style="color: var(--accent);"><i class="fas fa-tablet-screen-button"></i> 1. iPad POS App</h3>
+                <p style="font-size: 16px; margin-bottom: 0;"><strong>ผู้ใช้งาน:</strong> พนักงานขายหน้างาน (Sales)<br><strong>หน้าที่:</strong> แอปพลิเคชันบน iPad สำหรับค้นหาสินค้า รับออเดอร์ ทำงานได้ทั้งโหมดออฟไลน์และออนไลน์</p>
+            </div>
+            
+            <div class="module-card admin-card">
+                <h3 style="color: var(--admin);"><i class="fas fa-desktop"></i> 2. POS Admin Portal</h3>
+                <p style="font-size: 16px; margin-bottom: 0;"><strong>ผู้ใช้งาน:</strong> ผู้จัดการ และ ไอที (Admin)<br><strong>หน้าที่:</strong> ระบบหลังบ้านบนเบราว์เซอร์ สำหรับจัดการสิทธิ์ พนักงาน ล็อกอุปกรณ์ (Device Binding) และดูประวัติบิลที่รอส่งเข้า ERP</p>
+            </div>
+        </div>
+        <div style="background: #f1f5f9; border-radius: 20px; padding: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 2px dashed #cbd5e1;">
+            <i class="fas fa-network-wired" style="font-size: 80px; color: var(--secondary); margin-bottom: 20px;"></i>
+            <h3 style="margin-bottom: 15px;">WELLPORTAL (API Gateway)</h3>
+            <p style="font-size: 16px;">ทำหน้าที่เป็น "คนกลาง" รับส่งข้อมูลระหว่าง iPad POS, Admin Portal และ ERP System ป้องกันการเจาะระบบเข้าถึงฐานข้อมูลหลักโดยตรง</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3: Visual SITEMAP TREE (The Core Feature) -->
+<div class="slide-container">
+    <h2 class="slide-title" style="text-align: center;">แผนผังระบบโดยรวม (System Sitemap Diagram)</h2>
+    <div class="content-area" style="justify-content: center;">
+        
+        <div class="tree-container">
+            <div class="tree">
+                <ul>
+                    <li>
+                        <!-- ROOT -->
+                        <div class="tree-node node-root">
+                            <i class="fas fa-truck-moving"></i>
+                            WELLPORTAL POS System
+                        </div>
+                        <ul>
+                            <!-- BRANCH 1: iPad APP -->
+                            <li>
+                                <div class="tree-node node-app">
+                                    <i class="fas fa-tablet-alt"></i>
+                                    iPad POS App (Sales)
+                                </div>
+                                <ul>
+                                    <li><div class="tree-node node-leaf"><i class="fas fa-shield-alt text-slate-400"></i> Authentication<br><span style="font-size: 12px; color: #64748b;">(Login & Sync)</span></div></li>
+                                    <li><div class="tree-node node-leaf"><i class="fas fa-shopping-cart text-slate-400"></i> POS Operation<br><span style="font-size: 12px; color: #64748b;">(Sale Order & Cart)</span></div></li>
+                                    <li><div class="tree-node node-leaf"><i class="fas fa-history text-slate-400"></i> Order History<br><span style="font-size: 12px; color: #64748b;">(Drafts & Synced)</span></div></li>
+                                </ul>
+                            </li>
+                            
+                            <!-- BRANCH 2: ADMIN PORTAL -->
+                            <li>
+                                <div class="tree-node node-admin">
+                                    <i class="fas fa-laptop-code"></i>
+                                    POS Admin Portal
+                                </div>
+                                <ul>
+                                    <li><div class="tree-node node-leaf"><i class="fas fa-chart-pie text-slate-400"></i> Dashboard<br><span style="font-size: 12px; color: #64748b;">(Sales Overview)</span></div></li>
+                                    <li><div class="tree-node node-leaf"><i class="fas fa-users-cog text-slate-400"></i> Security & Access<br><span style="font-size: 12px; color: #64748b;">(User & Device Lock)</span></div></li>
+                                    <li><div class="tree-node node-leaf"><i class="fas fa-file-invoice text-slate-400"></i> Transactions<br><span style="font-size: 12px; color: #64748b;">(Order Monitoring)</span></div></li>
+                                    <li><div class="tree-node node-leaf"><i class="fas fa-database text-slate-400"></i> Master Data<br><span style="font-size: 12px; color: #64748b;">(Items & Prices)</span></div></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- SLIDE 4: Detail - iPad App -->
+<div class="slide-container">
+    <h2 class="slide-title">รายละเอียดหน้าจอ: <span class="text-accent">iPad POS Application</span></h2>
+    <div class="content-area two-cols">
+        <div>
+            <div class="module-card">
+                <h3><i class="fas fa-shield-halved text-accent"></i> 1. Authentication Module</h3>
+                <ul>
+                    <li><strong>1.1 Login Page:</strong> หน้าเข้าระบบ (ตรวจสอบ AD และ Device ID)</li>
+                    <li><strong>1.2 Initial Sync:</strong> หน้าจอโหลดข้อมูลพื้นฐานตอนเริ่มวัน</li>
+                </ul>
+            </div>
+            <div class="module-card">
+                <h3><i class="fas fa-shopping-cart text-accent"></i> 2. POS Operation Module</h3>
+                <ul>
+                    <li><strong>2.1 Sale Order (Split View):</strong>
+                        <ul style="list-style-type: circle; font-size: 16px;">
+                            <li>ฝั่งซ้าย: ค้นหาสินค้า (PHILLIPS, DAKEN), กรองหมวดหมู่, เช็ค Onhand</li>
+                            <li>ฝั่งขวา: ตะกร้าสินค้า, คำนวณส่วนลดตามเกรดลูกค้า, พักบิล/ยืนยัน</li>
+                        </ul>
+                    </li>
+                    <li><strong>2.2 Customer Selection:</strong> ป๊อปอัปค้นหารายชื่อลูกค้า</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="module-card">
+                <h3><i class="fas fa-clock-rotate-left text-accent"></i> 3. Order History Module</h3>
+                <ul>
+                    <li><strong>3.1 Dashboard & History:</strong>
+                        <ul style="list-style-type: circle; font-size: 16px;">
+                            <li>Offline Tab: บิลที่รออินเทอร์เน็ตเพื่อส่งเข้า ERP</li>
+                            <li>Online Tab: บิลที่ส่งสำเร็จและได้รับเลข SO กลับมาแล้ว</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="module-card">
+                <h3><i class="fas fa-cog text-accent"></i> 4. Settings Module</h3>
+                <ul>
+                    <li><strong>4.1 App Settings:</strong> โปรไฟล์พนักงาน (เช่น ปาริชาติ-เปิ้ล)</li>
+                    <li><strong>4.2 Manual Sync:</strong> ปุ่มบังคับอัปเดตข้อมูลมาสเตอร์จากระบบ</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 5: Detail - Admin Portal -->
+<div class="slide-container">
+    <h2 class="slide-title">รายละเอียดหน้าจอ: <span style="color: var(--admin);">POS Admin Portal</span></h2>
+    <div class="content-area two-cols">
+        <div>
+            <div class="module-card admin-card">
+                <h3 style="color: var(--admin);"><i class="fas fa-chart-line"></i> 1. Dashboard</h3>
+                <ul>
+                    <li><strong>1.1 Main Dashboard:</strong> สรุปยอดขายรวมจาก iPad ทุกเครื่อง, ดูสถานะระบบ API</li>
+                </ul>
+            </div>
+            <div class="module-card admin-card">
+                <h3 style="color: var(--admin);"><i class="fas fa-user-lock"></i> 2. Security & Access Module</h3>
+                <ul>
+                    <li><strong>2.1 User Management:</strong> กำหนดสิทธิ์พนักงาน (Sales/Manager)</li>
+                    <li><strong>2.2 Device Binding:</strong> ดูสถานะการล็อกเครื่อง iPad
+                        <ul style="list-style-type: circle; font-size: 16px;">
+                            <li><em>ฟังก์ชันสำคัญ: ปุ่ม Reset Device (ปลดล็อกเครื่อง)</em></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="module-card admin-card">
+                <h3 style="color: var(--admin);"><i class="fas fa-file-invoice-dollar"></i> 3. Transaction Module</h3>
+                <ul>
+                    <li><strong>3.1 POS Transactions:</strong> ตาราง (DataTables) ตรวจสอบบิลขายทั้งหมด ค้นหาตามชื่อเซลส์/วันที่</li>
+                    <li><strong>3.2 Error Retry:</strong> กดส่งบิลที่ติด Error กลับเข้า ERP ใหม่</li>
+                </ul>
+            </div>
+            <div class="module-card admin-card">
+                <h3 style="color: var(--admin);"><i class="fas fa-database"></i> 4. Master Data Monitor</h3>
+                <ul>
+                    <li><strong>4.1 Directory:</strong> ตรวจสอบรายชื่อลูกค้า, สินค้า, ตารางราคาที่ดึงมาจาก ERP (View-only)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
