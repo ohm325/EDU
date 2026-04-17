@@ -58,7 +58,8 @@
         <!-- ========================================== -->
         <!-- VIEW 0: LOGIN -->
         <!-- ========================================== -->
-        <div id="view-login" class="view-section active absolute inset-0 z-50 flex items-center justify-center bg-slate-50" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
+        <!-- แก้ไข: เอาคลาส flex ออกเพื่อให้ display: none ทำงานได้เมื่อถอดคลาส active -->
+        <div id="view-login" class="view-section active absolute inset-0 z-50 items-center justify-center bg-slate-50" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
             <div class="bg-white p-10 rounded-3xl shadow-xl w-[420px] z-10 border border-slate-100">
                 <div class="text-center mb-8">
                     <div class="inline-block bg-blue-50 p-4 rounded-2xl mb-4 text-primary shadow-inner">
@@ -100,7 +101,8 @@
         <!-- ========================================== -->
         <!-- APP CONTAINER (Shown after login) -->
         <!-- ========================================== -->
-        <div id="app-container" class="hidden flex h-full w-full">
+        <!-- แก้ไข: นำคลาส flex ออกชั่วคราว เพื่อควบคุมผ่าน JS ล้วนๆ ป้องกันการโผล่ทับซ้อน -->
+        <div id="app-container" class="hidden h-full w-full">
             
             <!-- SIDEBAR NAVIGATION -->
             <div class="w-20 bg-white border-r border-slate-200 flex flex-col items-center py-4 z-30 shadow-md">
@@ -587,11 +589,14 @@
                 switchView: UI.switchView,
 
                 // Auth
+                // แก้ไข: ควบคุม app-container ผ่าน JS ให้แม่นยำขึ้นป้องกันการซ้อนทับกัน
                 login: () => {
                     Swal.fire({ title: 'กำลังตรวจสอบสิทธิ์...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
                     setTimeout(() => {
                         Swal.close();
-                        document.getElementById('app-container').classList.remove('hidden');
+                        const appCont = document.getElementById('app-container');
+                        appCont.classList.remove('hidden');
+                        appCont.classList.add('flex');
                         APP.switchView('pos');
                     }, 800);
                 },
@@ -601,7 +606,9 @@
                         confirmButtonColor: '#ea580c', cancelButtonColor: '#cbd5e1', confirmButtonText: 'ออกจากระบบ', cancelButtonText: 'ยกเลิก'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            document.getElementById('app-container').classList.add('hidden');
+                            const appCont = document.getElementById('app-container');
+                            appCont.classList.remove('flex');
+                            appCont.classList.add('hidden');
                             APP.switchView('login');
                         }
                     });
