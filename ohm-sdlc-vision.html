@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC Automate by OHM - Vision</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#0B0F19',
+                        card: '#151C2C',
+                        primary: '#38BDF8',
+                        secondary: '#818CF8',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #818CF833 0deg, #38BDF833 180deg, #818CF833 360deg)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0B0F19; color: #F8FAFC; overflow-x: hidden; }
+        
+        /* Grid Background Pattern */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Fade In Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text Gradient Utility */
+        .text-gradient {
+            background: linear-gradient(135deg, #38BDF8, #818CF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0B0F19; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="antialiased bg-grid relative selection:bg-primary selection:text-dark">
+
+    <!-- Ambient Glow Effects -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px]"></div>
+        <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/10 blur-[120px]"></div>
+    </div>
+
+    <!-- Navigation (Simple) -->
+    <nav class="fixed top-0 w-full z-50 bg-dark/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-display font-bold text-xl tracking-wider text-white flex items-center gap-2">
+                <i class="fas fa-layer-group text-primary"></i> OHM.
+            </div>
+            <a href="#vision" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">The Vision</a>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <section class="min-h-screen flex items-center justify-center relative pt-20" id="vision">
+        <div class="absolute inset-0 bg-hero-glow opacity-30 animate-pulse" style="animation-duration: 8s;"></div>
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10 reveal active">
+            <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary font-medium text-sm tracking-wide">
+                EXECUTIVE VISION PITCH DECK
+            </div>
+            <h1 class="text-6xl md:text-8xl font-display font-bold mb-6 leading-tight">
+                SDLC <span class="text-gradient">Automate</span>
+            </h1>
+            <h2 class="text-3xl md:text-5xl font-display font-semibold text-slate-300 mb-8">
+                by OHM
+            </h2>
+            <p class="text-xl md:text-2xl text-slate-400 font-light max-w-3xl mx-auto mb-12 leading-relaxed">
+                การปฏิวัติวงการพัฒนาซอฟต์แวร์ เปลี่ยนการเขียนโค้ดด้วยมนุษย์ <br class="hidden md:block">
+                สู่ <span class="text-white font-medium">โรงงานผลิตซอฟต์แวร์อัตโนมัติ 100%</span>
+            </p>
+            <a href="#problem" class="inline-flex items-center gap-3 bg-white text-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                เริ่มการสำรวจ <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 2. THE PROBLEM -->
+    <section class="py-32 relative border-t border-white/5" id="problem">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-primary font-bold tracking-widest text-sm mb-4 uppercase">The Problem</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">จุดอ่อนของ SDLC ยุคเก่า</h3>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto italic">
+                    "เมื่อเราใช้มนุษย์เป็นแรงงานหลัก (Manual Labor) ในทุกขั้นตอน <br>
+                    ความล่าช้าและหนี้ทางเทคนิคจึงเป็นสิ่งที่หลีกเลี่ยงไม่ได้"
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-card border border-white/10 p-10 rounded-3xl reveal hover:border-red-500/50 transition-colors group">
+                    <div class="w-16 h-16 bg-red-500/10 text-red-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white mb-4">Garbage In, Garbage Out</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        ความต้องการที่คลุมเครือ ขาดตรรกะ ทำให้ต้องนำกลับมาแก้ไขซ้ำแล้วซ้ำเล่า (Rework) สูญเสียเวลาและต้นทุนมหาศาล
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-card border border-white/10 p-10 rounded-3xl reveal hover:border-orange-500/50 transition-colors group delay-100">
+                    <div class="w-16 h-16 bg-orange-500/10 text-orange-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white mb-4">Technical Debt</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        โค้ดที่มนุษย์เขียนมักมีมาตรฐานไม่คงที่ ขึ้นอยู่กับความเหนื่อยล้า ทำให้ระบบระยะยาวดูแลรักษายากและพังง่าย
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-card border border-white/10 p-10 rounded-3xl reveal hover:border-yellow-500/50 transition-colors group delay-200">
+                    <div class="w-16 h-16 bg-yellow-500/10 text-yellow-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white mb-4">Slow Time to Market</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        คอขวดของการทำเอกสารส่งต่องาน (BA > SA > Dev) ทำให้การออกฟีเจอร์ใหม่ใช้เวลาหลักเดือนแทนที่จะเป็นหลักวัน
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. THE PARADIGM SHIFT -->
+    <section class="py-32 relative bg-white/5 border-y border-white/5 overflow-hidden">
+        <div class="absolute right-0 top-0 w-1/2 h-full bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 mask-image-l"></div>
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16 relative z-10">
+            <div class="flex-1 reveal">
+                <h2 class="text-primary font-bold tracking-widest text-sm mb-4 uppercase">The Paradigm Shift</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-white mb-8 leading-tight">
+                    จาก <span class="text-slate-500 line-through">"ผู้ผลิต"</span> <br>
+                    สู่ <span class="text-gradient">"ผู้บัญชาการ"</span>
+                </h3>
+                <p class="text-xl text-slate-300 mb-6 leading-relaxed">
+                    ในโมเดล SDLC Automate บทบาทของ <strong class="text-white">มนุษย์ (Chief Architect)</strong> จะถูกยกระดับขึ้นสูงสุด เราจะไม่ลงมือเขียนโค้ดเองทีละบรรทัดอีกต่อไป
+                </p>
+                <p class="text-lg text-slate-400 leading-relaxed border-l-4 border-primary pl-6 py-2">
+                    แต่เราจะทำหน้าที่กำหนด <strong>กฎเหล็ก (Governance)</strong> วางสถาปัตยกรรม และกดอนุมัติ (Sign-off) ปล่อยให้ AI Agents เฉพาะทางเป็น "แรงงานผลิต" แทน
+                </p>
+            </div>
+            <div class="flex-1 reveal flex justify-center">
+                <div class="relative w-72 h-72 rounded-full border border-white/10 flex items-center justify-center bg-dark shadow-[0_0_50px_rgba(56,189,248,0.2)]">
+                    <div class="absolute inset-2 rounded-full border border-dashed border-secondary/50 animate-[spin_20s_linear_infinite]"></div>
+                    <div class="absolute inset-6 rounded-full border border-primary/30 animate-[spin_15s_linear_infinite_reverse]"></div>
+                    <div class="text-center">
+                        <i class="fas fa-chess-king text-5xl text-gradient mb-4"></i>
+                        <div class="font-display font-bold text-xl text-white">Human<br>Architect</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. THE PIPELINE (7 NODES) -->
+    <section class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-primary font-bold tracking-widest text-sm mb-4 uppercase">The Pipeline</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">สายพานการผลิต: 7-Node AI Factory</h3>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">AI เฉพาะทาง 7 ตัว รับลูกส่งต่อกันอย่างอัตโนมัติ ไร้รอยต่อ</p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Upstream -->
+                <div class="bg-card border border-white/10 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-8 reveal hover:border-primary/50 transition-colors">
+                    <div class="w-full md:w-48 text-center md:text-left md:border-r border-white/10 pb-6 md:pb-0 md:pr-8">
+                        <div class="text-primary font-display font-bold text-2xl mb-2">Upstream</div>
+                        <div class="text-slate-500 text-sm tracking-wide">Requirement</div>
+                    </div>
+                    <div class="flex-1 grid md:grid-cols-2 gap-6 w-full">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xl shrink-0"><i class="fas fa-user-tie"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-1">1. BA Agent</h4>
+                                <p class="text-slate-400 text-sm">สกัดเสียง/แชท ร่อนเป็น JSON Blueprint</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xl shrink-0"><i class="fas fa-project-diagram"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-1">2. PM Agent</h4>
+                                <p class="text-slate-400 text-sm">สร้างการ์ดลงบอร์ด & แจ้งเตือน Architect รออนุมัติ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Midstream -->
+                <div class="bg-card border border-white/10 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-8 reveal hover:border-secondary/50 transition-colors delay-100">
+                    <div class="w-full md:w-48 text-center md:text-left md:border-r border-white/10 pb-6 md:pb-0 md:pr-8">
+                        <div class="text-secondary font-display font-bold text-2xl mb-2">Midstream</div>
+                        <div class="text-slate-500 text-sm tracking-wide">Development</div>
+                    </div>
+                    <div class="flex-1 grid md:grid-cols-3 gap-6 w-full">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 text-secondary flex items-center justify-center text-xl shrink-0"><i class="fas fa-database"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-1">3. SA/DB</h4>
+                                <p class="text-slate-400 text-sm">แปลง JSON สร้าง Entity/SQL Schema</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 text-secondary flex items-center justify-center text-xl shrink-0"><i class="fas fa-server"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-1">4. Backend</h4>
+                                <p class="text-slate-400 text-sm">สร้าง C# API (Clean Arch)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 text-secondary flex items-center justify-center text-xl shrink-0"><i class="fas fa-desktop"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-1">5. Frontend</h4>
+                                <p class="text-slate-400 text-sm">ปั้น UI ด้วย React + Ant Design</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Downstream -->
+                <div class="bg-card border border-white/10 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-8 reveal hover:border-emerald-500/50 transition-colors delay-200">
+                    <div class="w-full md:w-48 text-center md:text-left md:border-r border-white/10 pb-6 md:pb-0 md:pr-8">
+                        <div class="text-emerald-400 font-display font-bold text-2xl mb-2">Downstream</div>
+                        <div class="text-slate-500 text-sm tracking-wide">Delivery</div>
+                    </div>
+                    <div class="flex-1 grid md:grid-cols-2 gap-6 w-full">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl shrink-0"><i class="fas fa-vial-circle-check"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-1">6. QA Agent</h4>
+                                <p class="text-slate-400 text-sm">อ่าน AC สร้างสคริปต์จำลองทดสอบระบบ</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl shrink-0"><i class="fas fa-rocket"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg mb-1">7. DevOps Agent</h4>
+                                <p class="text-slate-400 text-sm">สแกนความปลอดภัย & Deploy อัตโนมัติ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. THE SECRET SAUCE -->
+    <section class="py-32 relative bg-white/5 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-primary font-bold tracking-widest text-sm mb-4 uppercase">Governance</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">ขุมพลังเบื้องหลัง (The Secret Sauce)</h3>
+                <p class="text-xl text-slate-400">ทำไมระบบนี้ถึงสำเร็จและไม่เละเทะ?</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Box 1 -->
+                <div class="bg-dark border border-white/10 p-10 rounded-3xl reveal relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+                    <div class="text-4xl text-primary mb-6 relative z-10"><i class="fas fa-scroll"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-4 relative z-10">.cursorrules Governance</h4>
+                    <p class="text-slate-400 mb-6 leading-relaxed relative z-10">
+                        คัมภีร์กฎเหล็กที่เป็นศูนย์กลางควบคุม AI ทุกตัวให้ทำงานสอดคล้องกัน ป้องกันการคิดนอกกรอบ (Hallucination)
+                    </p>
+                    <ul class="space-y-3 text-slate-300 relative z-10">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-sm"></i> บังคับใช้ Soft Delete (1, 0, null)</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-sm"></i> ห่อหุ้ม API ด้วย ApiResponse&lt;T&gt;</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-sm"></i> บังคับ Clean Architecture 100%</li>
+                    </ul>
+                </div>
+
+                <!-- Box 2 -->
+                <div class="bg-dark border border-white/10 p-10 rounded-3xl reveal relative overflow-hidden group delay-100">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-secondary/20 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+                    <div class="text-4xl text-secondary mb-6 relative z-10"><i class="fas fa-file-code"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-4 relative z-10">Standard JSON Blueprint</h4>
+                    <p class="text-slate-400 mb-6 leading-relaxed relative z-10">
+                        ภาษากลางของเครื่องจักร ข้อมูลทุกขั้นตอนส่งต่อด้วยโครงสร้างมาตรฐาน ห้ามใช้ภาษาพูด (Natural Language) ข้าม Node
+                    </p>
+                    <ul class="space-y-3 text-slate-300 relative z-10">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-secondary text-sm"></i> ลดการตีความผิดพลาด (Zero Ambiguity)</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-secondary text-sm"></i> Automation ดึงค่าไปใช้ต่อได้ทันที 100%</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-secondary text-sm"></i> ล็อกสเปกด้วย Acceptance Criteria ชัดเจน</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. ROI -->
+    <section class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-primary font-bold tracking-widest text-sm mb-4 uppercase">Impact</h2>
+                <h3 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">Expected Business Value</h3>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 text-center">
+                <div class="reveal p-8">
+                    <div class="text-7xl md:text-9xl font-display font-bold text-white mb-4 drop-shadow-[0_0_30px_rgba(56,189,248,0.5)]">70<span class="text-primary">%</span></div>
+                    <h4 class="text-3xl font-bold text-white mb-4">Speed to Market</h4>
+                    <p class="text-slate-400 text-lg">ลดระยะเวลาการพัฒนาจากหลักเดือน เหลือเพียงหลักสัปดาห์หรือหลักวัน</p>
+                </div>
+                <div class="reveal p-8 delay-100">
+                    <div class="text-7xl md:text-9xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary mb-4 drop-shadow-[0_0_30px_rgba(129,140,248,0.5)]">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h4 class="text-3xl font-bold text-white mb-4">Infinite Scalability</h4>
+                    <p class="text-slate-400 text-lg">คัดลอกเครื่องยนต์นี้ไปใช้ผลิตซอฟต์แวร์ให้โปรเจกต์อื่นได้ ภายใต้มาตรฐานเดียวกันเป๊ะ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FOOTER / CTA -->
+    <section class="py-32 relative text-center border-t border-white/10 bg-gradient-to-b from-dark to-black">
+        <div class="max-w-4xl mx-auto px-6 reveal">
+            <h2 class="text-5xl md:text-7xl font-display font-bold text-white mb-6">
+                The Future is <span class="text-gradient">Orchestrated.</span>
+            </h2>
+            <p class="text-2xl text-primary font-medium mb-12">Welcome to SDLC Automate by OHM.</p>
+            <div class="inline-flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full">
+                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span class="text-slate-300">Phase 1: Setting up Governance & .cursorrules</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
