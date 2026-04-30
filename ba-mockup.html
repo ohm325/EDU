@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BA Intake Dashboard - SDLC Automate</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#4f46e5',   // Indigo 600
+                        secondary: '#6366f1', // Indigo 500
+                        success: '#10b981',   // Emerald 500
+                        danger: '#ef4444',    // Red 500
+                        warning: '#f59e0b',   // Amber 500
+                        dark: '#0f172a',      // Slate 900
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #f8fafc; overflow: hidden; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .task-card { transition: all 0.2s ease; cursor: pointer; }
+        .task-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); border-color: #c7d2fe; }
+        .active-scale:active { transform: scale(0.97); }
+
+        /* Modal Animation */
+        .modal-enter { animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shrink-0 z-20 shadow-sm">
+        <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-gradient-to-br from-primary to-blue-500 rounded-xl flex items-center justify-center text-white shadow-md">
+                <i class="fas fa-layer-group text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-lg leading-tight text-slate-800">PORTAL <span class="text-primary">ENGINE</span></h1>
+                <p class="text-[10px] text-slate-500 font-mono tracking-widest">SDLC AUTOMATE</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-6">
+            <button onclick="SIMULATE.processAudio()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 border border-slate-200 active-scale">
+                <i class="fas fa-upload text-primary"></i> จำลอง Upload ไฟล์เสียง
+            </button>
+            <div class="h-6 w-px bg-slate-200"></div>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden md:block">
+                    <div class="text-sm font-bold text-slate-700">โอม (Chief Architect)</div>
+                    <div class="text-xs text-primary font-medium">Node 00: Governance</div>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-indigo-100 border border-indigo-200 flex items-center justify-center text-primary font-bold text-lg">
+                    อ
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="flex flex-1 overflow-hidden">
+        
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-slate-200 flex flex-col z-10 shrink-0 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+            <div class="p-4">
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 ml-2 mt-2">Upstream Nodes</div>
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center gap-3 bg-indigo-50 text-primary px-4 py-3 rounded-xl font-semibold border border-indigo-100">
+                        <i class="fas fa-inbox text-lg w-5 text-center"></i>
+                        BA Intake (รอตรวจ)
+                        <span class="ml-auto bg-primary text-white text-[10px] px-2 py-0.5 rounded-full" id="count-pending">0</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-4 py-3 rounded-xl font-medium transition-colors">
+                        <i class="fas fa-history text-lg w-5 text-center text-slate-400"></i>
+                        ประวัติที่ตรวจสอบแล้ว
+                    </a>
+                </nav>
+
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 ml-2 mt-8">Midstream Nodes</div>
+                <nav class="space-y-1 opacity-60">
+                    <a href="#" class="flex items-center gap-3 text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-4 py-3 rounded-xl font-medium transition-colors cursor-not-allowed">
+                        <i class="fas fa-database text-lg w-5 text-center text-slate-400"></i>
+                        SA Engineering
+                    </a>
+                    <a href="#" class="flex items-center gap-3 text-slate-600 hover:bg-slate-50 hover:text-slate-900 px-4 py-3 rounded-xl font-medium transition-colors cursor-not-allowed">
+                        <i class="fas fa-shield-alt text-lg w-5 text-center text-slate-400"></i>
+                        Auth Matrix
+                    </a>
+                </nav>
+            </div>
+            <div class="mt-auto p-4 border-t border-slate-100">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div class="text-xs text-slate-500 font-semibold mb-1">AI Engine Status</div>
+                    <div class="flex items-center gap-2 text-sm font-bold text-emerald-600">
+                        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        Claude 3.5 Sonnet (Active)
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Board Content -->
+        <main class="flex-1 bg-slate-50/50 p-6 overflow-x-auto overflow-y-hidden custom-scrollbar">
+            
+            <div class="mb-6 flex justify-between items-end">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800">BA Intake Dashboard</h2>
+                    <p class="text-sm text-slate-500 mt-1">คัดกรอง JSON Blueprint จาก BA Agent ก่อนส่งต่อให้ทีม Development</p>
+                </div>
+                <div class="flex gap-2">
+                    <span class="bg-white border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 shadow-sm"><i class="fas fa-filter text-slate-400 mr-1"></i> Module: ทั้งหมด</span>
+                </div>
+            </div>
+
+            <!-- Kanban Board -->
+            <div class="flex gap-6 h-[calc(100%-80px)] min-w-[1000px]">
+                
+                <!-- Column 1: Pending Review -->
+                <div class="flex flex-col w-1/3 bg-slate-100/50 rounded-2xl border border-slate-200 overflow-hidden">
+                    <div class="p-4 border-b border-slate-200 bg-white/50 backdrop-blur-sm flex justify-between items-center">
+                        <h3 class="font-bold text-slate-700 flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-warning"></div>
+                            รอตรวจสอบ (Pending)
+                        </h3>
+                        <span class="bg-slate-200 text-slate-600 text-xs px-2 py-0.5 rounded-full font-bold" id="col-pending-count">0</span>
+                    </div>
+                    <div class="p-4 flex-1 overflow-y-auto custom-scrollbar space-y-4" id="col-pending">
+                        <!-- Cards injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Column 2: Rejected / Feedback -->
+                <div class="flex flex-col w-1/3 bg-red-50/30 rounded-2xl border border-red-100 overflow-hidden">
+                    <div class="p-4 border-b border-red-100 bg-white/50 backdrop-blur-sm flex justify-between items-center">
+                        <h3 class="font-bold text-slate-700 flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-danger"></div>
+                            ตีกลับให้ AI แก้ไข (Rework)
+                        </h3>
+                        <span class="bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full font-bold" id="col-rejected-count">0</span>
+                    </div>
+                    <div class="p-4 flex-1 overflow-y-auto custom-scrollbar space-y-4" id="col-rejected">
+                        <!-- Cards injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Column 3: Approved / Ready for SA -->
+                <div class="flex flex-col w-1/3 bg-emerald-50/30 rounded-2xl border border-emerald-100 overflow-hidden">
+                    <div class="p-4 border-b border-emerald-100 bg-white/50 backdrop-blur-sm flex justify-between items-center">
+                        <h3 class="font-bold text-slate-700 flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-success"></div>
+                            พร้อมส่งต่อ (Ready for SA)
+                        </h3>
+                        <span class="bg-emerald-100 text-emerald-600 text-xs px-2 py-0.5 rounded-full font-bold" id="col-approved-count">0</span>
+                    </div>
+                    <div class="p-4 flex-1 overflow-y-auto custom-scrollbar space-y-4" id="col-approved">
+                        <!-- Cards injected by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL: TASK REVIEW (HITL) -->
+    <!-- ========================================== -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 sm:p-6 transition-opacity">
+        <div id="modal-container" class="bg-white w-full max-w-4xl max-h-full rounded-[24px] shadow-2xl flex flex-col overflow-hidden hidden modal-enter">
+            
+            <!-- Modal Header -->
+            <div class="px-8 py-5 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0 z-10">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-indigo-50 text-primary rounded-xl flex items-center justify-center text-xl border border-indigo-100">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span id="modal-module" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider"></span>
+                            <span id="modal-type" class="px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider"></span>
+                        </div>
+                        <h2 id="modal-title" class="text-xl font-bold text-slate-800 leading-tight"></h2>
+                    </div>
+                </div>
+                <button onclick="UI.closeModal()" class="w-10 h-10 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors flex items-center justify-center active-scale">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (JSON Context Editor) -->
+            <div class="flex-1 overflow-y-auto p-8 custom-scrollbar bg-slate-50/50">
+                
+                <!-- Missing Info Warning -->
+                <div id="modal-warning-box" class="mb-6 bg-amber-50 border-l-4 border-warning p-4 rounded-r-xl shadow-sm hidden">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-exclamation-triangle text-warning text-lg mt-0.5"></i>
+                        <div>
+                            <h4 class="font-bold text-amber-800 mb-1">AI แจ้งเตือน: ตรรกะทางธุรกิจไม่สมบูรณ์ (Missing Information)</h4>
+                            <p class="text-sm text-amber-700 mb-2">ไม่สามารถส่งงานต่อให้ SA ได้ กรุณาเคลียร์คำถามเหล่านี้ก่อน หรือแก้ไขเนื้อหาให้ครบถ้วน:</p>
+                            <ul id="modal-missing-list" class="list-disc list-inside text-sm text-amber-900 ml-2 space-y-1 font-medium"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Left Column: Story & AC -->
+                    <div class="space-y-6">
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-100 pb-2 flex justify-between items-center">
+                                <span><i class="fas fa-book-open text-primary mr-1"></i> User Story</span>
+                                <button class="text-primary hover:bg-indigo-50 px-2 py-1 rounded text-xs transition-colors"><i class="fas fa-edit"></i> แก้ไข</button>
+                            </h4>
+                            <textarea id="modal-story" class="w-full text-slate-700 bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary min-h-[80px] resize-none"></textarea>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-100 pb-2 flex justify-between items-center">
+                                <span><i class="fas fa-check-square text-success mr-1"></i> Acceptance Criteria</span>
+                                <button class="text-primary hover:bg-indigo-50 px-2 py-1 rounded text-xs transition-colors"><i class="fas fa-edit"></i> แก้ไข</button>
+                            </h4>
+                            <div id="modal-ac-list" class="space-y-2">
+                                <!-- ACs injected here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Meta & Entities -->
+                    <div class="space-y-6">
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-100 pb-2">
+                                <i class="fas fa-database text-purple-500 mr-1"></i> Data Entities Mentioned
+                            </h4>
+                            <div class="text-xs text-slate-500 mb-3 leading-relaxed">AI วิเคราะห์ฟิลด์หรือตารางที่เกี่ยวข้อง เพื่อส่งให้ SA ออกแบบต่อ:</div>
+                            <div id="modal-entities" class="flex flex-wrap gap-2">
+                                <!-- Entities injected here -->
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-700 relative overflow-hidden">
+                            <div class="absolute right-0 top-0 p-2 text-slate-600 text-xs font-mono"><i class="fas fa-code"></i> Raw JSON</div>
+                            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-700 pb-2">
+                                <i class="fas fa-lightbulb text-amber-400 mr-1"></i> Future Scope Suggestions
+                            </h4>
+                            <ul id="modal-future" class="list-disc list-inside text-sm text-slate-300 space-y-2 ml-1"></ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer (Actions) -->
+            <div class="px-8 py-5 border-t border-slate-200 bg-white flex justify-between items-center shrink-0">
+                <button onclick="APP.rejectTask()" class="px-6 py-3 rounded-xl font-bold text-danger hover:bg-red-50 border border-transparent hover:border-red-200 transition-all flex items-center gap-2 active-scale">
+                    <i class="fas fa-undo"></i> ตีกลับให้ AI แก้ไข (Reject)
+                </button>
+                <div class="flex gap-3">
+                    <button onclick="UI.closeModal()" class="px-6 py-3 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-all active-scale">
+                        ปิด
+                    </button>
+                    <button id="btn-approve" onclick="APP.approveTask()" class="px-8 py-3 rounded-xl font-bold text-white bg-primary hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all flex items-center gap-2 active-scale disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none">
+                        <i class="fas fa-check"></i> อนุมัติ & ส่งเข้าบอร์ด SA
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // 1. STATE MANAGEMENT (Mock Data)
+        const STATE = {
+            currentEditingId: null,
+            tasks: [
+                {
+                    id: 'T-001',
+                    status: 'pending', // pending, rejected, approved
+                    feature_name: 'ระบบล็อกอินด้วย OTP ทาง SMS',
+                    module: 'Auth',
+                    type: 'New Feature',
+                    current_scope: {
+                        user_story: 'As a ผู้ใช้งาน, I want เข้าสู่ระบบด้วย OTP ผ่าน SMS so that ฉันไม่ต้องจำรหัสผ่าน',
+                        acceptance_criteria: [
+                            'Given ผู้ใช้กรอกเบอร์โทร, When กดขอ OTP, Then ระบบส่งเลข 6 หลักผ่าน SMS (อายุ 5 นาที)',
+                            'Given กรอก OTP ถูกต้อง, When กดยืนยัน, Then เข้าสู่ระบบสำเร็จและได้ JWT Token',
+                            'Given กรอก OTP ผิด 3 ครั้ง, When กดยืนยัน, Then ล็อกเบอร์โทรศัพท์ 15 นาที'
+                        ]
+                    },
+                    data_entities_mentioned: ['users', 'otp_logs', 'login_attempts'],
+                    future_scope_suggestions: ['เพิ่มการยืนยันตัวตนด้วยอีเมล (Email OTP) ใน Phase 2'],
+                    missing_information: [],
+                    is_ready_for_backlog: true
+                },
+                {
+                    id: 'T-002',
+                    status: 'pending',
+                    feature_name: 'ปรับการคำนวณส่วนลดท้ายบิลตามเกรดลูกค้า',
+                    module: 'Sales',
+                    type: 'CR',
+                    current_scope: {
+                        user_story: 'As a เซลส์, I want ให้ระบบลดราคาท้ายบิลอัตโนมัติตามเกรดลูกค้า (A, B, C) so that ฉันไม่ต้องกดเครื่องคิดเลขเอง',
+                        acceptance_criteria: [
+                            'Given เลือกลูกค้าเกรด A, When เลือกสินค้า, Then ราคาสุทธิถูกลด 10% อัตโนมัติ',
+                            'Given เลือกลูกค้าเกรด B, When เลือกสินค้า, Then ราคาสุทธิถูกลด 5% อัตโนมัติ'
+                        ]
+                    },
+                    data_entities_mentioned: ['customers.grade', 'sale_orders', 'discount_rules'],
+                    future_scope_suggestions: ['ทำระบบคูปองส่วนลดแบบ On-top'],
+                    missing_information: [
+                        'ลูกค้าระดับ C ได้ส่วนลดหรือไม่? (AI ไม่พบข้อมูลใน Transcript)',
+                        'ถ้าสินค้านั้นจัดโปรโมชันอยู่แล้ว จะนำส่วนลดเกรดลูกค้ามาทบกัน (On-top) หรือใช้เงื่อนไขที่ดีกว่า?'
+                    ],
+                    is_ready_for_backlog: false
+                },
+                {
+                    id: 'T-003',
+                    status: 'approved',
+                    feature_name: 'เพิ่มหน้าจอรายงานประวัติการขายรายเดือน',
+                    module: 'Reports',
+                    type: 'New Feature',
+                    current_scope: {
+                        user_story: 'As a ผู้จัดการ, I want ดูสรุปยอดขายรายเดือนแยกตามพนักงาน so that นำไปคิดค่าคอมมิชชันได้',
+                        acceptance_criteria: [
+                            'สามารถกรองข้อมูลตาม เดือน/ปี ได้',
+                            'แสดงตารางรายชื่อพนักงาน พร้อมยอดขายรวม และจำนวนบิล',
+                            'สามารถ Export เป็น Excel ได้'
+                        ]
+                    },
+                    data_entities_mentioned: ['sale_orders', 'users', 'export_logs'],
+                    future_scope_suggestions: ['สร้างกราฟและ Dashboard อัตโนมัติ'],
+                    missing_information: [],
+                    is_ready_for_backlog: true
+                }
+            ]
+        };
+
+        // 2. UI RENDERING LOGIC
+        const UI = {
+            init: () => {
+                UI.renderBoard();
+            },
+
+            getTypeStyles: (type) => {
+                switch(type) {
+                    case 'New Feature': return 'bg-emerald-100 text-emerald-700 border-emerald-200';
+                    case 'CR': return 'bg-blue-100 text-blue-700 border-blue-200';
+                    case 'Bug': return 'bg-rose-100 text-rose-700 border-rose-200';
+                    default: return 'bg-slate-100 text-slate-700 border-slate-200';
+                }
+            },
+
+            createCardHTML: (task) => {
+                const typeStyle = UI.getTypeStyles(task.type);
+                const hasMissingInfo = task.missing_information.length > 0;
+                
+                let warningBadge = '';
+                if (hasMissingInfo && task.status !== 'approved') {
+                    warningBadge = `<div class="mt-3 bg-amber-50 border border-amber-200 text-amber-700 text-[11px] px-2 py-1.5 rounded-lg font-medium flex gap-2 items-start"><i class="fas fa-exclamation-triangle mt-0.5 text-warning"></i><span>พบ Missing Info (${task.missing_information.length} จุด)</span></div>`;
+                }
+
+                // AI Feedback snippet if rejected
+                let feedbackHtml = '';
+                if (task.status === 'rejected' && task.ai_feedback) {
+                    feedbackHtml = `<div class="mt-3 bg-red-50 border border-red-200 text-red-700 text-[11px] px-2 py-1.5 rounded-lg font-medium flex gap-2 items-start"><i class="fas fa-comment-dots mt-0.5"></i><span><strong>Feedback:</strong> ${task.ai_feedback}</span></div>`;
+                }
+
+                return `
+                    <div onclick="APP.openTask('${task.id}')" class="task-card bg-white p-4 rounded-xl border border-slate-200 shadow-sm relative group overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full ${hasMissingInfo && task.status !== 'approved' ? 'bg-warning' : 'bg-transparent'}"></div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">${task.id}</span>
+                            <div class="flex gap-1.5">
+                                <span class="text-[10px] px-2 py-0.5 rounded border font-bold uppercase tracking-wide bg-slate-50 text-slate-600 border-slate-200">${task.module}</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded border font-bold uppercase tracking-wide ${typeStyle}">${task.type}</span>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm leading-snug line-clamp-2">${task.feature_name}</h4>
+                        ${warningBadge}
+                        ${feedbackHtml}
+                        <div class="mt-3 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-100 pt-2">
+                            <span class="flex items-center gap-1"><i class="fas fa-robot text-primary/50"></i> AI Generated</span>
+                            <span>${task.current_scope.acceptance_criteria.length} ACs</span>
+                        </div>
+                    </div>
+                `;
+            },
+
+            renderBoard: () => {
+                const cols = { pending: '', rejected: '', approved: '' };
+                const counts = { pending: 0, rejected: 0, approved: 0 };
+
+                STATE.tasks.forEach(task => {
+                    cols[task.status] += UI.createCardHTML(task);
+                    counts[task.status]++;
+                });
+
+                ['pending', 'rejected', 'approved'].forEach(status => {
+                    const colEl = document.getElementById(`col-${status}`);
+                    if(counts[status] === 0) {
+                        colEl.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-slate-400 opacity-60"><i class="fas fa-check-circle text-3xl mb-2"></i><span class="text-sm font-medium">ไม่มีรายการ</span></div>`;
+                    } else {
+                        colEl.innerHTML = cols[status];
+                    }
+                    document.getElementById(`col-${status}-count`).innerText = counts[status];
+                });
+
+                document.getElementById('count-pending').innerText = counts.pending;
+            },
+
+            openModal: (task) => {
+                STATE.currentEditingId = task.id;
+                
+                // Set Header
+                document.getElementById('modal-module').innerText = task.module;
+                document.getElementById('modal-type').innerText = task.type;
+                document.getElementById('modal-type').className = `px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider ${UI.getTypeStyles(task.type)}`;
+                document.getElementById('modal-title').innerText = task.feature_name;
+
+                // Set Body
+                document.getElementById('modal-story').value = task.current_scope.user_story;
+                
+                // Render ACs
+                const acList = document.getElementById('modal-ac-list');
+                acList.innerHTML = task.current_scope.acceptance_criteria.map((ac, i) => `
+                    <div class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100 group">
+                        <span class="bg-white border border-slate-200 text-slate-400 text-[10px] w-5 h-5 rounded-md flex items-center justify-center font-bold shrink-0 mt-0.5">${i+1}</span>
+                        <input type="text" class="bg-transparent border-none outline-none text-sm text-slate-700 w-full flex-1" value="${ac}">
+                    </div>
+                `).join('');
+
+                // Render Entities
+                const entList = document.getElementById('modal-entities');
+                entList.innerHTML = task.data_entities_mentioned.map(e => `
+                    <span class="bg-purple-50 text-purple-700 border border-purple-200 px-2.5 py-1 rounded-lg text-xs font-mono font-medium shadow-sm"><i class="fas fa-table mr-1 opacity-50"></i>${e}</span>
+                `).join('');
+
+                // Render Future Scope
+                const futList = document.getElementById('modal-future');
+                futList.innerHTML = task.future_scope_suggestions.length > 0 
+                    ? task.future_scope_suggestions.map(f => `<li>${f}</li>`).join('')
+                    : `<li class="text-slate-500 italic list-none">ไม่มีข้อเสนอแนะเพิ่มเติม</li>`;
+
+                // Handle Missing Info & Button State
+                const btnApprove = document.getElementById('btn-approve');
+                const warningBox = document.getElementById('modal-warning-box');
+                const missingList = document.getElementById('modal-missing-list');
+                
+                if (task.missing_information.length > 0 && task.status !== 'approved') {
+                    warningBox.classList.remove('hidden');
+                    missingList.innerHTML = task.missing_information.map(m => `<li>${m}</li>`).join('');
+                    btnApprove.disabled = true;
+                    btnApprove.title = "ต้องเคลียร์ Missing Info ก่อน";
+                } else {
+                    warningBox.classList.add('hidden');
+                    btnApprove.disabled = false;
+                    btnApprove.title = "";
+                }
+
+                // If already approved, disable actions
+                if (task.status === 'approved') {
+                    btnApprove.classList.add('hidden');
+                    document.querySelector('.text-danger').classList.add('hidden');
+                } else {
+                    btnApprove.classList.remove('hidden');
+                    document.querySelector('.text-danger').classList.remove('hidden');
+                }
+
+                // Show Modal
+                document.getElementById('modal-backdrop').classList.remove('hidden');
+                document.getElementById('modal-container').classList.remove('hidden');
+            },
+
+            closeModal: () => {
+                document.getElementById('modal-backdrop').classList.add('hidden');
+                document.getElementById('modal-container').classList.add('hidden');
+                STATE.currentEditingId = null;
+            }
+        };
+
+        // 3. APPLICATION LOGIC
+        const APP = {
+            openTask: (id) => {
+                const task = STATE.tasks.find(t => t.id === id);
+                if(task) UI.openModal(task);
+            },
+
+            approveTask: () => {
+                const task = STATE.tasks.find(t => t.id === STATE.currentEditingId);
+                if(!task) return;
+
+                Swal.fire({
+                    title: 'ยืนยันอนุมัติ?',
+                    text: "ส่ง Blueprint นี้เข้าสู่บอร์ด SA Engineering เพื่อให้ AI สร้าง Database Script",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#4f46e5',
+                    cancelButtonColor: '#cbd5e1',
+                    confirmButtonText: 'ยืนยันอนุมัติ',
+                    cancelButtonText: 'ยกเลิก'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        task.status = 'approved';
+                        UI.closeModal();
+                        UI.renderBoard();
+                        Swal.fire({ icon: 'success', title: 'ส่งต่อสำเร็จ', text: 'โอนงานให้ Node 03 (SA Agent) เรียบร้อย', confirmButtonColor: '#10b981' });
+                    }
+                });
+            },
+
+            rejectTask: () => {
+                const task = STATE.tasks.find(t => t.id === STATE.currentEditingId);
+                if(!task) return;
+
+                Swal.fire({
+                    title: 'ตีกลับให้ AI แก้ไข',
+                    input: 'textarea',
+                    inputLabel: 'ระบุข้อเสนอแนะ (Feedback) เพื่อให้ AI ประมวลผลใหม่',
+                    inputPlaceholder: 'เช่น: ลืมใส่ตรรกะเรื่องภาษีมูลค่าเพิ่ม, ให้ปัดเศษทศนิยมด้วย...',
+                    inputAttributes: { 'aria-label': 'Type your message here' },
+                    showCancelButton: true,
+                    confirmButtonText: 'ส่งตีกลับ',
+                    cancelButtonText: 'ยกเลิก',
+                    confirmButtonColor: '#ef4444',
+                    inputValidator: (value) => { if (!value) return 'กรุณาระบุเหตุผลในการตีกลับ!'; }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        task.status = 'rejected';
+                        task.ai_feedback = result.value;
+                        // Simulation: Clear missing info so it can be approved next time
+                        task.missing_information = []; 
+                        
+                        UI.closeModal();
+                        UI.renderBoard();
+                        Swal.fire({ icon: 'info', title: 'ตีกลับเรียบร้อย', text: 'ระบบกำลังส่ง JSON + Feedback กลับไปให้ Claude ประมวลผลใหม่', confirmButtonColor: '#4f46e5' });
+                    }
+                });
+            }
+        };
+
+        // 4. SIMULATION (Demo purposes)
+        const SIMULATE = {
+            processAudio: () => {
+                Swal.fire({
+                    title: 'กำลังเชื่อมต่อ Fireflies.ai...',
+                    html: 'จำลองการดึง Transcript จากมีตติ้งล่าสุด<br><b>"ระบบคำนวณคอมมิชชันทีมเซลส์"</b>',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading(); }
+                });
+
+                setTimeout(() => {
+                    Swal.update({ title: 'Claude 3.5 กำลังวิเคราะห์ (Logic Engine)', html: 'ใช้ Prompt 4-Buckets แยกข้อมูล...' });
+                    
+                    setTimeout(() => {
+                        // Create new mock task
+                        const newTask = {
+                            id: `T-00${STATE.tasks.length + 1}`,
+                            status: 'pending',
+                            feature_name: 'ระบบคำนวณคอมมิชชันและโบนัสรายไตรมาส',
+                            module: 'HR / Payroll',
+                            type: 'New Feature',
+                            current_scope: {
+                                user_story: 'As a ฝ่ายบุคคล, I want ระบบคำนวณคอมมิชชันอัตโนมัติจากยอดขายที่สำเร็จ so that จ่ายเงินเดือนได้ไวขึ้น',
+                                acceptance_criteria: [
+                                    'ดึงข้อมูลจากตาราง sale_orders ที่สถานะ = SUCCESS เท่านั้น',
+                                    'คำนวณเป้า 100,000 ได้ 3%, เป้า 500,000 ได้ 5%'
+                                ]
+                            },
+                            data_entities_mentioned: ['sale_orders', 'commission_rates', 'payroll'],
+                            future_scope_suggestions: ['เชื่อมต่อระบบธนาคาร K-Cash Connect (เฟสถัดไป)'],
+                            missing_information: [],
+                            is_ready_for_backlog: true
+                        };
+                        STATE.tasks.unshift(newTask); // Add to top
+                        UI.renderBoard();
+                        
+                        Swal.fire({ icon: 'success', title: 'สกัดข้อมูลสำเร็จ!', text: 'ได้ 1 JSON Blueprint ใหม่ รอการตรวจสอบในช่อง Pending', confirmButtonColor: '#10b981' });
+                    }, 1500);
+                }, 1500);
+            }
+        };
+
+        // Init App
+        document.addEventListener('DOMContentLoaded', UI.init);
+    </script>
+</body>
+</html>
