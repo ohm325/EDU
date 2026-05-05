@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SA Automate by OHM - Business & Tech Deck</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                        mono: ['Consolas', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#0f172a', // slate-900
+                        secondary: '#4f46e5', // indigo-600
+                        accent: '#0ea5e9', // sky-500
+                        success: '#10b981', // emerald-500
+                        warning: '#f59e0b', // amber-500
+                        danger: '#ef4444', // red-500
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #f8fafc; color: #334155; }
+        .slide-page { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 4rem 0; page-break-after: always; position: relative; }
+        .bg-pattern { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 24px 24px; }
+        
+        @media print {
+            body { background-color: white; }
+            .slide-page { min-height: 100vh; padding: 2rem 0; justify-content: flex-start; }
+            .print-hidden { display: none !important; }
+            .shadow-xl, .shadow-lg, .shadow-md { box-shadow: none !important; border: 1px solid #e2e8f0; }
+            .bg-pattern { background-image: none; }
+        }
+    </style>
+</head>
+<body class="antialiased bg-pattern">
+
+    <!-- Print Button -->
+    <div class="fixed top-6 right-6 z-50 print-hidden">
+        <button onclick="window.print()" class="bg-primary text-white hover:bg-slate-800 px-5 py-2.5 rounded-full shadow-lg font-medium transition-all flex items-center gap-2">
+            <i class="fas fa-print"></i> บันทึกเป็น PDF
+        </button>
+    </div>
+
+    <!-- SLIDE 1: Title Slide -->
+    <section class="slide-page bg-gradient-to-br from-primary via-slate-800 to-secondary text-white relative overflow-hidden print:bg-white print:text-primary">
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-accent rounded-full mix-blend-multiply filter blur-3xl opacity-30 print:hidden"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 print:hidden"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10 w-full">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-accent font-semibold tracking-wider text-sm mb-8 print:bg-slate-100 print:text-secondary print:border-slate-200">
+                <i class="fas fa-bridge"></i> ARCHITECTURE & BUSINESS PROPOSAL
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight">
+                SA <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-400 print:text-secondary">Automate</span>
+            </h1>
+            <h2 class="text-3xl md:text-5xl font-medium mb-8">by OHM</h2>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl font-light leading-relaxed mb-12 print:text-slate-600">
+                ระบบสถาปนิกข้อมูล (Data Architect AI) <br>
+                <strong>"ล่ามแปลภาษา"</strong> และ <strong>"โรงงานผลิต Prompt"</strong> ที่ดีที่สุด <br>ระหว่างเป้าหมายทางธุรกิจ (Business) กับการเขียนโค้ด (Tech)
+            </p>
+            
+            <div class="flex items-center gap-4 text-sm text-slate-400 print:text-slate-500 border-t border-white/10 print:border-slate-200 pt-6 max-w-xl">
+                <div><strong>นำเสนอโดย:</strong> โอม (Chief Architect)</div>
+                <div class="w-1 h-1 bg-slate-500 rounded-full"></div>
+                <div><strong>มุมมอง:</strong> Business Value & Technical Excellence</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: The Gap (Problem) -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-4">รอยรั่วของการพัฒนาซอฟต์แวร์ (The Missing Link)</h2>
+            <div class="w-20 h-2 bg-danger rounded-full"></div>
+            <p class="text-lg text-slate-600 mt-4 leading-relaxed max-w-4xl italic border-l-4 border-slate-300 pl-4">
+                "ปัญหาไม่ได้อยู่ที่โปรแกรมเมอร์เขียนโค้ดไม่เก่ง และไม่ได้อยู่ที่ผู้ใช้งานบอกความต้องการไม่ชัดเจน แต่มันอยู่ที่เราขาด <strong>'คนแปลงสารและวางโครงสร้าง' (System Analyst)</strong> ก่อนเริ่มเขียนโปรแกรม"
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-stretch">
+            <!-- Business View -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-t-danger relative flex flex-col">
+                <div class="text-danger font-bold text-lg mb-2 uppercase tracking-widest text-xs">มุมมองฝั่งธุรกิจ (Business Pain)</div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-4">"ทำไมได้ของไม่ตรงกับที่สั่ง?"</h3>
+                <ul class="space-y-4 text-slate-600 flex-1">
+                    <li class="flex items-start gap-3"><i class="fas fa-times-circle text-danger mt-1"></i> <div><strong>ต้นทุนบานปลาย:</strong> โปรแกรมเมอร์เข้าใจผิด เขียนระบบเสร็จแล้วต้องมารื้อทำใหม่ (Rework)</div></li>
+                    <li class="flex items-start gap-3"><i class="fas fa-times-circle text-danger mt-1"></i> <div><strong>ผลกระทบแอบแฝง:</strong> ฟีเจอร์ใหม่ไปทำให้ระบบเก่าพัง เพราะไม่มีคนประเมินผลกระทบก่อน</div></li>
+                    <li class="flex items-start gap-3"><i class="fas fa-times-circle text-danger mt-1"></i> <div><strong>ผูกขาดกับคนทำ:</strong> พนักงานลาออกทีไร คนใหม่มาทำต่อไม่ได้ เพราะไม่มีเอกสารระบบทิ้งไว้ให้เลย</div></li>
+                </ul>
+            </div>
+
+            <!-- Tech View -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-t-warning relative flex flex-col">
+                <div class="text-warning font-bold text-lg mb-2 uppercase tracking-widest text-xs">มุมมองฝั่งไอที (Tech Pain)</div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-4">"ทำไม Requirement ถึงกำกวม?"</h3>
+                <ul class="space-y-4 text-slate-600 flex-1">
+                    <li class="flex items-start gap-3"><i class="fas fa-exclamation-triangle text-warning mt-1"></i> <div><strong>AI โปรแกรมเมอร์มโน:</strong> ถ้าโยนแค่ "คำสั่งภาษาคน" ให้ AI เขียนโค้ดเลย AI จะคิดชื่อตารางเองมั่วๆ หน้าบ้านกับหลังบ้านจะคุยกันไม่ได้</div></li>
+                    <li class="flex items-start gap-3"><i class="fas fa-exclamation-triangle text-warning mt-1"></i> <div><strong>ขาด Test Case ชัดเจน:</strong> โปรแกรมเมอร์เขียนโค้ดเสร็จ แต่ไม่รู้ว่าต้องเทสต์ยังไงถึงจะครอบคลุม Logic ที่ลูกค้าขอ</div></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: The Solution -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-4">ทางออก: SA Automate (Data Architect AI)</h2>
+            <div class="w-20 h-2 bg-secondary rounded-full"></div>
+            <p class="text-lg text-slate-600 mt-4 leading-relaxed max-w-4xl">
+                เราจะนำ AI เข้ามาทำงานร่วมกับมนุษย์ (Human-in-the-Loop) สวมบทบาทเป็น <strong>System Analyst ขั้นเทพ</strong> เพื่อเปลี่ยนเป้าหมายธุรกิจให้กลายเป็น <strong>"5 สัญญาทางเทคนิค"</strong> ก่อนเริ่มเขียนโค้ด
+            </p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-10 shadow-xl border border-slate-100 flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-slate-50 opacity-50" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;"></div>
+            
+            <div class="relative z-10 flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full justify-between">
+                <!-- Business -->
+                <div class="w-1/3 text-center">
+                    <div class="w-20 h-20 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-3xl mb-4 shadow-sm"><i class="fas fa-file-invoice"></i></div>
+                    <h4 class="font-bold text-slate-800 text-xl">BA Blueprint</h4>
+                    <p class="text-sm text-slate-500 mt-2">JSON สรุปตรรกะและ User Story ที่ผ่านการตรวจสอบแล้ว</p>
+                </div>
+
+                <!-- SA Agent (Bridge) -->
+                <div class="flex-1 flex flex-col items-center justify-center">
+                    <div class="flex items-center gap-2 w-full justify-center text-slate-300">
+                        <i class="fas fa-angle-double-right text-2xl animate-pulse"></i><i class="fas fa-angle-double-right text-2xl animate-pulse delay-75"></i>
+                    </div>
+                    
+                    <div class="bg-secondary text-white p-6 rounded-2xl shadow-lg my-4 transform hover:scale-105 transition-transform w-full max-w-sm border-b-4 border-indigo-800">
+                        <div class="text-3xl mb-3"><i class="fas fa-industry"></i></div>
+                        <h3 class="text-2xl font-bold mb-1">SA Factory</h3>
+                        <p class="text-sm text-indigo-200">โรงงานผลิต Prompt และเอกสาร</p>
+                    </div>
+
+                    <div class="flex items-center gap-2 w-full justify-center text-slate-300">
+                        <i class="fas fa-angle-double-right text-2xl animate-pulse"></i><i class="fas fa-angle-double-right text-2xl animate-pulse delay-75"></i>
+                    </div>
+                </div>
+
+                <!-- Dev Team -->
+                <div class="w-1/3 text-center">
+                    <div class="w-20 h-20 mx-auto bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mb-4 shadow-sm"><i class="fas fa-laptop-code"></i></div>
+                    <h4 class="font-bold text-slate-800 text-xl">Dev & QA Agents</h4>
+                    <p class="text-sm text-slate-500 mt-2">ทำงานตาม Prompt สำเร็จรูป ไร้รอยต่อ ไร้การมโน</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: THE HANDOFF FLOW (UPDATED) -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-4">การรับไม้ต่อ (The Seamless Handoff)</h2>
+            <div class="w-20 h-2 bg-accent rounded-full"></div>
+            <p class="text-lg text-slate-600 mt-4 leading-relaxed max-w-4xl">
+                ข้อมูลไหลผ่านระบบนิเวศ (Ecosystem) เดียวกัน โดยใช้มาตรฐาน JSON ตัดปัญหาการพิมพ์ตกหล่นหรือเข้าใจผิด
+            </p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-6 relative">
+            <!-- Line connecting them (desktop) -->
+            <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-slate-200 -z-10 transform -translate-y-1/2"></div>
+
+            <!-- Step 1: From BA -->
+            <div class="flex-1 bg-white p-6 rounded-2xl shadow-md border border-slate-200 relative group hover:-translate-y-1 transition-transform">
+                <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-xl mb-4 shadow-sm border border-sky-200"><i class="fas fa-user-tie"></i></div>
+                <div class="text-xs font-bold text-sky-500 uppercase tracking-widest mb-1">1. สิ่งที่ได้รับ (Input)</div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">จากระบบ BA</h3>
+                <p class="text-sm text-slate-600 mb-4 h-16">
+                    รับโครงสร้าง <strong>JSON Payload</strong> ที่ประกอบด้วย Tasks, Entity Tags, และ Row-level AC
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 font-mono text-[10px] text-slate-500 truncate">
+                    {"status": "READY", "tasks": [...]}
+                </div>
+            </div>
+
+            <!-- Arrow Mobile -->
+            <div class="md:hidden flex justify-center text-slate-300 text-2xl"><i class="fas fa-chevron-down"></i></div>
+
+            <!-- Step 2: SA Action -->
+            <div class="flex-1 bg-indigo-50 p-6 rounded-2xl shadow-lg border-2 border-secondary relative group hover:-translate-y-1 transition-transform">
+                <div class="w-12 h-12 bg-secondary text-white rounded-full flex items-center justify-center text-xl mb-4 shadow-md"><i class="fas fa-brain"></i></div>
+                <div class="text-xs font-bold text-indigo-500 uppercase tracking-widest mb-1">2. กระบวนการ (Process)</div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">SA (Human + AI)</h3>
+                <p class="text-sm text-slate-600 mb-4 h-16">
+                    <strong>มนุษย์</strong> คุมทิศทาง (New vs Custom)<br><strong>AI</strong> ร่างเอกสารประเมินผลกระทบและโครงสร้าง DB
+                </p>
+                <div class="bg-white p-3 rounded-lg border border-indigo-100 font-mono text-[10px] text-indigo-600 shadow-sm">
+                    <i class="fas fa-cog fa-spin mr-1"></i> Generating Prompts...
+                </div>
+            </div>
+
+            <!-- Arrow Mobile -->
+            <div class="md:hidden flex justify-center text-slate-300 text-2xl"><i class="fas fa-chevron-down"></i></div>
+
+            <!-- Step 3: To Dev -->
+            <div class="flex-1 bg-white p-6 rounded-2xl shadow-md border border-slate-200 relative group hover:-translate-y-1 transition-transform">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xl mb-4 shadow-sm border border-emerald-200"><i class="fas fa-boxes"></i></div>
+                <div class="text-xs font-bold text-emerald-500 uppercase tracking-widest mb-1">3. สิ่งที่ส่งต่อ (Endpoint)</div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">เข้าสู่สายพาน Dev</h3>
+                <p class="text-sm text-slate-600 mb-4 h-16">
+                    ปล่อย <strong>5 Artifact Prompts</strong> ให้ AI ฝั่ง DB, Backend, Frontend และ QA ทำงานต่อได้ทันที
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 font-mono text-[10px] text-emerald-600">
+                    <i class="fas fa-check-double mr-1"></i> 5 Prompts Ready
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: Workflow (NEW: Human + Agent Collaboration) -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-10 text-center">
+            <h2 class="text-4xl font-bold text-primary mb-4">การทำงานร่วมกัน: มนุษย์คุมเกม AI ออกแรง</h2>
+            <div class="w-20 h-2 bg-accent rounded-full mx-auto"></div>
+            <p class="text-lg text-slate-600 mt-4 max-w-3xl mx-auto">
+                ในฐานะ SA เราไม่ให้ AI แตะ Database จริง แต่ใช้มันเป็นเครื่องมือร่างโครงสร้างและสรุปบริบท (Contextual Generator)
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-5">
+            <!-- Step 1 -->
+            <div class="bg-white border-l-4 border-slate-400 rounded-r-2xl p-5 shadow-sm flex items-center gap-6">
+                <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xl font-bold shrink-0"><i class="fas fa-link"></i></div>
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-slate-800">1. กติกาบนสายพานเดียวกัน (Ecosystem Protocol)</h3>
+                    <p class="text-sm text-slate-600 mt-1">รับ JSON จาก Node 01 (BA) โดยตรง ไม่มีการส่งต่อด้วยไฟล์ Word ป้องกันความผิดพลาดของมนุษย์</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="bg-white border-l-4 border-indigo-500 rounded-r-2xl p-5 shadow-sm flex items-center gap-6">
+                <div class="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl font-bold shrink-0"><i class="fas fa-user-shield"></i></div>
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-slate-800">2. ประเมินทิศทางโดยมนุษย์ (Human Decision)</h3>
+                    <p class="text-sm text-slate-600 mt-1"><strong>[SA Human]</strong> ตรวจสอบ Requirement เทียบกับระบบเดิม เพื่อฟันธงว่าเป็น New Module หรือ Customize Module</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-white border-l-4 border-sky-500 rounded-r-2xl p-5 shadow-sm flex items-center gap-6">
+                <div class="w-12 h-12 rounded-full bg-sky-50 text-sky-600 flex items-center justify-center text-xl font-bold shrink-0"><i class="fas fa-database"></i></div>
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-slate-800">3. ร่างโครงสร้างเชิงบริบท (Contextual DB Schema)</h3>
+                    <p class="text-sm text-slate-600 mt-1"><strong>[SA Agent]</strong> ร่าง Entity-Relationship ออกมาเป็นเอกสาร (ไม่ใช่คำสั่งรันจริง) เพื่อให้ SA Human ตรวจสอบกฎเกณฑ์และผลกระทบ (Impact) ก่อน</p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="bg-white border-l-4 border-emerald-500 rounded-r-2xl p-5 shadow-sm flex items-center gap-6">
+                <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold shrink-0"><i class="fas fa-file-signature"></i></div>
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-slate-800">4. สรุปผลกระทบให้ BA (The Bridge Document)</h3>
+                    <p class="text-sm text-slate-600 mt-1"><strong>[SA Agent]</strong> สร้างเอกสาร "System Impact Summary" (ภาษาธุรกิจ) ส่งกลับให้ BA เพื่อนำไปอธิบายและขอ Sign-off จากผู้ใช้งาน</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 6: Governance -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-4">กฎเหล็กมาตรฐานระดับองค์กร (Governance)</h2>
+            <div class="w-20 h-2 bg-slate-800 rounded-full"></div>
+            <p class="text-lg text-slate-600 mt-4 leading-relaxed max-w-4xl">
+                ทำไม SA Automate ของเราถึงฉลาดและไว้ใจได้? เพราะมนุษย์ (SA Human) เป็นผู้ถือสิทธิ์ขาด ในขณะที่ AI ปฏิบัติตามกฎ 100%
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 items-stretch">
+            <div class="bg-[#1e1e1e] rounded-2xl p-8 shadow-xl relative border border-slate-700 hover:-translate-y-2 transition-transform">
+                <div class="text-4xl text-accent mb-6"><i class="fas fa-hand-paper"></i></div>
+                <h4 class="text-xl font-bold text-white mb-2">AI เสนอ มนุษย์อนุมัติ</h4>
+                <p class="text-xs text-accent font-mono mb-4 border-b border-slate-700 pb-3">RULE: REVIEW BEFORE EXECUTE</p>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    AI ไม่มีสิทธิ์รันคำสั่ง <code>ALTER TABLE</code> ลงฐานข้อมูลโดยตรง SA Human ต้องเป็นผู้อ่านและกดรันด้วยตนเองเสมอ
+                </p>
+            </div>
+
+            <div class="bg-[#1e1e1e] rounded-2xl p-8 shadow-xl relative border border-slate-700 hover:-translate-y-2 transition-transform">
+                <div class="text-4xl text-warning mb-6"><i class="fas fa-sitemap"></i></div>
+                <h4 class="text-xl font-bold text-white mb-2">อิงบริบทระบบเดิม</h4>
+                <p class="text-xs text-warning font-mono mb-4 border-b border-slate-700 pb-3">RULE: CONTEXT INJECTION</p>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    AI จะไม่สร้างโมดูลหรือตารางใหม่แบบมโน แต่จะต้องอ้างอิงจากรายชื่อตารางปัจจุบัน (Schema Context) ที่มนุษย์ป้อนให้เสมอ
+                </p>
+            </div>
+
+            <div class="bg-[#1e1e1e] rounded-2xl p-8 shadow-xl relative border border-slate-700 hover:-translate-y-2 transition-transform">
+                <div class="text-4xl text-success mb-6"><i class="fas fa-vial"></i></div>
+                <h4 class="text-xl font-bold text-white mb-2">คุณภาพนำหน้าเสมอ</h4>
+                <p class="text-xs text-success font-mono mb-4 border-b border-slate-700 pb-3">RULE: TEST-DRIVEN DESIGN</p>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    บังคับให้ AI สร้าง Test Case ครอบคลุม Business Logic (Happy & Negative Path) ก่อนที่จะปล่อยสเปกไปให้ทีม Dev เขียนโค้ด
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: Value Delivered (The 5 Artifacts) -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-4">จุดหมายปลายทาง: The 5 Artifacts</h2>
+            <div class="w-20 h-2 bg-success rounded-full"></div>
+            <p class="text-lg text-slate-600 mt-4 max-w-3xl">ผลผลิตขั้นสุดท้ายของ Node 03 คือ "การจ่ายงานสำเร็จรูป" ที่ล็อกสเปกและลดความผิดพลาดเป็นศูนย์</p>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+            <!-- Left Info -->
+            <div class="md:w-1/3 bg-slate-50 p-8 border-r border-slate-200 flex flex-col justify-center">
+                <div class="w-16 h-16 rounded-full bg-emerald-100 text-success flex items-center justify-center text-3xl mb-6 shadow-sm"><i class="fas fa-rocket"></i></div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-4">Prompt Factory</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    SA Agent จะนำ JSON Blueprint + Schema ที่มนุษย์ตรวจแล้ว มาแพ็กกลายเป็น <strong>"5 Prompts ระดับองค์กร"</strong> เพื่อเป็นพิมพ์เขียวให้แต่ละ Node ในสายพานรับไปทำงานต่อทันที
+                </p>
+            </div>
+
+            <!-- Right: The 5 Artifacts -->
+            <div class="md:w-2/3 p-8">
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-2 mb-6">ผลผลิต 5 รายการจากระบบ SA</h3>
+                
+                <div class="space-y-4">
+                    <!-- Art 1 -->
+                    <div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-slate-100 shadow-sm hover:border-indigo-300 transition-colors">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0"><i class="fas fa-file-alt"></i></div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-slate-800 text-sm">1. Spec Summary (For BA & Users)</h4>
+                            <p class="text-xs text-slate-500">เอกสารสรุปผลกระทบและข้อจำกัดทางเทคนิค (ภาษาธุรกิจ)</p>
+                        </div>
+                    </div>
+                    <!-- Art 2 -->
+                    <div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-slate-100 shadow-sm hover:border-indigo-300 transition-colors">
+                        <div class="w-10 h-10 rounded-lg bg-slate-800 text-white flex items-center justify-center shrink-0"><i class="fas fa-database"></i></div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-slate-800 text-sm">2. DB Schema Prompt (For DBA Agent)</h4>
+                            <p class="text-xs text-slate-500">SQL DDL, Data Types, Primary/Foreign Keys, Indexing</p>
+                        </div>
+                    </div>
+                    <!-- Art 3 -->
+                    <div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-slate-100 shadow-sm hover:border-indigo-300 transition-colors">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0"><i class="fas fa-server"></i></div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-slate-800 text-sm">3. Backend Prompt (For API Agent)</h4>
+                            <p class="text-xs text-slate-500">API Endpoints, Request/Response DTOs, Business Logic Validation</p>
+                        </div>
+                    </div>
+                    <!-- Art 4 -->
+                    <div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-slate-100 shadow-sm hover:border-indigo-300 transition-colors">
+                        <div class="w-10 h-10 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0"><i class="fab fa-react"></i></div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-slate-800 text-sm">4. Frontend Prompt (For UI Agent)</h4>
+                            <p class="text-xs text-slate-500">Component Tree, State Management, API Integration Spec</p>
+                        </div>
+                    </div>
+                    <!-- Art 5 -->
+                    <div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-slate-100 shadow-sm hover:border-indigo-300 transition-colors">
+                        <div class="w-10 h-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center shrink-0"><i class="fas fa-vial"></i></div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-slate-800 text-sm">5. Test Case Prompt (For QA Agent)</h4>
+                            <p class="text-xs text-slate-500">Gherkin Syntax (Given-When-Then) ดักทุก Edge Cases</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: THE BIG PICTURE (SDLC Ecosystem) -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-12 text-center">
+            <h2 class="text-4xl font-bold text-primary mb-4">ภาพรวมโครงการ (The AI SDLC Factory)</h2>
+            <div class="w-20 h-2 bg-indigo-500 rounded-full mx-auto"></div>
+            <p class="text-lg text-slate-600 mt-4 max-w-4xl mx-auto">
+                SA Automate เป็นจิ๊กซอว์ชิ้นสำคัญ <strong>(Node 03)</strong> ในสายพานการผลิตซอฟต์แวร์อัตโนมัติทั้ง 7 แผนกของเรา
+            </p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-10 shadow-xl border border-slate-200 relative overflow-hidden">
+            <!-- Background element -->
+            <div class="absolute -right-20 -top-20 text-[200px] text-slate-50 opacity-50"><i class="fas fa-cogs"></i></div>
+            
+            <div class="relative z-10">
+                <div class="flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
+                    
+                    <!-- Upstream -->
+                    <div class="w-full md:w-auto flex-1 bg-slate-50 p-4 rounded-xl border border-slate-200 text-center opacity-80">
+                        <div class="text-xs font-bold text-slate-500 mb-2 uppercase">Upstream (Business)</div>
+                        <div class="flex justify-center gap-2">
+                            <div class="bg-white p-2 rounded shadow-sm border border-slate-100 text-xs w-20"><i class="fas fa-user-tie block mb-1 text-sky-500 text-lg"></i>Node 01<br>BA</div>
+                            <div class="bg-white p-2 rounded shadow-sm border border-slate-100 text-xs w-20"><i class="fas fa-project-diagram block mb-1 text-purple-500 text-lg"></i>Node 02<br>PM</div>
+                        </div>
+                    </div>
+
+                    <div class="hidden md:flex flex-col items-center">
+                        <div class="text-[8px] font-bold text-slate-400 mb-1">JSON</div>
+                        <i class="fas fa-arrow-right text-slate-300"></i>
+                    </div>
+
+                    <!-- THE SA NODE (Highlight) -->
+                    <div class="w-full md:w-auto flex-1 bg-indigo-50 p-6 rounded-xl border-2 border-secondary text-center shadow-md transform scale-110 z-20">
+                        <div class="text-xs font-bold text-secondary mb-2 uppercase tracking-widest"><i class="fas fa-star text-amber-400 mr-1"></i> The Prompt Factory</div>
+                        <div class="bg-gradient-to-br from-secondary to-purple-700 text-white p-4 rounded-lg shadow-lg">
+                            <i class="fas fa-microchip text-3xl mb-2"></i>
+                            <div class="font-bold text-lg">Node 03: SA</div>
+                            <div class="text-[10px] text-indigo-200 mt-1 uppercase tracking-wide">Data & Context Architect</div>
+                        </div>
+                    </div>
+
+                    <div class="hidden md:flex flex-col items-center">
+                        <div class="text-[8px] font-bold text-slate-400 mb-1">5 PROMPTS</div>
+                        <i class="fas fa-arrow-right text-slate-300"></i>
+                    </div>
+
+                    <!-- Downstream -->
+                    <div class="w-full md:w-auto flex-1 bg-slate-50 p-4 rounded-xl border border-slate-200 text-center opacity-80">
+                        <div class="text-xs font-bold text-slate-500 mb-2 uppercase">Downstream (Tech)</div>
+                        <div class="flex justify-center gap-2 flex-wrap">
+                            <div class="bg-white p-2 rounded shadow-sm border border-slate-100 text-xs w-[72px]"><i class="fas fa-database block mb-1 text-slate-700 text-lg"></i>DBA</div>
+                            <div class="bg-white p-2 rounded shadow-sm border border-slate-100 text-xs w-[72px]"><i class="fas fa-server block mb-1 text-emerald-500 text-lg"></i>Backend</div>
+                            <div class="bg-white p-2 rounded shadow-sm border border-slate-100 text-xs w-[72px]"><i class="fab fa-react block mb-1 text-sky-500 text-lg"></i>Frontend</div>
+                            <div class="bg-white p-2 rounded shadow-sm border border-slate-100 text-xs w-[72px]"><i class="fas fa-vial block mb-1 text-orange-500 text-lg"></i>QA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 text-center bg-slate-900 text-white py-4 px-6 rounded-xl shadow-inner flex items-center justify-center gap-3">
+                    <i class="fas fa-chess-king text-amber-400 text-xl"></i>
+                    <p class="text-sm font-medium">
+                        ควบคุมทิศทางสายพานทั้งหมดโดย <strong>Node 00: The Executive Board (Human Architect)</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
