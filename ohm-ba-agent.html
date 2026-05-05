@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BA AI Agent - Executive Pitch Deck</title>
+    <title>BA AI Agent - Executive Pitch Deck (v4 Architecture)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -61,19 +61,19 @@
         
         <div class="max-w-6xl mx-auto px-6 relative z-10 w-full">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-accent font-semibold tracking-wider text-sm mb-8 print:bg-slate-100 print:text-secondary print:border-slate-200">
-                <i class="fas fa-robot"></i> PROJECT PITCH DECK
+                <i class="fas fa-robot"></i> EXECUTIVE PITCH DECK
             </div>
             <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
                 Automated BA <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-400 print:text-secondary">AI Agent</span>
             </h1>
             <p class="text-xl md:text-2xl text-slate-300 max-w-3xl font-light leading-relaxed mb-12 print:text-slate-600">
-                ยกระดับการเก็บความต้องการของระบบ (Requirement) เปลี่ยนคำพูดทั่วไป ให้กลายเป็น <strong>"พิมพ์เขียวดิจิทัล"</strong> ที่พร้อมส่งให้ AI เขียนโปรแกรมต่อได้ทันที
+                ยกระดับการเก็บความต้องการของระบบ (Requirement) เปลี่ยนคำพูดทั่วไป ให้กลายเป็น <strong>"พิมพ์เขียวดิจิทัล"</strong> ที่จัดเรียงโครงสร้างข้อมูลเชิงสัมพันธ์ (Relational Data) อย่างสมบูรณ์
             </p>
             
             <div class="flex items-center gap-4 text-sm text-slate-400 print:text-slate-500 border-t border-white/10 print:border-slate-200 pt-6 max-w-xl">
                 <div><strong>นำเสนอโดย:</strong> โอม (Chief Architect)</div>
                 <div class="w-1 h-1 bg-slate-500 rounded-full"></div>
-                <div><strong>เป้าหมาย:</strong> ลดความซ้ำซ้อนของการสื่อสารระหว่างคนและเครื่องจักร</div>
+                <div><strong>สถาปัตยกรรม:</strong> v4 Enterprise Relational Model</div>
             </div>
         </div>
     </section>
@@ -132,7 +132,7 @@
                 <div class="w-12 h-12 rounded-full bg-emerald-100 text-success flex items-center justify-center text-xl flex-shrink-0"><i class="fas fa-check-circle"></i></div>
                 <div>
                     <h3 class="text-lg font-bold text-slate-800 mb-1">1. สิ่งที่ต้องทำรอบนี้ (Current Scope)</h3>
-                    <p class="text-slate-600 text-sm">AI จะดึงเฉพาะเนื้อหาที่เกี่ยวกับระบบมาเขียนเป็น "สเปก" สำหรับสั่งงาน</p>
+                    <p class="text-slate-600 text-sm">AI จะดึงเฉพาะเนื้อหาที่เกี่ยวกับระบบมาเขียนเป็น "สเปก" พร้อมจัดหมวดหมู่ Type เช่น New Feature (NW), Bug Fix (BG)</p>
                 </div>
             </div>
             
@@ -140,7 +140,7 @@
                 <div class="w-12 h-12 rounded-full bg-sky-100 text-accent flex items-center justify-center text-xl flex-shrink-0"><i class="fas fa-lightbulb"></i></div>
                 <div>
                     <h3 class="text-lg font-bold text-slate-800 mb-1">2. ไอเดียอนาคต (Future Scope)</h3>
-                    <p class="text-slate-600 text-sm">เรื่องที่ดี แต่ยังไม่ทำตอนนี้ AI จะจดแยกไว้ เพื่อใช้ตอบกลับ User อย่างนุ่มนวล</p>
+                    <p class="text-slate-600 text-sm">เรื่องที่ดี แต่ยังไม่ทำตอนนี้ AI จะจดแยกไว้ระดับ Global Meeting เพื่อใช้ตอบกลับลูกค้าอย่างนุ่มนวล</p>
                 </div>
             </div>
 
@@ -148,7 +148,7 @@
                 <div class="w-12 h-12 rounded-full bg-amber-100 text-warning flex items-center justify-center text-xl flex-shrink-0"><i class="fas fa-question-circle"></i></div>
                 <div>
                     <h3 class="text-lg font-bold text-slate-800 mb-1">3. ข้อมูลที่ไม่ครบ (Missing Info)</h3>
-                    <p class="text-slate-600 text-sm"><span class="font-bold text-amber-600">จุดเด่นที่สุด!</span> ถ้าตรรกะขาดหาย AI จะไม่มโนเอง แต่จะพ่นคำถามกลับมาให้เราไปถาม User เพิ่ม</p>
+                    <p class="text-slate-600 text-sm"><span class="font-bold text-amber-600">จุดเด่นที่สุด!</span> ถ้าตรรกะขาดหาย AI จะไม่มโนเอง แต่จะพ่นคำถามกลับมา พร้อมติดป้ายแจ้งเตือนสีเหลือง (Guardrail)</p>
                 </div>
             </div>
 
@@ -156,34 +156,76 @@
                 <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xl flex-shrink-0"><i class="fas fa-trash-alt"></i></div>
                 <div>
                     <h3 class="text-lg font-bold text-slate-800 mb-1">4. น้ำ / วาระแทรก (Noise)</h3>
-                    <p class="text-slate-600 text-sm">คำบ่น เรื่องการเมือง หรือเรื่องที่ไม่เกี่ยวกับระบบ AI จะปัดตกและทิ้งไปเลย</p>
+                    <p class="text-slate-600 text-sm">คำบ่น เรื่องการเมืองออฟฟิศ หรือเรื่องส่วนตัว (เช่น เรื่องอาหารแมว) AI จะปัดตกและทิ้งไป 100%</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SLIDE 4: HOW IT WORKS (NEW) -->
+    <!-- SLIDE 4: ARCHITECTURE UPGRADE (V4) -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-10">
+            <h2 class="text-4xl font-bold text-primary mb-4">สถาปัตยกรรมข้อมูลแบบเชิงสัมพันธ์ (Relational Data Flow)</h2>
+            <div class="w-20 h-2 bg-purple-500 rounded-full"></div>
+            <p class="text-slate-600 mt-4 text-lg">อัปเกรดจากระบบ "การ์ดแบนๆ" สู่โครงสร้างระดับ Enterprise ป้องกันปัญหาข้อมูลซ้ำซ้อนและแยกแยะบริบทอย่างชัดเจน</p>
+        </div>
+
+        <div class="relative bg-white rounded-3xl p-8 shadow-xl border border-slate-100 mb-8">
+            <div class="flex flex-col md:flex-row justify-between relative z-10 gap-6">
+                
+                <!-- Level 1: Project -->
+                <div class="flex-1 bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col relative group">
+                    <div class="w-12 h-12 bg-slate-200 text-slate-600 rounded-full flex items-center justify-center text-xl mb-4 shadow-sm"><i class="fas fa-folder-open"></i></div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Level 1: Root</div>
+                    <h3 class="text-base font-bold text-slate-800 mb-2">Project Master</h3>
+                    <p class="text-[11px] text-slate-600 flex-1 leading-relaxed">ข้อมูลระดับบนสุดที่ควบคุมทุกอย่าง เพื่อแยกแยะงานแต่ละโปรเจกต์ออกจากกัน</p>
+                </div>
+
+                <div class="hidden md:flex items-center justify-center text-slate-300"><i class="fas fa-link text-xl"></i></div>
+
+                <!-- Level 2: Meeting -->
+                <div class="flex-1 bg-indigo-50 p-5 rounded-2xl border border-indigo-100 flex flex-col relative shadow-inner group">
+                    <div class="w-12 h-12 bg-secondary text-white rounded-full flex items-center justify-center text-xl mb-4 shadow-md"><i class="fas fa-users"></i></div>
+                    <div class="text-[10px] font-bold text-secondary uppercase tracking-wider mb-1">Level 2: Global Context</div>
+                    <h3 class="text-base font-bold text-slate-800 mb-2">Meeting Record</h3>
+                    <p class="text-[11px] text-slate-600 flex-1 leading-relaxed">
+                        ศูนย์กลางเก็บข้อมูลภาพรวมของการประชุม เช่น <span class="font-bold text-indigo-600">Global Future Scope</span> และ <span class="font-bold text-indigo-600">Global Missing Info</span> เพื่อไม่ให้ข้อมูลเหล่านี้ไปรกอยู่ในการ์ดงานทุกใบ
+                    </p>
+                </div>
+
+                <div class="hidden md:flex items-center justify-center text-slate-300"><i class="fas fa-code-branch text-xl"></i></div>
+
+                <!-- Level 3: Task -->
+                <div class="flex-1 bg-emerald-50 p-5 rounded-2xl border border-emerald-100 flex flex-col relative group">
+                    <div class="w-12 h-12 bg-success text-white rounded-full flex items-center justify-center text-xl mb-4 shadow-md"><i class="fas fa-tasks"></i></div>
+                    <div class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-1">Level 3: Execution</div>
+                    <h3 class="text-base font-bold text-slate-800 mb-2">Backlog Task</h3>
+                    <p class="text-[11px] text-slate-600 flex-1 leading-relaxed">
+                        การ์ดงานที่แตกย่อยออกมา พร้อม <strong>Row-level AC Type</strong> (UI, Logic, Integration) เพื่อชี้เป้าให้โปรแกรมเมอร์เขียนโค้ดได้แม่นยำ
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: HOW IT WORKS -->
     <section class="slide-page max-w-6xl mx-auto px-6 w-full">
         <div class="mb-10">
             <h2 class="text-4xl font-bold text-primary mb-4">กระบวนการทำงานและเครื่องมือ (Workflow & AI Tools)</h2>
             <div class="w-20 h-2 bg-indigo-500 rounded-full"></div>
-            <p class="text-slate-600 mt-4 text-lg">เปลี่ยนจากทฤษฎี 4 ถัง สู่สายพานการผลิตจริง โดยเชื่อมต่อ AI Tools ระดับโลกเข้าด้วยกันแบบอัตโนมัติ (Zero-touch Pipeline)</p>
+            <p class="text-slate-600 mt-4 text-lg">จาก Data ดิบ สู่สายพานการผลิตจริง โดยมีมนุษย์เป็นผู้บัญชาการ (Human-in-the-Loop)</p>
         </div>
 
         <div class="relative bg-white rounded-3xl p-8 shadow-xl border border-slate-100 mb-8">
-            <!-- Pipeline Flow -->
             <div class="flex flex-col md:flex-row justify-between relative z-10 gap-4">
                 
                 <!-- Step 1 -->
                 <div class="flex-1 bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col relative group">
-                    <div class="w-12 h-12 bg-slate-200 text-slate-600 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-blue-500 group-hover:text-white transition-colors shadow-sm"><i class="fas fa-microphone-alt"></i></div>
-                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Step 1: Data Capture</div>
-                    <h3 class="text-base font-bold text-slate-800 mb-2">อัดเสียงและถอดความ</h3>
-                    <p class="text-[11px] text-slate-600 flex-1 leading-relaxed">บอทเข้าร่วมการประชุมเพื่อบันทึกเสียง แยกแยะผู้พูด และถอดเป็นข้อความ (Transcript) 100% ไม่ตกหล่น</p>
-                    <div class="mt-4 bg-white px-3 py-2 rounded-lg text-[10px] border border-slate-200 shadow-sm">
-                        <span class="font-bold text-slate-400 block mb-1">🛠️ เครื่องมือที่ใช้:</span>
-                        <span class="font-bold text-primary flex items-center gap-1"><i class="fas fa-robot text-blue-500"></i> Fireflies.ai / Whisper</span>
-                    </div>
+                    <div class="w-12 h-12 bg-slate-200 text-slate-600 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-blue-500 group-hover:text-white transition-colors shadow-sm"><i class="fas fa-upload"></i></div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Step 1: Data Ingestion</div>
+                    <h3 class="text-base font-bold text-slate-800 mb-2">นำเข้าข้อมูล</h3>
+                    <p class="text-[11px] text-slate-600 flex-1 leading-relaxed">เลือกโปรเจกต์ ระบุวันที่ แล้วโยน Transcript การประชุมเข้าสู่ระบบ</p>
                 </div>
 
                 <div class="hidden md:flex items-center justify-center text-slate-300"><i class="fas fa-chevron-right text-2xl"></i></div>
@@ -193,47 +235,39 @@
                     <div class="w-12 h-12 bg-secondary text-white rounded-full flex items-center justify-center text-xl mb-4 shadow-md shadow-indigo-200 group-hover:scale-110 transition-transform"><i class="fas fa-brain"></i></div>
                     <div class="text-[10px] font-bold text-secondary uppercase tracking-wider mb-1">Step 2: Logic Engine</div>
                     <h3 class="text-base font-bold text-slate-800 mb-2">สมองกลร่อนตะแกรง</h3>
-                    <p class="text-[11px] text-slate-600 flex-1 leading-relaxed">AI นำข้อความมาผ่าน "Prompt กฎเหล็ก" เพื่อแยกวาระลง 4 ถัง และสกัดออกมาเป็น <span class="font-bold text-indigo-700">JSON Blueprint</span></p>
-                    <div class="mt-4 bg-white px-3 py-2 rounded-lg text-[10px] border border-indigo-100 shadow-sm">
-                        <span class="font-bold text-slate-400 block mb-1">🛠️ เครื่องมือที่ใช้:</span>
-                        <span class="font-bold text-indigo-600 flex items-center gap-1"><i class="fas fa-microchip text-indigo-500"></i> Claude 3.5 Sonnet</span>
-                    </div>
+                    <p class="text-[11px] text-slate-600 flex-1 leading-relaxed">ใช้ <strong>Gemini 3 Flash Preview</strong> สกัดวาระต่างๆ เป็น JSON Blueprint ที่มีโครงสร้างตายตัว 100%</p>
                 </div>
 
                 <div class="hidden md:flex items-center justify-center text-slate-300"><i class="fas fa-chevron-right text-2xl"></i></div>
 
                 <!-- Step 3 & 4 -->
                 <div class="flex-1 bg-emerald-50 p-5 rounded-2xl border border-emerald-100 flex flex-col relative group">
-                    <div class="w-12 h-12 bg-emerald-200 text-emerald-700 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-500 group-hover:text-white transition-colors shadow-sm"><i class="fas fa-tasks"></i></div>
-                    <div class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-1">Step 3: Workflow & Board</div>
-                    <h3 class="text-base font-bold text-slate-800 mb-2">จัดส่งและสร้างงานลงบอร์ด</h3>
-                    <p class="text-[11px] text-slate-600 flex-1 leading-relaxed">รับข้อมูล JSON ไปสร้างการ์ดงานทางเทคนิคบนบอร์ดอัตโนมัติ เพื่อรอให้สถาปนิก (มนุษย์) กดอนุมัติ</p>
-                    <div class="mt-4 bg-white px-3 py-2 rounded-lg text-[10px] border border-emerald-100 shadow-sm">
-                        <span class="font-bold text-slate-400 block mb-1">🛠️ เครื่องมือที่ใช้:</span>
-                        <span class="font-bold text-emerald-700 flex items-center gap-1"><i class="fas fa-project-diagram text-emerald-500"></i> n8n + Jira/Trello</span>
-                    </div>
+                    <div class="w-12 h-12 bg-emerald-200 text-emerald-700 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-500 group-hover:text-white transition-colors shadow-sm"><i class="fas fa-user-check"></i></div>
+                    <div class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-1">Step 3: Human-in-the-Loop</div>
+                    <h3 class="text-base font-bold text-slate-800 mb-2">ตรวจสอบและส่งต่อ</h3>
+                    <p class="text-[11px] text-slate-600 flex-1 leading-relaxed">สถาปนิกตรวจสอบการ์ดงานบนบอร์ด เคลียร์ป้าย Missing Info และกดอนุมัติเพื่อส่งให้ SA Agent (Node 03)</p>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- SLIDE 5: Downstream (WHAT'S NEXT) -->
+    <!-- SLIDE 6: Downstream (WHAT'S NEXT) -->
     <section class="slide-page max-w-6xl mx-auto px-6 w-full">
         <div class="mb-8">
             <h2 class="text-4xl font-bold text-primary mb-3">เมื่อผ่านการอนุมัติ... ข้อมูลจะไปไหนต่อ?</h2>
             <div class="w-20 h-2 bg-purple-500 rounded-full"></div>
             <p class="text-slate-600 mt-4 text-lg">
-                <strong>JSON Blueprint</strong> จะถูกส่งต่อไปเป็น "คำสั่ง" ให้กับ <strong>AI Programmer</strong> เพื่อช่วยเขียนระบบต่อทันที (Downstream Integration)
+                <strong>JSON Blueprint</strong> จะถูกส่งต่อไปเป็น "พิมพ์เขียว" ให้กับ <strong>AI Programmer</strong> เพื่อช่วยเขียนระบบต่อทันที
             </p>
         </div>
 
         <div class="bg-slate-50 rounded-3xl p-8 border border-slate-200 relative shadow-sm">
             <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-white px-6 py-1.5 rounded-full border border-slate-200 shadow-md text-sm font-bold text-slate-600 flex items-center gap-2">
-                <i class="fas fa-file-code text-purple-500 text-lg"></i> JSON Blueprint
+                <i class="fas fa-file-code text-purple-500 text-lg"></i> Validated JSON Contract
             </div>
             
-            <h3 class="text-xl font-bold text-slate-800 mb-6 mt-4 text-center">ส่งไม้ต่อให้แผนกพัฒนา (Powered by AI Tools)</h3>
+            <h3 class="text-xl font-bold text-slate-800 mb-6 mt-4 text-center">ส่งไม้ต่อให้สายพานผลิต (Powered by AI Tools)</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
                 <!-- Database -->
@@ -244,8 +278,8 @@
                     </div>
                     <p class="text-xs text-slate-600 mb-4 flex-1">นำรายชื่อฟิลด์ไปสร้างตารางเก็บข้อมูลและเขียน SQL Script ทันที</p>
                     <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
-                        <p class="text-[10px] font-bold text-slate-400 mb-1 uppercase">🛠️ ใช้เครื่องมือ</p>
-                        <p class="text-xs font-semibold text-primary"><i class="fas fa-magic text-blue-500 mr-1"></i> Windsurf / Cursor</p>
+                        <p class="text-[10px] font-bold text-slate-400 mb-1 uppercase">🛠️ ผู้รับผิดชอบ</p>
+                        <p class="text-xs font-semibold text-primary"><i class="fas fa-robot text-blue-500 mr-1"></i> Node 03: SA Agent</p>
                     </div>
                 </div>
 
@@ -257,8 +291,8 @@
                     </div>
                     <p class="text-xs text-slate-600 mb-4 flex-1">นำ User Story ไปเขียน C# API และ Business Logic ฝั่ง Server</p>
                     <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
-                        <p class="text-[10px] font-bold text-slate-400 mb-1 uppercase">🛠️ ใช้เครื่องมือ</p>
-                        <p class="text-xs font-semibold text-primary"><i class="fas fa-magic text-purple-500 mr-1"></i> Windsurf / Cursor</p>
+                        <p class="text-[10px] font-bold text-slate-400 mb-1 uppercase">🛠️ ผู้รับผิดชอบ</p>
+                        <p class="text-xs font-semibold text-primary"><i class="fas fa-robot text-purple-500 mr-1"></i> Node 04: Backend Dev</p>
                     </div>
                 </div>
 
@@ -270,8 +304,8 @@
                     </div>
                     <p class="text-xs text-slate-600 mb-4 flex-1">สร้างหน้าจอ ปุ่มกด และตารางแสดงผลสำหรับผู้ใช้ (React/UI)</p>
                     <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
-                        <p class="text-[10px] font-bold text-slate-400 mb-1 uppercase">🛠️ ใช้เครื่องมือ</p>
-                        <p class="text-xs font-semibold text-primary"><i class="fas fa-magic text-emerald-500 mr-1"></i> Windsurf / Cursor</p>
+                        <p class="text-[10px] font-bold text-slate-400 mb-1 uppercase">🛠️ ผู้รับผิดชอบ</p>
+                        <p class="text-xs font-semibold text-primary"><i class="fas fa-robot text-emerald-500 mr-1"></i> Node 05: Frontend Dev</p>
                     </div>
                 </div>
 
@@ -279,139 +313,67 @@
                 <div class="bg-white p-5 rounded-2xl border-t-4 border-t-rose-500 shadow-md flex flex-col hover:-translate-y-1 transition-transform">
                     <div class="flex items-center gap-3 mb-3 border-b border-slate-100 pb-3">
                         <div class="w-10 h-10 rounded-full bg-rose-50 text-rose-500 flex justify-center items-center text-lg"><i class="fas fa-vial"></i></div>
-                        <h4 class="font-bold text-slate-700 leading-tight">4. ทดสอบหาข้อผิดพลาด</h4>
+                        <h4 class="font-bold text-slate-700 leading-tight">4. ทดสอบอัตโนมัติ</h4>
                     </div>
-                    <p class="text-xs text-slate-600 mb-4 flex-1">นำ Acceptance Criteria (AC) ไปสร้าง Script จำลองการคลิกเพื่อหาบั๊ก</p>
+                    <p class="text-xs text-slate-600 mb-4 flex-1">นำ Row-Level AC ไปสร้าง Script จำลองการคลิกเพื่อหาบั๊ก</p>
                     <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
-                        <p class="text-[10px] font-bold text-slate-400 mb-1 uppercase">🛠️ ใช้เครื่องมือ</p>
-                        <p class="text-xs font-semibold text-primary"><i class="fas fa-robot text-rose-500 mr-1"></i> Cursor + Playwright</p>
+                        <p class="text-[10px] font-bold text-slate-400 mb-1 uppercase">🛠️ ผู้รับผิดชอบ</p>
+                        <p class="text-xs font-semibold text-primary"><i class="fas fa-robot text-rose-500 mr-1"></i> Node 06: QA Agent</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SLIDE 6: The "JSON" Look (Demystified for non-tech) -->
+    <!-- SLIDE 7: The "JSON" Look -->
     <section class="slide-page max-w-6xl mx-auto px-6 w-full">
         <div class="mb-8">
-            <h2 class="text-4xl font-bold text-primary mb-4">หน้าตาของ "พิมพ์เขียวดิจิทัล" (The Blueprint)</h2>
+            <h2 class="text-4xl font-bold text-primary mb-4">หน้าตาของ "พิมพ์เขียวดิจิทัล" (The v4 Blueprint)</h2>
             <div class="w-20 h-2 bg-slate-800 rounded-full"></div>
-            <p class="text-lg text-slate-600 mt-4">เพื่อให้เห็นภาพ นี่คือสิ่งที่ BA AI Agent สกัดออกมา (ฟอร์แมต <span class="font-bold">JSON</span>) ซึ่งเป็นมิตรทั้งกับคนและโปรแกรมเมอร์</p>
+            <p class="text-lg text-slate-600 mt-4">เพื่อให้เห็นภาพ นี่คือสิ่งที่ BA AI Agent สกัดออกมาแบบอัปเดตล่าสุด รองรับ <span class="font-bold">Row-level AC Type</span> และโครงสร้าง Relational Database</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8 items-center">
-            <div class="bg-[#1e1e1e] rounded-2xl p-6 shadow-2xl overflow-hidden font-mono text-sm leading-relaxed text-gray-300 relative border border-slate-700">
+            <div class="bg-[#1e1e1e] rounded-2xl p-6 shadow-2xl overflow-hidden font-mono text-xs md:text-sm leading-relaxed text-gray-300 relative border border-slate-700">
                 <div class="absolute top-0 left-0 w-full h-10 bg-[#2d2d2d] flex items-center px-4 gap-2 border-b border-slate-700">
                     <div class="w-3 h-3 rounded-full bg-red-500"></div>
                     <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                     <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span class="ml-4 text-xs text-gray-400 font-sans"> requirement_output.json</span>
+                    <span class="ml-4 text-xs text-gray-400 font-sans"> blueprint_v4.json</span>
                 </div>
                 
                 <pre class="mt-10"><code class="language-json"><span class="text-pink-400">{</span>
-  <span class="text-sky-300">"feature_name"</span><span class="text-gray-400">:</span> <span class="text-green-300">"ระบบขออนุมัติส่วนลดพิเศษ"</span><span class="text-gray-400">,</span>
-  <span class="text-sky-300">"user_story"</span><span class="text-gray-400">:</span> <span class="text-green-300">"ในฐานะเซลส์ ฉันต้องการขออนุมัติส่วนลด..."</span><span class="text-gray-400">,</span>
+  <span class="text-sky-300">"feature_name"</span><span class="text-gray-400">:</span> <span class="text-green-300">"ระบบคืนเงินผ่าน E-Wallet"</span><span class="text-gray-400">,</span>
+  <span class="text-sky-300">"type"</span><span class="text-gray-400">:</span> <span class="text-green-300">"NW"</span><span class="text-gray-400">, </span><span class="text-slate-500">// New Feature</span>
+  <span class="text-sky-300">"user_story"</span><span class="text-gray-400">:</span> <span class="text-green-300">"ในฐานะแอดมิน ฉันต้องการกดปุ่มคืนเงิน..."</span><span class="text-gray-400">,</span>
   <span class="text-sky-300">"acceptance_criteria"</span><span class="text-gray-400">:</span> <span class="text-yellow-300">[</span>
-    <span class="text-green-300">"ถ้าบิลมีส่วนลด > 10% ให้สถานะบิลรอการอนุมัติ"</span>
+    <span class="text-pink-400">{</span>
+      <span class="text-sky-300">"type"</span><span class="text-gray-400">:</span> <span class="text-green-300">"Logic"</span><span class="text-gray-400">,</span>
+      <span class="text-sky-300">"description"</span><span class="text-gray-400">:</span> <span class="text-green-300">"ระบบต้องตัดยอดจาก E-Wallet และโอนคืนให้ลูกค้า"</span>
+    <span class="text-pink-400">}</span>
   <span class="text-yellow-300">]</span><span class="text-gray-400">,</span>
-  <span class="text-sky-300">"data_required"</span><span class="text-gray-400">:</span> <span class="text-yellow-300">[</span><span class="text-green-300">"discount_rate"</span><span class="text-gray-400">, </span><span class="text-green-300">"manager_id"</span><span class="text-yellow-300">]</span><span class="text-gray-400">,</span>
-  <span class="text-sky-300">"missing_information"</span><span class="text-gray-400">:</span> <span class="text-yellow-300">[</span>
-    <span class="text-green-300">"ถ้าผู้จัดการไม่ตอบกลับภายใน 24 ชม. ระบบต้องทำอย่างไร?"</span>
+  <span class="text-sky-300">"entities_mentioned"</span><span class="text-gray-400">:</span> <span class="text-yellow-300">[</span><span class="text-green-300">"e_wallet"</span><span class="text-gray-400">, </span><span class="text-green-300">"refund_transaction"</span><span class="text-yellow-300">]</span><span class="text-gray-400">,</span>
+  <span class="text-sky-300">"task_missing_info"</span><span class="text-gray-400">:</span> <span class="text-yellow-300">[</span>
+    <span class="text-green-300">"ระบุ Limit ยอดสูงสุดที่แอดมินสามารถอนุมัติได้เอง"</span>
   <span class="text-yellow-300">]</span>
 <span class="text-pink-400">}</span></code></pre>
             </div>
 
             <div class="space-y-6">
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
-                    <i class="fas fa-hand-holding-heart text-2xl text-accent mt-1"></i>
+                    <i class="fas fa-layer-group text-2xl text-accent mt-1"></i>
                     <div>
-                        <h4 class="font-bold text-slate-800 text-lg">เป็นมิตรกับทีมงาน</h4>
-                        <p class="text-slate-600 text-sm mt-1">โครงสร้างมีหัวข้อชัดเจน ไม่อ่านยากเหมือนรายงานการประชุมยาวๆ ช่วยให้สถาปนิกตรวจสอบได้ใน 1 นาที</p>
+                        <h4 class="font-bold text-slate-800 text-lg">เจาะจงระดับ Row-Level</h4>
+                        <p class="text-slate-600 text-sm mt-1">Acceptance Criteria ระบุชัดเจนว่าเป็น `UI`, `Logic`, `Validation` หรือ `Integration` เพื่อให้ AI สาย Tech ทำงานต่อได้ตรงจุด</p>
                     </div>
                 </div>
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
-                    <i class="fas fa-bolt text-2xl text-warning mt-1"></i>
+                    <i class="fas fa-shield-alt text-2xl text-warning mt-1"></i>
                     <div>
-                        <h4 class="font-bold text-slate-800 text-lg">เป็นมิตรกับระบบอัตโนมัติ</h4>
-                        <p class="text-slate-600 text-sm mt-1">สามารถนำไฟล์นี้ส่งให้ <strong>n8n</strong> อ่าน เพื่อจัดกลุ่มงานและสร้างการ์ดลง Jira / Trello ได้ทันทีโดยไม่ต้องใช้คนพิมพ์</p>
+                        <h4 class="font-bold text-slate-800 text-lg">Guardrail 100%</h4>
+                        <p class="text-slate-600 text-sm mt-1">หากมี Missing Info ค้างอยู่ ระบบจะระงับการทำงานปุ่ม Approve ทันที เพื่อป้องกันสเปกขยะหลุดเข้าสู่สายพานการผลิต</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 7: THE BIG PICTURE (AI SOFTWARE FACTORY) - NEW -->
-    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
-        <div class="mb-10 text-center">
-            <h2 class="text-4xl font-bold text-primary mb-4">ภาพใหญ่ของโครงการ (The AI Software Factory)</h2>
-            <div class="w-20 h-2 bg-accent rounded-full mx-auto"></div>
-            <p class="text-slate-600 mt-4 text-lg">
-                BA AI Agent เป็นเพียง "ก้าวแรก" สู่การสร้าง <span class="font-bold text-primary">สถาปัตยกรรมโรงงานผลิตซอฟต์แวร์อัตโนมัติ</span> โดยมีมนุษย์เป็นผู้บัญชาการ
-            </p>
-        </div>
-
-        <div class="relative w-full max-w-5xl mx-auto">
-            <!-- Human Overseer -->
-            <div class="flex justify-center mb-8 relative z-20">
-                <div class="bg-slate-800 text-white px-8 py-4 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-4 transform hover:-translate-y-1 transition-transform cursor-default">
-                    <div class="bg-gradient-to-br from-accent to-blue-500 w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-inner">
-                        <i class="fas fa-chess-king"></i>
-                    </div>
-                    <div class="text-left">
-                        <h4 class="font-bold text-lg tracking-wide text-white">The Executive Board (Human Architect)</h4>
-                        <p class="text-xs text-slate-300">ควบคุมสถาปัตยกรรม อนุมัติแผนงาน และรีวิวโค้ดขั้นสุดท้าย</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Vertical connector line -->
-            <div class="w-1 h-12 bg-slate-300 absolute left-1/2 transform -translate-x-1/2 top-16 z-10 hidden md:block"></div>
-            <!-- Horizontal connector line -->
-            <div class="h-1 bg-slate-300 absolute left-10 right-10 top-32 z-10 hidden md:block"></div>
-
-            <!-- The Pipeline -->
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 relative z-20 mt-4">
-                 
-                 <!-- BA (Current Focus) -->
-                 <div class="bg-white p-5 rounded-xl shadow-lg border-2 border-indigo-500 text-center relative group hover:-translate-y-2 transition-transform cursor-default">
-                     <div class="w-12 h-12 mx-auto bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl mb-3 shadow-md shadow-indigo-200"><i class="fas fa-user-tie"></i></div>
-                     <h4 class="font-bold text-indigo-700 text-sm">1. BA Agent</h4>
-                     <p class="text-[11px] text-slate-500 mt-1 leading-tight">สกัดความต้องการ<br>เป็น JSON Blueprint</p>
-                     <div class="absolute -top-3 -right-2 bg-indigo-500 text-white text-[10px] px-3 py-0.5 rounded-full font-bold shadow-sm animate-pulse">Now</div>
-                 </div>
-
-                 <!-- SA & DB -->
-                 <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 border-t-4 border-t-blue-500 text-center relative group hover:-translate-y-2 transition-transform cursor-default">
-                     <div class="absolute left-1/2 -top-6 w-0.5 h-6 bg-slate-300 -translate-x-1/2 hidden md:block"></div>
-                     <div class="w-12 h-12 mx-auto bg-blue-50 text-blue-500 rounded-full flex items-center justify-center text-xl mb-3"><i class="fas fa-database"></i></div>
-                     <h4 class="font-bold text-slate-700 text-sm">2. SA/DB Agent</h4>
-                     <p class="text-[11px] text-slate-500 mt-1 leading-tight">ออกแบบโครงสร้าง<br>และเขียน SQL Schema</p>
-                 </div>
-
-                 <!-- Backend -->
-                 <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 border-t-4 border-t-purple-500 text-center relative group hover:-translate-y-2 transition-transform cursor-default">
-                     <div class="absolute left-1/2 -top-6 w-0.5 h-6 bg-slate-300 -translate-x-1/2 hidden md:block"></div>
-                     <div class="w-12 h-12 mx-auto bg-purple-50 text-purple-500 rounded-full flex items-center justify-center text-xl mb-3"><i class="fas fa-server"></i></div>
-                     <h4 class="font-bold text-slate-700 text-sm">3. Backend Agent</h4>
-                     <p class="text-[11px] text-slate-500 mt-1 leading-tight">พัฒนา Business Logic<br>และสร้าง API</p>
-                 </div>
-
-                 <!-- Frontend -->
-                 <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 border-t-4 border-t-emerald-500 text-center relative group hover:-translate-y-2 transition-transform cursor-default">
-                     <div class="absolute left-1/2 -top-6 w-0.5 h-6 bg-slate-300 -translate-x-1/2 hidden md:block"></div>
-                     <div class="w-12 h-12 mx-auto bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-xl mb-3"><i class="fas fa-desktop"></i></div>
-                     <h4 class="font-bold text-slate-700 text-sm">4. Frontend Agent</h4>
-                     <p class="text-[11px] text-slate-500 mt-1 leading-tight">สร้างหน้าจอ UI/UX<br>และเชื่อมต่อข้อมูล</p>
-                 </div>
-
-                 <!-- QA & Deploy -->
-                 <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 border-t-4 border-t-rose-500 text-center relative group hover:-translate-y-2 transition-transform cursor-default col-span-2 md:col-span-1">
-                     <div class="absolute left-1/2 -top-6 w-0.5 h-6 bg-slate-300 -translate-x-1/2 hidden md:block"></div>
-                     <div class="w-12 h-12 mx-auto bg-rose-50 text-rose-500 rounded-full flex items-center justify-center text-xl mb-3"><i class="fas fa-rocket"></i></div>
-                     <h4 class="font-bold text-slate-700 text-sm">5. QA & DevOps</h4>
-                     <p class="text-[11px] text-slate-500 mt-1 leading-tight">ทดสอบระบบอัตโนมัติ<br>และนำโค้ดขึ้น Server</p>
-                 </div>
-
             </div>
         </div>
     </section>
@@ -453,8 +415,8 @@
                 <h3 class="text-3xl font-bold mb-6 text-accent">ก้าวต่อไป (Next Steps)</h3>
                 <ul class="space-y-4 text-lg text-slate-300">
                     <li class="flex items-center gap-3"><i class="far fa-circle text-accent"></i> ขอรับฟังความคิดเห็นจากทีมงาน (Feedback)</li>
-                    <li class="flex items-center gap-3"><i class="far fa-circle text-accent"></i> ทดลองนำร่อง (Pilot) กับ 1 โปรเจกต์</li>
-                    <li class="flex items-center gap-3"><i class="far fa-circle text-accent"></i> เชื่อมต่อเข้ากับระบบลงงาน (Backlog Board)</li>
+                    <li class="flex items-center gap-3"><i class="far fa-circle text-accent"></i> นำร่อง (Pilot) พัฒนาระบบด้วย React + Zustand</li>
+                    <li class="flex items-center gap-3"><i class="far fa-circle text-accent"></i> สร้าง API ส่งมอบ JSON ข้ามไปยังฝั่ง SA</li>
                 </ul>
                 <div class="mt-8 pt-6 border-t border-white/20">
                     <p class="font-medium text-white text-xl">"เปลี่ยนคนทำงาน ให้เป็นคนควบคุมเครื่องจักร"</p>
