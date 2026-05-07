@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SC Agent - Dual-Agent Architecture Pitch Deck</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                        mono: ['Consolas', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#0f172a', // slate-900
+                        secondary: '#4f46e5', // indigo-600
+                        accent: '#0ea5e9', // sky-500
+                        success: '#10b981', // emerald-500
+                        warning: '#f59e0b', // amber-500
+                        danger: '#ef4444', // red-500
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #f8fafc; color: #334155; }
+        .slide-page { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 4rem 0; page-break-after: always; position: relative; }
+        .bg-pattern { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 24px 24px; }
+        
+        @media print {
+            body { background-color: white; }
+            .slide-page { min-height: 100vh; padding: 2rem 0; justify-content: flex-start; }
+            .print-hidden { display: none !important; }
+            .shadow-xl, .shadow-lg, .shadow-md { box-shadow: none !important; border: 1px solid #e2e8f0; }
+            .bg-pattern { background-image: none; }
+        }
+    </style>
+</head>
+<body class="antialiased bg-pattern">
+
+    <!-- Print Button -->
+    <div class="fixed top-6 right-6 z-50 print-hidden">
+        <button onclick="window.print()" class="bg-primary text-white hover:bg-slate-800 px-5 py-2.5 rounded-full shadow-lg font-medium transition-all flex items-center gap-2">
+            <i class="fas fa-print"></i> บันทึกเป็น PDF
+        </button>
+    </div>
+
+    <!-- SLIDE 1: Title Slide -->
+    <section class="slide-page bg-gradient-to-br from-primary via-slate-800 to-secondary text-white relative overflow-hidden print:bg-white print:text-primary">
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-accent rounded-full mix-blend-multiply filter blur-3xl opacity-30 print:hidden"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 print:hidden"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10 w-full">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-accent font-semibold tracking-wider text-sm mb-8 print:bg-slate-100 print:text-secondary print:border-slate-200">
+                <i class="fas fa-shield-alt"></i> STRATEGIC ARCHITECTURE PROPOSAL
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight">
+                Node 00: <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-400 print:text-secondary">Dual-Agent SC</span>
+            </h1>
+            <h2 class="text-3xl md:text-5xl font-medium mb-8">Solution Consultant AI</h2>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl font-light leading-relaxed mb-12 print:text-slate-600">
+                แพลตฟอร์ม "คุมกำเนิดความต้องการ" (Platform Governance) <br>
+                ใช้ AI 2 ขั้วทำงานร่วมกัน เพื่อ <strong>สกัดกั้นความฝันเฟื่อง</strong> และ <strong>รักษาจุดยืนทางวิศวกรรม</strong> อย่างเด็ดขาด
+            </p>
+            
+            <div class="flex items-center gap-4 text-sm text-slate-400 print:text-slate-500 border-t border-white/10 print:border-slate-200 pt-6 max-w-xl">
+                <div><strong>นำเสนอโดย:</strong> โอม (Chief Architect)</div>
+                <div class="w-1 h-1 bg-slate-500 rounded-full"></div>
+                <div><strong>เป้าหมาย:</strong> SDLC Automate Pre-Phase (Frontliner)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: The Problem -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-4">ทำไมต้องมีประตูหน้าด่าน? (The Input Challenge)</h2>
+            <div class="w-20 h-2 bg-danger rounded-full"></div>
+            <p class="text-lg text-slate-600 mt-4 leading-relaxed max-w-4xl italic border-l-4 border-slate-300 pl-4">
+                "ถ้าเราปล่อยให้ข้อมูลดิบจากผู้ใช้ ไหลเข้าสู่ระบบสร้าง Task โดยตรง เราจะได้ Requirement ที่สวยงาม แต่เป็นไปไม่ได้ทางเทคนิค และจะทำลายสถาปัตยกรรมขององค์กรในที่สุด"
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 items-stretch">
+            <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-t-danger relative flex flex-col">
+                <div class="text-danger font-bold text-lg mb-2 uppercase tracking-widest text-xs">Risk 1</div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-4">Human Pipe Dreams</h3>
+                <p class="text-slate-600 leading-relaxed text-sm">
+                    ลูกค้ามักขอฟีเจอร์ที่ "ฝันเฟื่อง" หรือล้ำเกินความเป็นจริงทางวิศวกรรม (เช่น ให้ AI เดาใจลูกค้า 100%) ถ้าไม่มีคนคอยเบรก สเปกขยะจะหลุดเข้าระบบทันที
+                </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-t-warning relative flex flex-col">
+                <div class="text-warning font-bold text-lg mb-2 uppercase tracking-widest text-xs">Risk 2</div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-4">AI Sycophancy</h3>
+                <p class="text-slate-600 leading-relaxed text-sm">
+                    โมเดล AI เดี่ยวๆ มักมีอาการ "รักษาหน้ามนุษย์ (Yes-Man)" คือไม่กล้าปฏิเสธ ทำให้ยอมรับไอเดียที่ผิดหลักการทำระบบ เพียงเพื่อให้บทสนทนาจบไวๆ
+                </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-t-secondary relative flex flex-col">
+                <div class="text-secondary font-bold text-lg mb-2 uppercase tracking-widest text-xs">Risk 3</div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-4">Tech Mismatch</h3>
+                <p class="text-slate-600 leading-relaxed text-sm">
+                    หากไม่มีขอบเขต AI มักเสนอให้ไปเช่าระบบ SaaS ภายนอก (เช่น Salesforce, SAP) แทนที่จะช่วยหาวิธีสร้างฟีเจอร์ลงใน Portal ของเราเอง
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: The Solution -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-4">ทางออก: ทฤษฎี 2 ขั้วความคิด (Dual-Agent Architecture)</h2>
+            <div class="w-20 h-2 bg-secondary rounded-full"></div>
+            <p class="text-lg text-slate-600 mt-4 leading-relaxed max-w-4xl">
+                แทนที่จะใช้ AI ตัวเดียวที่อาจจะเถียงลูกค้าจนพัง หรืออวยลูกค้าจนได้สเปกขยะ เราจะใช้ <strong>Divergent & Convergent Thinking</strong> โดยแบ่ง AI เป็น 2 บุคลิกทำงานประกบกัน
+            </p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-8 items-stretch">
+            <!-- Agent 1 -->
+            <div class="flex-1 bg-white rounded-3xl p-10 shadow-lg border border-slate-100 flex flex-col relative overflow-hidden group hover:border-accent transition-colors">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-accent opacity-10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-sky-50 text-accent border border-sky-100 font-mono text-[10px] mb-6 shadow-sm w-fit uppercase tracking-widest">
+                    <i class="fas fa-bolt"></i> Engine: Gemini 3 Flash
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Agent 00.1: The Visionary</h3>
+                <p class="text-accent text-sm font-bold uppercase tracking-wider mb-6 pb-4 border-b border-slate-100">"นักการทูตผู้มีความคิดสร้างสรรค์"</p>
+                <ul class="space-y-4 text-slate-600 flex-1 text-sm">
+                    <li class="flex items-start gap-3"><i class="fas fa-expand-arrows-alt text-accent mt-1 text-lg"></i> <div><strong>Divergent Thinking:</strong> รับฟังความต้องการดิบ และ "ขยาย" ไอเดียให้กว้างที่สุด</div></li>
+                    <li class="flex items-start gap-3"><i class="fas fa-handshake text-accent mt-1 text-lg"></i> <div><strong>Business Empathy:</strong> ใช้เทคนิค "Yes, and..." เพื่อรักษาความสัมพันธ์ทางธุรกิจ ไม่ปฏิเสธลูกค้าทันที</div></li>
+                    <li class="flex items-start gap-3"><i class="fas fa-lightbulb text-accent mt-1 text-lg"></i> <div><strong>Innovation Sandbox:</strong> อนุญาตให้คิดนอกกรอบ (Out-of-the-box) 15-20% เพื่อหาโอกาสทางธุรกิจใหม่ๆ</div></li>
+                </ul>
+            </div>
+
+            <!-- Agent 2 -->
+            <div class="flex-1 bg-white rounded-3xl p-10 shadow-lg border border-slate-100 flex flex-col relative overflow-hidden group hover:border-secondary transition-colors">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary opacity-10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-indigo-50 text-secondary border border-indigo-100 font-mono text-[10px] mb-6 shadow-sm w-fit uppercase tracking-widest">
+                    <i class="fas fa-shield-alt"></i> Engine: Claude 3.5 Sonnet
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Agent 00.2: The Pragmatic</h3>
+                <p class="text-secondary text-sm font-bold uppercase tracking-wider mb-6 pb-4 border-b border-slate-100">"สถาปนิกผู้คุมกฎเหล็ก"</p>
+                <ul class="space-y-4 text-slate-600 flex-1 text-sm">
+                    <li class="flex items-start gap-3"><i class="fas fa-compress-arrows-alt text-secondary mt-1 text-lg"></i> <div><strong>Convergent Refinement:</strong> รับไอเดียที่ฟุ้งซ่านจากตัวแรก มา "ตบให้เข้าที่" อยู่ในโลกความเป็นจริง</div></li>
+                    <li class="flex items-start gap-3"><i class="fas fa-lock text-secondary mt-1 text-lg"></i> <div><strong>Portal Confinement:</strong> ป้องกันการมโนเทคโนโลยี บังคับคำตอบให้อยู่ในกรอบ C# / React ของเราเท่านั้น</div></li>
+                    <li class="flex items-start gap-3"><i class="fas fa-gavel text-secondary mt-1 text-lg"></i> <div><strong>Pushback Capability:</strong> กล้าเถียงและปัดตกไอเดียที่เป็นไปไม่ได้ เพื่อปกป้องมาตรฐานทางวิศวกรรม</div></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: Workflow (The Debate Loop) -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-4">วงจรการโต้วาที (The Consensus Loop)</h2>
+            <div class="w-20 h-2 bg-accent rounded-full"></div>
+            <p class="text-lg text-slate-600 mt-4 leading-relaxed max-w-4xl">
+                กระบวนการคัดกรอง "ความต้องการขยะ" ก่อนส่งมอบพิมพ์เขียว (Solution Blueprint) ให้สายพานผลิตของแผนก BA
+            </p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-10 shadow-xl border border-slate-100 flex flex-col items-center justify-center relative overflow-hidden">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative w-full z-10">
+                <!-- Line connector (desktop) -->
+                <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-1 bg-slate-100 -z-10"></div>
+
+                <!-- 1 -->
+                <div class="flex flex-col items-center text-center w-full md:w-1/4 group hover:-translate-y-2 transition-transform">
+                    <div class="w-24 h-24 rounded-full bg-slate-50 border-2 border-slate-200 flex items-center justify-center text-3xl text-slate-400 mb-4 shadow-sm"><i class="fas fa-file-audio"></i></div>
+                    <h4 class="font-bold text-slate-800 text-lg">1. Raw Intake</h4>
+                    <p class="text-xs text-slate-500 mt-2 px-4">รับสรุปปัญหาความต้องการดิบจาก NotebookLM</p>
+                </div>
+
+                <div class="md:hidden text-slate-300 my-2"><i class="fas fa-arrow-down text-2xl"></i></div>
+
+                <!-- 2 -->
+                <div class="flex flex-col items-center text-center w-full md:w-1/4 group hover:-translate-y-2 transition-transform">
+                    <div class="w-24 h-24 rounded-full bg-sky-50 border-2 border-accent flex items-center justify-center text-3xl text-accent mb-4 shadow-md shadow-sky-100"><i class="fas fa-lightbulb"></i></div>
+                    <h4 class="font-bold text-slate-800 text-lg">2. Ideate & Expand</h4>
+                    <p class="text-xs text-slate-500 mt-2 px-4">Agent 00.1 ร่างไอเดียและโซลูชันเบื้องต้น (Creative Sprawl)</p>
+                </div>
+
+                <div class="md:hidden text-slate-300 my-2"><i class="fas fa-arrow-down text-2xl"></i></div>
+
+                <!-- 3 -->
+                <div class="flex flex-col items-center text-center w-full md:w-1/4 group hover:-translate-y-2 transition-transform">
+                    <div class="w-24 h-24 rounded-full bg-indigo-50 border-2 border-secondary flex items-center justify-center text-3xl text-secondary mb-4 shadow-md shadow-indigo-100"><i class="fas fa-gavel"></i></div>
+                    <h4 class="font-bold text-slate-800 text-lg">3. Debate & Ground</h4>
+                    <p class="text-xs text-slate-500 mt-2 px-4">Agent 00.2 เตะสกัดความฝันเฟื่อง ดึงกลับสู่โลกความจริงของ Portal</p>
+                </div>
+
+                <div class="md:hidden text-slate-300 my-2"><i class="fas fa-arrow-down text-2xl"></i></div>
+
+                <!-- 4 -->
+                <div class="flex flex-col items-center text-center w-full md:w-1/4 group hover:-translate-y-2 transition-transform">
+                    <div class="w-24 h-24 rounded-full bg-emerald-50 border-2 border-success flex items-center justify-center text-3xl text-success mb-4 shadow-md shadow-emerald-100"><i class="fas fa-file-signature"></i></div>
+                    <h4 class="font-bold text-slate-800 text-lg">4. Final Blueprint</h4>
+                    <p class="text-xs text-slate-500 mt-2 px-4">ตกผลึกเป็นเอกสารพร้อมส่งให้ BA Agent หั่นเป็น Task</p>
+                </div>
+            </div>
+
+            <!-- Human Intervention -->
+            <div class="mt-12 bg-slate-800 border border-slate-700 p-6 rounded-2xl flex items-start gap-4 w-full text-left">
+                <i class="fas fa-user-lock text-accent text-2xl mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-white mb-2">Human Approval (Force Stop)</h4>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        กระบวนการโต้วาทีระหว่าง Agent ทั้งสอง (ขั้นตอนที่ 2 และ 3) จะสิ้นสุดลงและคายพิมพ์เขียวออกมา ก็ต่อเมื่อ <strong>มนุษย์ (OHM) เข้ามากดปุ่ม [Approve Solution]</strong> เท่านั้น เพื่อเป็นการคุมกำเนิดและตัดสินชี้ขาดทิศทางของระบบ
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: Value Delivered -->
+    <section class="slide-page max-w-6xl mx-auto px-6 w-full">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-4">ผลตอบแทนที่คาดว่าจะได้รับ (Expected Impact)</h2>
+            <div class="w-20 h-2 bg-success rounded-full"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="bg-white p-10 rounded-3xl text-center shadow-lg border border-slate-100 hover:-translate-y-2 transition-transform">
+                <div class="text-6xl text-success font-mono font-bold mb-6 drop-shadow-md">0%</div>
+                <h4 class="text-2xl font-bold text-slate-800 mb-4">Hallucination Pass-through</h4>
+                <p class="text-slate-600 text-sm leading-relaxed px-4">
+                    ตัดปัญหา AI มโนเทคโนโลยีแปลกๆ หรือสเปกที่หลุดโลก ป้องกันไม่ให้ "ขยะ" เล็ดลอดเข้าไปในสายพานการผลิต (BA ➔ SA ➔ Dev) อย่างเด็ดขาด
+                </p>
+            </div>
+            
+            <div class="bg-white p-10 rounded-3xl text-center shadow-lg border border-slate-100 hover:-translate-y-2 transition-transform">
+                <div class="text-6xl text-accent font-mono font-bold mb-6 drop-shadow-md"><i class="fas fa-check-double"></i></div>
+                <h4 class="text-2xl font-bold text-slate-800 mb-4">Bulletproof Requirements</h4>
+                <p class="text-slate-600 text-sm leading-relaxed px-4">
+                    ได้เอกสารตั้งต้น (Solution Blueprint) ที่ทำได้จริง คุ้มค่า และสอดคล้องกับขีดความสามารถของระบบ Portal Engine ปัจจุบัน ลด Rework ได้มหาศาล
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center bg-slate-900 text-white py-6 px-8 rounded-2xl shadow-inner flex flex-col md:flex-row items-center justify-center gap-4">
+            <i class="fas fa-shield-alt text-accent text-3xl"></i>
+            <p class="text-xl font-medium">
+                Node 00 <strong class="text-accent font-bold">stops the garbage</strong> at the front door.
+            </p>
+        </div>
+    </section>
+
+</body>
+</html>
