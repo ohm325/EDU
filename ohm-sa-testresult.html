@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A/B/C Testing Report: SA Multi-Agent Architecture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Sarabun', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                        mono: ['Consolas', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            purple: '#8b5cf6',
+                            emerald: '#10b981',
+                            rose: '#f43f5e',
+                            amber: '#f59e0b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f8fafc; color: #334155; }
+        
+        .report-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .bg-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.4;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        /* Syntax Highlighting for code blocks */
+        pre { background: #0f172a; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.875rem; }
+        .token.keyword { color: #c678dd; }
+        .token.string { color: #98c379; }
+        .token.number { color: #d19a66; }
+
+        @media print {
+            body { background: white; }
+            .report-container { box-shadow: none; border: none; margin: 0; max-width: 100%; }
+            .print-break { page-break-before: always; }
+            .bg-pattern { display: none; }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-500 selection:text-white relative">
+
+    <div class="bg-pattern pointer-events-none"></div>
+
+    <div class="report-container relative z-10">
+        
+        <!-- HEADER -->
+        <header class="bg-slate-900 text-white p-10 relative overflow-hidden">
+            <div class="absolute top-[-50%] right-[-10%] w-[500px] h-[500px] rounded-full bg-brand-500 opacity-20 blur-[80px]"></div>
+            <div class="absolute bottom-[-50%] left-[-10%] w-[400px] h-[400px] rounded-full bg-accent-purple opacity-20 blur-[80px]"></div>
+            
+            <div class="relative z-10 flex justify-between items-end">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-bold uppercase tracking-widest text-brand-100 mb-4">
+                        <i class="fas fa-microflask"></i> Database Analytics Report
+                    </div>
+                    <h1 class="font-display text-4xl md:text-5xl font-bold mb-2">A/B/C Architecture Test</h1>
+                    <p class="text-slate-300 text-lg">วิเคราะห์และเปรียบเทียบผลลัพธ์การทำงานของ AI Model ใน Node 03 (SA)</p>
+                </div>
+                <div class="text-right hidden md:block">
+                    <p class="text-xs text-slate-400 uppercase tracking-wider font-bold mb-1">Prepared By</p>
+                    <p class="font-display font-bold text-xl">Ohm <span class="text-brand-500">.</span></p>
+                    <p class="text-sm text-slate-400">Chief Architect</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- METHODOLOGY -->
+        <section class="p-10 border-b border-slate-100 bg-slate-50">
+            <div class="max-w-4xl">
+                <h2 class="font-display text-2xl font-bold text-slate-800 mb-4"><i class="fas fa-vials text-brand-500 mr-2"></i> Methodology (วิธีการทดสอบ)</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    ใช้ฐานข้อมูลจริงจากการ Extract Requirement (BA Node) เรื่องระบบ <strong>"Warehouse Handheld Task Dispatch"</strong> โดยควบคุมตัวแปรต้นคือ BA (ใช้ Sonnet 4.6 ทั้งหมด) และทดสอบตัวแปรตามในฝั่ง SA (Node 03) ด้วย 3 สถาปัตยกรรม:
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm border-t-4 border-t-slate-400">
+                        <div class="text-xs font-bold text-slate-400 uppercase mb-1">Scenario A (Control)</div>
+                        <h3 class="font-display font-bold text-slate-800 text-lg mb-2">Single Agent</h3>
+                        <p class="text-sm text-slate-500">ใช้ <strong>Sonnet 4.6</strong> ตัวเดียว เหมาทำหน้าที่เขียน Artifact 0 ถึง 5 รวดเดียวจบใน Prompt เดียว</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm border-t-4 border-t-brand-500">
+                        <div class="text-xs font-bold text-brand-500 uppercase mb-1">Scenario B</div>
+                        <h3 class="font-display font-bold text-slate-800 text-lg mb-2">Dual Parallel</h3>
+                        <p class="text-sm text-slate-500">ใช้ <strong>Sonnet 4.6</strong> (ทำ 0-3) วิ่งคู่ขนานพร้อมกับ <strong>Haiku 4.5</strong> (ทำ 4-5) โดยทั้งคู่อ่านแค่ BA JSON</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm border-t-4 border-t-accent-purple relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-accent-purple text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">WINNER</div>
+                        <div class="text-xs font-bold text-accent-purple uppercase mb-1">Scenario C</div>
+                        <h3 class="font-display font-bold text-slate-800 text-lg mb-2">Dual Sequential</h3>
+                        <p class="text-sm text-slate-500">ใช้ <strong>Sonnet 4.6</strong> (ทำ 0-3) จากนั้นส่งผลลัพธ์ให้ <strong>Haiku 4.5</strong> (ทำ 4-5) ลอกการบ้านต่อ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATA EVIDENCE -->
+        <section class="p-10">
+            <h2 class="font-display text-2xl font-bold text-slate-800 mb-6"><i class="fas fa-database text-brand-500 mr-2"></i> SQL Data Evidence (หลักฐานจากฐานข้อมูล)</h2>
+            
+            <!-- Comparison 1 -->
+            <div class="mb-10">
+                <h3 class="font-bold text-lg text-slate-700 mb-4 border-l-4 border-brand-500 pl-3">1. ความครอบคลุมของ QA Test Cases (Artifact 4)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- A -->
+                    <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="text-sm text-slate-500 mb-2">Scenario A (Single Sonnet)</div>
+                            <div class="stat-number text-5xl text-slate-700 mb-2">9 <span class="text-base font-normal text-slate-500">Scenarios</span></div>
+                            <p class="text-sm text-slate-600">เขียน Gherkin ได้ครอบคลุมพื้นฐาน มี Happy Path และดักจับ Error ทั่วไป แต่รายละเอียดยังตื้น</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] font-mono text-slate-400">Length: ~3,500 chars</div>
+                    </div>
+                    <!-- B -->
+                    <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="text-sm text-brand-600 mb-2 font-semibold">Scenario B (Dual Parallel)</div>
+                            <div class="stat-number text-5xl text-brand-500 mb-2">12 <span class="text-base font-normal text-slate-500">Scenarios</span></div>
+                            <p class="text-sm text-slate-600">Haiku เขียนได้ละเอียดขึ้น (มีเทสต์เน็ตหลุด) <strong>แต่!</strong> Haiku จินตนาการชื่อ Field เอง (Hallucination) เพราะไม่เห็น DB Schema ของ Sonnet</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] font-mono text-slate-400">Length: ~5,200 chars</div>
+                    </div>
+                    <!-- C -->
+                    <div class="glass-card p-6 rounded-2xl bg-purple-50/50 border-purple-200 flex flex-col justify-between ring-1 ring-purple-100">
+                        <div>
+                            <div class="text-sm text-accent-purple mb-2 font-bold">Scenario C (Dual Sequential)</div>
+                            <div class="stat-number text-5xl text-accent-purple mb-2">25 <span class="text-base font-normal text-slate-500">Scenarios</span></div>
+                            <p class="text-sm text-slate-700"><strong>สมบูรณ์แบบ!</strong> Haiku อ่านสเปกของ Sonnet แล้วเจาะลึกทดสอบทุก Interfaces และ Validation Rules แบบบรรทัดต่อบรรทัด (Idempotency, Race Condition)</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-purple-100 text-[11px] font-mono text-purple-400 font-bold">Length: ~14,000 chars (Insane Detail!)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison 2 -->
+            <div class="mb-6">
+                <h3 class="font-bold text-lg text-slate-700 mb-4 border-l-4 border-brand-500 pl-3">2. ความสอดคล้องของสถาปัตยกรรม (Architecture Alignment)</h3>
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-slate-600 font-display">
+                            <tr>
+                                <th class="p-4 border-b border-slate-200 w-1/4">จุดประเมิน</th>
+                                <th class="p-4 border-b border-slate-200 w-1/4">A (Single Sonnet)</th>
+                                <th class="p-4 border-b border-slate-200 w-1/4">B (Parallel)</th>
+                                <th class="p-4 border-b border-slate-200 bg-purple-50 text-accent-purple">C (Sequential) 🏆</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-600">
+                            <tr>
+                                <td class="p-4 border-b border-slate-100 font-semibold bg-slate-50">Database Entity Naming</td>
+                                <td class="p-4 border-b border-slate-100"><i class="fas fa-check text-emerald-500"></i> ตรงกัน (เพราะคิดเองคนเดียว)</td>
+                                <td class="p-4 border-b border-slate-100"><i class="fas fa-times text-rose-500"></i> <strong>ไม่ตรง!</strong> Sonnet ตั้งชื่อ `PickingTask` แต่ Haiku ดันเทสต์ชื่อ `Tote`</td>
+                                <td class="p-4 border-b border-slate-100 bg-purple-50/30"><i class="fas fa-check-double text-accent-purple"></i> <strong>ตรงเป๊ะ 100%</strong> Haiku อ้างอิง `JobQueueHeader` ตรงตามที่ Sonnet คิดเป๊ะ</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-b border-slate-100 font-semibold bg-slate-50">Sequence Diagram (Art. 5)</td>
+                                <td class="p-4 border-b border-slate-100">พื้นฐาน 6 Use Cases</td>
+                                <td class="p-4 border-b border-slate-100">สวยงาม แต่ Call API ผิด Flow ที่ Sonnet วางไว้</td>
+                                <td class="p-4 border-b border-slate-100 bg-purple-50/30"><i class="fas fa-star text-amber-500"></i> วาด `EventBus` และ `SignalR Hub` ได้ถูกต้องตาม Backend Architecture</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-semibold bg-slate-50">Cognitive Load (ความเหนื่อยล้าของ AI)</td>
+                                <td class="p-4"><i class="fas fa-battery-half text-amber-500"></i> Sonnet เริ่มเผางานตอนเขียน Test Case ท้ายๆ</td>
+                                <td class="p-4"><i class="fas fa-battery-full text-emerald-500"></i> แบ่งกันคิด สมองโล่ง</td>
+                                <td class="p-4 bg-purple-50/30"><i class="fas fa-battery-full text-emerald-500"></i> แบ่งกันคิด แถมลอกการบ้านกันได้สมบูรณ์</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Code Evidence -->
+            <div class="mt-8 bg-slate-900 rounded-xl p-6 shadow-lg text-slate-300">
+                <div class="text-xs font-mono text-brand-500 mb-3 uppercase tracking-widest"><i class="fas fa-search"></i> Evidence from SQL (Scenario C - Haiku's Gherkin)</div>
+                <p class="text-sm mb-4">สังเกตว่า Haiku ใน Scenario C สามารถดึงความรู้เรื่อง <code class="text-accent-purple bg-purple-900/50 px-1 rounded">JobQueueHeader</code> และ <code class="text-accent-purple bg-purple-900/50 px-1 rounded">Delivery Round</code> มาเขียน Test Case ได้ลึกซึ้ง เพราะมันได้อ่าน Artifact ของ Sonnet ก่อน</p>
+                <pre><code><span class="token keyword">Feature:</span> Job Queue Secondary Sorting by Delivery Round
+
+  <span class="token keyword">Scenario:</span> System sorts jobs by Delivery Round when Priority is equal
+    <span class="token keyword">Given</span> 3 JobQueueHeaders exist in status "Pending" for Zone R2...
+      | Job ID  | Sales Order | Delivery Round | Delivery Time |
+      | JQH-009 | SO-2024-09  | <span class="token string">Round 3</span>        | 12:00         |
+      | JQH-010 | SO-2024-10  | <span class="token string">Round 1</span>        | 10:00         |
+    <span class="token keyword">And</span> Sort Mode is set to "ByDeliveryRound"
+    
+    <span class="token keyword">When</span> the Dispatch Engine queries the queue for Zone R2
+    
+    <span class="token keyword">Then</span> the jobs are ordered as follows:
+      | Position | Job ID  | Reason                    |
+      | 1        | JQH-010 | <span class="token string">Earliest delivery round</span>   |</code></pre>
+            </div>
+        </section>
+
+        <!-- EXECUTIVE SUMMARY -->
+        <section class="p-10 border-t border-slate-100 bg-white print-break">
+            <h2 class="font-display text-2xl font-bold text-slate-800 mb-8 text-center">Executive Evaluation (บทสรุปและข้อเสนอแนะ)</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <!-- A -->
+                <div class="border border-slate-200 rounded-xl p-5 text-center bg-slate-50">
+                    <div class="text-xs font-bold text-slate-500 uppercase mb-2">Scenario A</div>
+                    <div class="font-bold text-slate-700 mb-4">Single Agent</div>
+                    <div class="space-y-2 text-sm text-left">
+                        <div class="text-slate-600"><i class="fas fa-check text-emerald-500 w-5"></i> โค้ดตรงกัน (Consistency)</div>
+                        <div class="text-slate-600"><i class="fas fa-times text-rose-500 w-5"></i> สเปกตื้น (Shallow Depth)</div>
+                        <div class="text-slate-600"><i class="fas fa-times text-rose-500 w-5"></i> เปลือง Token แพงของ Sonnet</div>
+                    </div>
+                </div>
+                
+                <!-- B -->
+                <div class="border border-slate-200 rounded-xl p-5 text-center bg-slate-50">
+                    <div class="text-xs font-bold text-slate-500 uppercase mb-2">Scenario B</div>
+                    <div class="font-bold text-slate-700 mb-4">Dual Parallel</div>
+                    <div class="space-y-2 text-sm text-left">
+                        <div class="text-slate-600"><i class="fas fa-check text-emerald-500 w-5"></i> เร็วที่สุด (Lowest Latency)</div>
+                        <div class="text-slate-600"><i class="fas fa-check text-emerald-500 w-5"></i> ประหยัด Cost ระดับกลาง</div>
+                        <div class="text-slate-600"><i class="fas fa-times text-rose-500 w-5"></i> <strong class="text-rose-600">Hallucination Risk สูง!</strong> สเปกไม่ตรงกัน</div>
+                    </div>
+                </div>
+
+                <!-- C -->
+                <div class="md:col-span-2 border-2 border-accent-purple rounded-xl p-5 bg-purple-50/30 relative shadow-lg">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent-purple text-white text-xs font-bold px-4 py-1 rounded-full shadow-md">RECOMMENDED ARCHITECTURE</div>
+                    <div class="text-xs font-bold text-accent-purple uppercase mb-2 text-center mt-2">Scenario C</div>
+                    <div class="font-display font-bold text-slate-800 text-xl mb-4 text-center">Dual Sequential (Orchestrator-Worker)</div>
+                    <div class="grid grid-cols-2 gap-4 text-sm text-left">
+                        <div class="space-y-2">
+                            <div class="text-slate-700"><i class="fas fa-star text-amber-500 w-5"></i> <strong>คุณภาพสูงสุด (Max Quality)</strong> ได้ Test Cases ถึง 25 ข้อ ครอบคลุม Edge Cases ทั้งหมด</div>
+                            <div class="text-slate-700"><i class="fas fa-link text-brand-500 w-5"></i> <strong>สอดคล้อง 100%</strong> Diagram และ QA อิงตาม Database จริงที่ Sonnet คิด</div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-slate-700"><i class="fas fa-coins text-emerald-500 w-5"></i> <strong>คุ้มทุนสุด</strong> เสียค่า Input Token ให้ Haiku เพิ่มแค่ไม่กี่สตางค์ แลกกับความแม่นยำ</div>
+                            <div class="text-slate-700"><i class="fas fa-stopwatch text-amber-500 w-5"></i> *ข้อเสียเดียว:* ช้ากว่า Parallel ~10-15 วินาที (ยอมรับได้ในระดับ SA Workorder)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center p-6 bg-slate-900 text-white rounded-2xl shadow-xl">
+                <h3 class="font-display text-xl font-bold mb-2">Architect's Verdict (คำตัดสินฟันธง)</h3>
+                <p class="text-slate-300 leading-relaxed max-w-3xl mx-auto">
+                    "ให้ใช้สถาปัตยกรรม <strong class="text-brand-400">Sequential Chaining (Scenario C)</strong> เป็นมาตรฐานหลักของ Node 03 การยอมเสียเวลา Generate เพิ่มขึ้น 15 วินาที แลกกับการได้เอกสาร QA และ Diagram ที่สมบูรณ์แบบ ไม่หลอน (Zero Hallucination) คือการลงทุนทางเทคนิคที่คุ้มค่าที่สุด ป้องกันการรื้อโค้ดใน Node 04 ได้ 100%"
+                </p>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
