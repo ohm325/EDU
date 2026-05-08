@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node 04 PG - The Invisible Gatekeeper (Business Edition)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#020617',     // slate-950
+                        panel: '#0f172a',    // slate-900
+                        card: '#1e293b',     // slate-800
+                        primary: '#38bdf8',  // sky-400
+                        secondary: '#818cf8',// indigo-400
+                        accent: '#10b981',   // emerald-500
+                        danger: '#f43f5e',   // rose-500
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #020617; color: #e2e8f0; overflow-x: hidden; }
+        
+        /* Slide styling */
+        .slide-page { 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            padding: 5rem 0; 
+            position: relative; 
+        }
+        
+        /* Grid Background Pattern */
+        .bg-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Ambient Glows */
+        .glow-sky { position: absolute; width: 500px; height: 500px; background: rgba(56, 189, 248, 0.15); filter: blur(120px); border-radius: 50%; z-index: 0; pointer-events: none; }
+        .glow-indigo { position: absolute; width: 500px; height: 500px; background: rgba(129, 140, 248, 0.15); filter: blur(120px); border-radius: 50%; z-index: 0; pointer-events: none; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Print Styles */
+        @media print {
+            body { background: white; color: black; }
+            .slide-page { min-height: 100vh; padding: 2rem 0; justify-content: flex-start; page-break-after: always; }
+            .bg-grid, .glow-sky, .glow-indigo { display: none !important; }
+            .print-hidden { display: none !important; }
+            .print-border { border: 1px solid #cbd5e1 !important; box-shadow: none !important; }
+            .text-white { color: #0f172a !important; }
+            .text-slate-400 { color: #475569 !important; }
+            .bg-panel, .bg-card { background: white !important; }
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="antialiased bg-grid relative selection:bg-primary selection:text-dark">
+
+    <!-- Print Button -->
+    <div class="fixed top-6 right-6 z-50 print-hidden">
+        <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-5 py-2.5 rounded-full shadow-lg font-medium transition-all flex items-center gap-2">
+            <i class="fas fa-print"></i> บันทึกเป็น PDF
+        </button>
+    </div>
+
+    <!-- 1. TITLE SLIDE -->
+    <section class="slide-page relative overflow-hidden">
+        <div class="glow-sky top-[-10%] left-[-10%]"></div>
+        <div class="glow-indigo bottom-[-10%] right-[-10%]"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10 w-full text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-primary font-bold tracking-widest text-xs uppercase mb-8 shadow-sm print-border">
+                <i class="fas fa-briefcase"></i> EXECUTIVE BUSINESS PROPOSAL
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
+                The <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Invisible Gatekeeper</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-slate-400 max-w-4xl mx-auto font-light leading-relaxed mb-12">
+                เปลี่ยนการ "ตามจี้ตามงาน" ที่น่าปวดหัว ให้กลายเป็นระบบ <strong class="text-primary font-medium">จัดการผลงานอัตโนมัติ</strong> <br>
+                เชื่อมต่อผู้บริหารและทีมปฏิบัติการ (โปรแกรมเมอร์) เข้าด้วยกันอย่างไร้รอยต่อ
+            </p>
+            
+            <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500 border-t border-slate-800 pt-8 max-w-xl mx-auto">
+                <div class="flex items-center gap-2"><i class="fas fa-user-tie text-slate-400"></i> โอม (Chief Architect)</div>
+                <div class="hidden md:block w-1.5 h-1.5 bg-slate-700 rounded-full"></div>
+                <div class="font-mono bg-slate-800 px-3 py-1 rounded text-slate-400 shadow-inner">Node 04: Engineering Control Plane</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. THE PROBLEM -->
+    <section class="slide-page relative">
+        <div class="max-w-6xl mx-auto px-6 w-full z-10 reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-primary font-bold tracking-widest text-sm mb-4 uppercase">The Core Problem</h2>
+                <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">ความขัดแย้งคลาสสิกในองค์กร</h3>
+                <div class="w-20 h-1 bg-gradient-to-r from-danger to-orange-500 mx-auto rounded-full"></div>
+                <p class="text-lg text-slate-400 mt-6 max-w-3xl mx-auto italic">
+                    "ผู้บริหารต้องการทราบสถานะงานที่อัปเดตแบบเรียลไทม์ แต่คนทำงาน (โดยเฉพาะสายเทคนิค) เกลียดการถูกขัดจังหวะเพื่อมานั่งเขียนรายงาน"
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Pain 1 -->
+                <div class="bg-card border border-slate-700 p-8 rounded-3xl shadow-xl relative hover:border-danger/50 transition-colors group print-border">
+                    <div class="w-14 h-14 bg-danger/10 text-danger rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-search-minus"></i></div>
+                    <h4 class="text-xl font-bold text-white mb-3">กล่องดำแห่งการทำงาน (The Black Box)</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        เมื่อจ่ายงานไปแล้ว ผู้สั่งงานจะอยู่ในสภาวะ "ตาบอด" ไม่รู้ว่างานคืบหน้าไปถึงไหน ติดปัญหาอะไร จนกว่าจะถึงกำหนดส่งงาน ซึ่งมักจะสายเกินแก้
+                    </p>
+                </div>
+
+                <!-- Pain 2 -->
+                <div class="bg-card border border-slate-700 p-8 rounded-3xl shadow-xl relative hover:border-orange-500/50 transition-colors group delay-100 print-border">
+                    <div class="w-14 h-14 bg-orange-500/10 text-orange-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-user-clock"></i></div>
+                    <h4 class="text-xl font-bold text-white mb-3">วัฒนธรรมจู้จี้จุกจิก (Micromanagement)</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        การให้หัวหน้าเดินไปถามหรือทักแชทบ่อยๆ เป็นการทำลายสมาธิ (Flow State) ของคนทำงาน ยิ่งตามงาน งานยิ่งเสร็จช้าลง และสร้างความกดดันให้ทีม
+                    </p>
+                </div>
+
+                <!-- Pain 3 -->
+                <div class="bg-card border border-slate-700 p-8 rounded-3xl shadow-xl relative hover:border-secondary/50 transition-colors group delay-200 print-border">
+                    <div class="w-14 h-14 bg-secondary/10 text-secondary rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-clipboard-check"></i></div>
+                    <h4 class="text-xl font-bold text-white mb-3">คุณภาพไม่ตรงสเปก (Rework Costs)</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        หลายครั้งที่พนักงานบอกว่า "งานเสร็จแล้ว" แต่นำมาใช้จริงไม่ได้ เพราะทำมาไม่ครบตามที่ตกลงกันไว้ (ขาด Quality Control ระหว่างทาง) ทำให้ต้องรื้อทำใหม่ เสียทั้งเงินและเวลา
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. THE SOLUTION PHILOSOPHY -->
+    <section class="slide-page relative overflow-hidden">
+        <div class="glow-sky top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-30"></div>
+
+        <div class="max-w-6xl mx-auto px-6 w-full z-10 reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-primary font-bold tracking-widest text-sm mb-4 uppercase">The Solution Concept</h2>
+                <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">ปรัชญา "ผู้จัดการล่องหน"</h3>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+                <p class="text-lg text-slate-400 mt-6 max-w-3xl mx-auto">
+                    เปรียบเสมือนการจ้างช่างก่อสร้างระดับมืออาชีพ เราไม่อยากให้ช่างต้องวางค้อนเพื่อมาเขียนรายงานทุกชั่วโมง เราต้องการให้เขา <strong>"สร้างผลงาน"</strong> ให้เสร็จไวที่สุด
+                </p>
+            </div>
+
+            <div class="flex flex-col gap-6">
+                <!-- Concept 1 -->
+                <div class="bg-panel border border-slate-800 p-6 md:p-8 rounded-3xl flex items-center gap-6 md:gap-8 shadow-lg print-border">
+                    <div class="hidden md:flex w-24 h-24 rounded-2xl bg-slate-800 border-2 border-slate-700 items-center justify-center text-4xl text-slate-400 shrink-0"><i class="fas fa-eye-slash"></i></div>
+                    <div>
+                        <h4 class="text-2xl font-bold text-white mb-2 flex items-center gap-3">
+                            <span class="text-primary">1.</span> ติดตามโดยไม่ต้องกรอกข้อมูล (Invisible Tracking)
+                        </h4>
+                        <p class="text-slate-400 leading-relaxed text-sm md:text-base">
+                            พนักงานไม่ต้องล็อกอินเข้าสู่ระบบส่วนกลางเพื่อมากดปุ่ม "กำลังทำ" หรือ "เสร็จแล้ว" อีกต่อไป ระบบจะดักจับความเคลื่อนไหวจาก <strong>"ชิ้นงานจริง"</strong> ที่พนักงานสร้างขึ้นมา (เช่น เมื่อมีโค้ดชุดใหม่ถูกบันทึกลงระบบ) และประเมินความคืบหน้าให้ผู้บริหารเห็นแบบ Real-time โดยอัตโนมัติ
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Concept 2 -->
+                <div class="bg-panel border border-slate-800 p-6 md:p-8 rounded-3xl flex items-center gap-6 md:gap-8 shadow-lg print-border">
+                    <div class="hidden md:flex w-24 h-24 rounded-2xl bg-slate-800 border-2 border-slate-700 items-center justify-center text-4xl text-slate-400 shrink-0"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <h4 class="text-2xl font-bold text-white mb-2 flex items-center gap-3">
+                            <span class="text-secondary">2.</span> นายด่านตรวจคุณภาพ AI (Automated Gatekeeper)
+                        </h4>
+                        <p class="text-slate-400 leading-relaxed text-sm md:text-base">
+                            แทนที่จะต้องให้หัวหน้ามานั่งตรวจงานทุกชิ้น ระบบมี "สมองกล AI" ทำหน้าที่เป็นนายด่าน คอยนำผลงานที่พนักงานส่งมา เทียบกับ "ใบสั่งงาน (Spec)" หากพบว่าทำไม่ครบตามเงื่อนไข ระบบจะ <strong>ตีกลับให้แก้ไขทันที</strong> โดยที่หัวหน้าไม่ต้องเหนื่อยมาดูเอง
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. HOW IT WORKS (BUSINESS WORKFLOW) -->
+    <section class="slide-page relative">
+        <div class="max-w-6xl mx-auto px-6 w-full z-10 reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-primary font-bold tracking-widest text-sm mb-4 uppercase">How it works</h2>
+                <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">วงจรการส่งมอบงานแห่งอนาคต</h3>
+                <div class="w-20 h-1 bg-gradient-to-r from-secondary to-accent mx-auto rounded-full"></div>
+            </div>
+
+            <div class="bg-card border border-slate-700 rounded-3xl p-8 md:p-12 relative overflow-hidden print-border shadow-2xl">
+                <div class="flex flex-col md:flex-row items-stretch justify-between gap-8 relative z-10">
+                    
+                    <!-- Line connector (desktop) -->
+                    <div class="hidden md:block absolute top-[40%] left-[10%] right-[10%] h-1 bg-slate-700 -z-10 transform -translate-y-1/2"></div>
+
+                    <!-- Step 1 -->
+                    <div class="flex-1 flex flex-col relative group">
+                        <div class="bg-slate-900 border-2 border-slate-700 group-hover:border-primary transition-colors rounded-2xl p-6 h-full shadow-lg">
+                            <div class="w-14 h-14 rounded-full bg-slate-800 text-white flex items-center justify-center text-2xl mb-5 shadow-inner"><i class="fas fa-clipboard-list"></i></div>
+                            <h4 class="font-bold text-white mb-2 text-lg">1. บรีฟงานชัดเจน</h4>
+                            <p class="text-sm text-slate-400">
+                                ผู้สั่งงานส่ง "ใบสั่งงานดิจิทัล" ที่ระบุเงื่อนไขความสำเร็จชัดเจน (ตกลงกันไว้ว่าต้องมีอะไรบ้าง)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="md:hidden flex justify-center text-slate-600"><i class="fas fa-arrow-down text-xl"></i></div>
+
+                    <!-- Step 2 -->
+                    <div class="flex-1 flex flex-col relative group">
+                        <div class="bg-slate-900 border-2 border-slate-700 group-hover:border-primary transition-colors rounded-2xl p-6 h-full shadow-lg">
+                            <div class="w-14 h-14 rounded-full bg-slate-800 text-white flex items-center justify-center text-2xl mb-5 shadow-inner"><i class="fas fa-laptop-code"></i></div>
+                            <h4 class="font-bold text-white mb-2 text-lg">2. ปล่อยให้ทำงาน</h4>
+                            <p class="text-sm text-slate-400">
+                                พนักงานทำงานในพื้นที่ของตนเองอย่างมีสมาธิ (Deep Work) โดยไม่มีใครไปกวนใจ
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="md:hidden flex justify-center text-slate-600"><i class="fas fa-arrow-down text-xl"></i></div>
+
+                    <!-- Step 3 -->
+                    <div class="flex-1 flex flex-col relative group">
+                        <div class="bg-slate-900 border-2 border-secondary rounded-2xl p-6 h-full shadow-[0_0_20px_rgba(99,102,241,0.15)] relative overflow-hidden">
+                            <div class="absolute -right-4 -top-4 w-20 h-20 bg-secondary/10 rounded-full blur-xl"></div>
+                            <div class="w-14 h-14 rounded-full bg-secondary text-white flex items-center justify-center text-2xl mb-5 shadow-lg"><i class="fas fa-brain"></i></div>
+                            <h4 class="font-bold text-white mb-2 text-lg">3. ตรวจงานอัตโนมัติ</h4>
+                            <p class="text-sm text-slate-400">
+                                ทันทีที่พนักงานส่งงาน <strong>"AI นายด่าน"</strong> จะวิ่งเข้ามาตรวจชิ้นงานเทียบกับใบสั่งงานในข้อ 1 ภายในเสี้ยววินาที
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="md:hidden flex justify-center text-slate-600"><i class="fas fa-arrow-down text-xl"></i></div>
+
+                    <!-- Step 4 -->
+                    <div class="flex-1 flex flex-col relative group">
+                        <div class="bg-slate-900 border-2 border-accent rounded-2xl p-6 h-full shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+                            <div class="w-14 h-14 rounded-full bg-accent/20 text-accent flex items-center justify-center text-2xl mb-5"><i class="fas fa-check-double"></i></div>
+                            <h4 class="font-bold text-white mb-2 text-lg">4. อนุมัติ & อัปเดต</h4>
+                            <p class="text-sm text-slate-400">
+                                ถ้าผ่านเกณฑ์ ระบบจะเปลี่ยนสถานะเป็น "เสร็จสิ้น" และรายงานผู้บริหารทันที ถ้าไม่ผ่าน จะตีกลับพร้อมบอกจุดที่ต้องแก้
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. BUSINESS IMPACT & ROI -->
+    <section class="slide-page relative overflow-hidden">
+        
+        <div class="max-w-6xl mx-auto px-6 w-full z-10 reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-primary font-bold tracking-widest text-sm mb-4 uppercase">Business Impact</h2>
+                <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">ผลลัพธ์ที่จะพลิกโฉมองค์กร</h3>
+                <div class="w-20 h-1 bg-gradient-to-r from-success to-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- ROI 1 -->
+                <div class="bg-card border border-slate-700 p-8 rounded-3xl text-center shadow-lg hover:-translate-y-2 transition-transform duration-300 print-border">
+                    <div class="w-20 h-20 mx-auto bg-primary/10 text-primary rounded-full flex items-center justify-center text-3xl mb-6 shadow-inner"><i class="fas fa-rocket"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-3">Zero Friction</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        ตัดความขัดแย้งระหว่างหัวหน้าและลูกน้องออกไป พนักงานมีความสุขกับการทำงานที่ลื่นไหล ได้ทุ่มเททักษะให้กับการ "สร้างสรรค์" อย่างเต็มที่
+                    </p>
+                </div>
+                
+                <!-- ROI 2 -->
+                <div class="bg-card border border-slate-700 p-8 rounded-3xl text-center shadow-lg hover:-translate-y-2 transition-transform duration-300 delay-100 print-border">
+                    <div class="w-20 h-20 mx-auto bg-secondary/10 text-secondary rounded-full flex items-center justify-center text-3xl mb-6 shadow-inner"><i class="fas fa-chart-line"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-3">100% Real-time Traceability</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        ผู้บริหารสามารถเปิด Dashboard ดูความคืบหน้าของโครงการได้แบบวินาทีต่อวินาที โดยอิงจาก "ชิ้นงานจริง" ที่ถูกสร้างขึ้น ไม่ใช่เปอร์เซ็นต์ที่พนักงานมโนขึ้นมาเอง
+                    </p>
+                </div>
+
+                <!-- ROI 3 -->
+                <div class="bg-card border border-slate-700 p-8 rounded-3xl text-center shadow-lg hover:-translate-y-2 transition-transform duration-300 delay-200 print-border">
+                    <div class="w-20 h-20 mx-auto bg-accent/10 text-accent rounded-full flex items-center justify-center text-3xl mb-6 shadow-inner"><i class="fas fa-shield-check"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-3">Automated Quality Gate</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        บอกลาปัญหางานไม่ได้คุณภาพ ยางลบหรือข้ออ้าง "ลืมทำ" เพราะระบบ AI Gatekeeper จะตรวจจับและปฏิเสธชิ้นงานที่ไม่ครบถ้วนก่อนที่จะหลุดไปถึงแผนกถัดไป
+                    </p>
+                </div>
+            </div>
+
+            <!-- Conclusion CTA -->
+            <div class="mt-24 text-center border-t border-slate-800 pt-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">
+                    "เปลี่ยนการตามงานที่จู้จี้ <br> ให้เป็นสายพานข้อมูลที่ลื่นไหล"
+                </h2>
+                <p class="text-slate-400 mb-8 max-w-2xl mx-auto">ยกระดับศักยภาพองค์กร สู่การทำงานแบบ Work Smarter, Not Harder</p>
+                <div class="inline-flex items-center gap-3 bg-white/10 px-8 py-4 rounded-full border border-white/20 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-default">
+                    <i class="fas fa-check-circle text-accent text-xl"></i>
+                    <span class="text-white font-bold tracking-wide">พร้อมติดตั้งระบบ Node 04 Control Plane</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        setTimeout(reveal, 100);
+    </script>
+</body>
+</html>
